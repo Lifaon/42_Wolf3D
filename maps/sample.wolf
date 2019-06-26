@@ -1,0 +1,28 @@
+# not mandatory (can use basic color if texture not set)
+
+@texture-north=../texture/north.xpm
+@texture-south=../texture/south.xpm
+@texture-east=../texture/east.xpm
+@texture-west=../texture/west.xpm
+
+
+# some comment hehe
+
+# mandatory
+@map
+wwwwwwwwwwwwwwwwwwww
+w                  w
+w   w              w
+w                  w
+w                  w
+w            w     w
+w        w         w
+w                  w
+w                  w
+w  w      w        w
+w                  w
+w                  w
+wwwwwwwwwwwwwwwwwwww
+@end
+
+# maybe some other definition
