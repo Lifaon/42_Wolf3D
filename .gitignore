@@ -1,3 +1,9 @@
+# Wolf3D
+wolf3d
+
+# MacOS
+.DS_Store
+
 # Prerequisites
 *.d
 
