@@ -22,6 +22,8 @@ static void	config_payload(struct s_wat_payload *config,
 	els[1].opt.continue_on_failure = 0;
 	config->data = els;
 	config->size = 2;
+	config->opt.continue_on_failure = 1;
+	config->opt.display_warning_on_failure = 1;
 }
 
 void	*parse_wolf_map(char *filename)
@@ -42,7 +44,7 @@ void	*parse_wolf_map(char *filename)
 		++idx;
 	}
 	config_payload(&config, els);
-	res = wat_parse(file, &config);
+	res = wat_parse((const char **)file, &config);
 	idx = 0;
 	while (file[idx] != 0)
 	{
