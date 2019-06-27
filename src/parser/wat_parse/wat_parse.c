@@ -12,7 +12,7 @@ void	*wat_parse(const char **file, const struct s_wat_payload *config)
 	{
 		if (file[idx_line][0] == '@')
 		{
-			el = wat_element_match(file[idx_line], config);
+			el = wat_element_match(file[idx_line] + 1, config);
 			if (el == NULL)
 			{
 				if (config->opt.display_warning_on_failure)
