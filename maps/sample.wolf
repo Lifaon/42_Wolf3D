@@ -5,24 +5,31 @@
 @texture-east=../texture/east.xpm
 @texture-west=../texture/west.xpm
 
+@block
+id=s
+type=wall
+north=../texture/north.xpm
+south=../texture/south.xpm
+east=../texture/east.xpm
+west=../texture/west.xpm
 
 # some comment hehe
 
 # mandatory
 @map
-wwwwwwwwwwwwwwwwwwww
-w                  w
-w   w              w
-w                  w
-w                  w
-w            w     w
-w        w         w
-w                  w
-w                  w
-w  w      w        w
-w                  w
-w                  w
-wwwwwwwwwwwwwwwwwwww
+ssssssssssssssssssss
+s                  s
+s   s              s
+s                  s
+s                  s
+s            s     s
+s        s         s
+s                  s
+s                  s
+s  s      s        s
+s                  s
+s                  s
+ssssssssssssssssssss
 @end
 
 # maybe some other definition
