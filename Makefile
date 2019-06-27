@@ -171,7 +171,8 @@ SRCS_UTILS_DIR				:=			utils/
 
 INCS_UTILS_NAME				:=			wutils.h
 
-SRCS_UTILS_NAME				:=			read_file.c					\
+SRCS_UTILS_NAME				:=			ft_strlen.c					\
+										read_file.c					\
 										read_file2d.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)
