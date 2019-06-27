@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/26 14:18:36 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/06/27 11:57:00 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,7 +125,7 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
 
-.PHONY: all $(OBJS_DIR) $(NAME) clean fclean re debug re_debug change_cflag
+.PHONY: all $(OBJS_DIR) $(NAME) clean fclean re debug re_debug change_cflag $(INC_DIR)
 
 all: $(NAME)
 
@@ -164,3 +164,8 @@ re_debug: fclean debug
 
 change_cflag:
 	@$(eval CFLAGS = -fsanitize=address)
+
+# rule to recreate includes folder
+$(INC_DIR):
+	@rm -rf includes && mkdir includes && find . -name "*.h" -exec ln -s .{} includes \;
+	@echo "Recreated $(MAG)$(INC_DIR)$(EOC) folder"
