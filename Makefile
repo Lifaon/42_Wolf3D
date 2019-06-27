@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/27 14:50:05 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/06/27 14:57:10 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -143,7 +143,7 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
 
-.PHONY: all clean fclean re debug re_debug change_cflag
+.PHONY: all clean fclean re debug re_debug change_cflag sdl2
 
 test_inc:
 	@echo $(INCS)
@@ -198,11 +198,10 @@ $(INC_DIR):
 
 sdl2:
 	@if [ ! -d "./lib/sdl2" ]; then \
-		echo "SDL2 is not installed ! ..."; \
-		echo "Compiling SDL2-$(SDL_VER) ..."; \
+		echo "Installing $(YEL)SDL2-$(SDL_VER)$(EOC) ..."; \
 		printf "In 3 ..."; sleep 1; \
 		printf "\rIn 2 ..."; sleep 1; \
-		printf "\rIn 1 ..."; sleep 1; printf "\n"; \
+		printf "\rIn 1 ..."; sleep 1; printf "\r"; \
 		curl -OL http://www.libsdl.org/release/SDL2-$(SDL_VER).tar.gz && \
 		tar -zxvf SDL2-$(SDL_VER).tar.gz && \
 		rm SDL2-$(SDL_VER).tar.gz && \
@@ -213,7 +212,7 @@ sdl2:
 			make install && \
 		cd .. && \
 		rm -rf SDL2-$(SDL_VER); \
-		echo "SDl2-$(SDL_VER) installed !"; \
+		echo "$(YEL)SDL2-$(SDL_VER)$(EOC) was successfully installed"; \
 	else \
-		echo "SDl2-$(SDL_VER) already installed"; \
+		echo "$(YEL)SDL2-$(SDL_VER)$(EOC) already installed"; \
 	fi
