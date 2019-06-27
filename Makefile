@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/27 14:11:18 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/06/27 14:16:26 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,11 +78,11 @@ DIR_SDL2					:=			$(DIR_LIB)sdl2
 SDL_VER						:=			2.0.9
 SDL_PATH					:=			$(addprefix $(shell pwd)/, $(DIR_SDL2))
 
-LIB_SDL2					=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --libs)
-INC_SDL2					=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --cflags)
-
-ifneq ($(shell test -d $(DIR_SDL2)),)
+ifeq ($(shell test -d $(DIR_SDL2); echo $?),)
+  LIB_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --libs)
   LIBS						+=			$(LIB_SDL2)
+
+  INC_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --cflags)
   INCS						+=			$(INC_SDL2)
 endif
 
@@ -144,6 +144,9 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 
 
 .PHONY: all clean fclean re debug re_debug change_cflag
+
+test_inc:
+	@echo $(INCS)
 
 all: $(NAME)
 
