@@ -6,13 +6,14 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:02:55 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/06/26 14:03:34 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/06/27 18:29:18 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
-# include "ft_printf.h"
+# include "mysdl.h"
+# include "SDL.h"
 
 #endif

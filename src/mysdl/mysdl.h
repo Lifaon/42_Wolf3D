@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:24:41 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/06/27 17:47:15 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/06/27 19:06:41 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int		init_sdl(t_sdl *sdl);
 void	quit_sdl(t_sdl *sdl);
-void	put_pixel(t_sdl *sdl, t_col col, t_pt pt);
+void	put_pixel(t_sdl *sdl, t_col col, int x, int y);
 void	print_tex(t_sdl *sdl);
 
 #endif

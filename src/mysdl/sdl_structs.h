@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:45:30 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/06/27 17:47:33 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/06/27 19:06:34 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,5 @@ typedef union		u_col
 		uint8_t		a;
 	}				argb;
 }					t_col;
-
-typedef struct		s_pt
-{
-	int				x;
-	int				y;
-}					t_pt;
 
 #endif

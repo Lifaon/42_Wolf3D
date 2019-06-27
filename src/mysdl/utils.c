@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:20:09 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/06/27 17:48:04 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/06/27 19:07:21 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int			init_sdl(t_sdl *sdl)
 	return (0);
 }
 
-void		put_pixel(t_sdl *sdl, t_col col, t_pt pt)
+void		put_pixel(t_sdl *sdl, t_col col, int x, int y)
 {
 	SDL_SetRenderDrawColor(sdl->ren, col.argb.r, col.argb.g, col.argb.b,
 		col.argb.a);
-	SDL_RenderDrawPoint(sdl->ren, pt.x, pt.y);
+	SDL_RenderDrawPoint(sdl->ren, x, y);
 }
 
 void		print_tex(t_sdl *sdl)
