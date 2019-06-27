@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/27 14:57:10 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/06/27 18:01:40 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ OBJS_DIR					:=			obj/
 #                            COMPILER & FLAGS                                  #
 
 CC							:=			gcc
-CFLAGS						:=			-Wall -Wextra -Werror
+# CFLAGS						:=			-Wall -Wextra -Werror
 
 # Can use this with cmd: `env DEV make`
 ifneq ($(DEBUG),)
@@ -68,8 +68,12 @@ LIBS						:=
 #   FT_PRINTF   #
 
 DIR_FT_PRINTF				:=			$(DIR_LIB)ft_printf/
-LIB_FT_PRINTF				:=			-L $(DIR_FT_PRINTF) -lftprintf
+
+LIB_FT_PRINTF				:=			-L$(DIR_FT_PRINTF) -lftprintf
 LIBS						+=			$(LIB_FT_PRINTF)
+
+INC_FT_PRINTF				:=			-I$(DIR_FT_PRINTF)/includes
+INCS						+=			$(INC_FT_PRINTF)
 
 #----------#
 #   SDL2   #
@@ -109,6 +113,22 @@ OBJS_SUB_DIRS				:=			OBJS_PRE := $(addprefix $(OBJS_DIR), $(OBJS))
 ALL_OBJS_SUB_DIRS			:=
 
 #-----------#
+#   MYSDL   #
+
+SRCS_UTILS_DIR				:=			mysdl/
+
+INCS_UTILS_NAME				:=			mysdl.h
+
+SRCS_UTILS_NAME				:=			utils.c
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR),$(SRCS_UTILS_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(INCS_UTILS_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#-----------#
 #   PARSER  #
 
 SRCS_PARSER_DIR				:=			parser/
@@ -143,7 +163,7 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
 
-.PHONY: all clean fclean re debug re_debug change_cflag sdl2
+.PHONY: all clean fclean re debug re_debug change_cflag sdl2 $(INC_DIR)
 
 test_inc:
 	@echo $(INCS)
@@ -191,7 +211,7 @@ change_cflag:
 # rule to recreate includes folder
 
 $(INC_DIR):
-	@rm -rf includes && mkdir includes && find . -name "*.h" -exec ln -s .{} includes \;
+	@rm -rf includes && mkdir includes && find src -name "*.h" -exec ln -s ../{} includes \;
 	@echo "Recreated $(MAG)$(INC_DIR)$(EOC) folder"
 
 # rule to compile sdl2
