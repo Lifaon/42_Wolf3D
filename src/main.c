@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include "parser.h"
 #include "wolf3d.h"
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	t_sdl		sdl;
 	SDL_Event	ev;

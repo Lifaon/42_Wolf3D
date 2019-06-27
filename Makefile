@@ -146,6 +146,23 @@ $(OBJS_DIR)$(SRCS_PARSER_DIR)%.o: $(PATH_PARSER)%.c $(addprefix $(PATH_PARSER),$
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
+#	WAT_PARSER
+
+SRCS_WAT_PARSER_DIR			:=			wat_parse/
+PATH_WAT_PARSER				:=			$(SRCS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)
+
+
+INCS_WAT_PARSER_NAME		:=			wat_parse.h
+
+SRCS_WAT_PARSER_NAME		:=			wat_parse.c					\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR),$(SRCS_WAT_PARSER_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)%.o: $(PATH_WAT_PARSER)%.c $(addprefix $(PATH_WAT_PARSER),$(INCS_WAT_PARSER_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
 #-----------#
 #   UTILS   #
 

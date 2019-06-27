@@ -1,10 +1,5 @@
 # not mandatory (can use basic color if texture not set)
 
-@texture-north=../texture/north.xpm
-@texture-south=../texture/south.xpm
-@texture-east=../texture/east.xpm
-@texture-west=../texture/west.xpm
-
 @block
 id=s
 type=wall
@@ -12,6 +7,7 @@ north=../texture/north.xpm
 south=../texture/south.xpm
 east=../texture/east.xpm
 west=../texture/west.xpm
+@end
 
 # some comment hehe
 
