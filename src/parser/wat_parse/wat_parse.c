@@ -26,6 +26,7 @@ void	*wat_parse(const char **file, const struct s_wat_payload *config)
 			}
 			else
 			{
+				ft_printf("___ found @%s\n", el->name);
 				// get @end mark
 				// prepare template between @ marks
 				// ret = element.parse()
