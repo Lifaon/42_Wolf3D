@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/27 11:57:00 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/06/27 14:11:18 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,18 +58,33 @@ endif
 
 #==============================================================================#
 #------------------------------------------------------------------------------#
-#                          FOUTRE (name moi ca)                                #
+#                                   LIBRARIES                                  #
 
 DIR_LIB						:=			lib/
-DIR_FT_PRINTF				:=			$(DIR_LIB)ft_printf/
-
 INCS						:=			-I$(INC_DIR)
+LIBS						:=
 
+#---------------#
+#   FT_PRINTF   #
+
+DIR_FT_PRINTF				:=			$(DIR_LIB)ft_printf/
 LIB_FT_PRINTF				:=			-L $(DIR_FT_PRINTF) -lftprintf
-LIBS						:=			$(LIB_FT_PRINTF)
+LIBS						+=			$(LIB_FT_PRINTF)
 
-OBJS_SUB_DIRS				:=			OBJS_PRE := $(addprefix $(OBJS_DIR), $(OBJS))
-ALL_OBJS_SUB_DIRS			:=
+#----------#
+#   SDL2   #
+
+DIR_SDL2					:=			$(DIR_LIB)sdl2
+SDL_VER						:=			2.0.9
+SDL_PATH					:=			$(addprefix $(shell pwd)/, $(DIR_SDL2))
+
+LIB_SDL2					=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --libs)
+INC_SDL2					=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --cflags)
+
+ifneq ($(shell test -d $(DIR_SDL2)),)
+  LIBS						+=			$(LIB_SDL2)
+  INCS						+=			$(INC_SDL2)
+endif
 
 #==============================================================================#
 #------------------------------------------------------------------------------#
@@ -89,6 +104,9 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(addprefix $(SRCS_DIR),$(INCS_NAME))
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
 OBJS						:=			$(addprefix $(OBJS_DIR),$(SRCS_NAME:.c=.o))
+
+OBJS_SUB_DIRS				:=			OBJS_PRE := $(addprefix $(OBJS_DIR), $(OBJS))
+ALL_OBJS_SUB_DIRS			:=
 
 #-----------#
 #   PARSER  #
@@ -125,7 +143,7 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
 
-.PHONY: all $(OBJS_DIR) $(NAME) clean fclean re debug re_debug change_cflag $(INC_DIR)
+.PHONY: all clean fclean re debug re_debug change_cflag
 
 all: $(NAME)
 
@@ -138,19 +156,21 @@ $(OBJS_DIR):
 # rule to compile wolf3d
 
 $(NAME): $(OBJS_DIR) $(OBJS)
-	@make -C $(DIR_FT_PRINTF)
+	@$(MAKE) -C $(DIR_FT_PRINTF)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(MAG)$(NAME)$(EOC)"
 
 # cleaning rules
 
 clean:
-	@make clean -C $(DIR_FT_PRINTF)
+	@$(MAKE) clean -C $(DIR_FT_PRINTF)
 	@echo "$(RED)rm -rf$(EOC) $(OBJS_DIR) from $(DIR_NAME)"
 	@rm -rf $(OBJS_DIR)
 
-fclean: clean
-	@make fclean -C $(DIR_FT_PRINTF)
+fclean:
+	@$(MAKE) fclean -C $(DIR_FT_PRINTF)
+	@echo "$(RED)rm -rf$(EOC) $(OBJS_DIR) from $(DIR_NAME)"
+	@rm -rf $(OBJS_DIR)
 	@echo "$(RED)rm -rf$(EOC) $(NAME)"
 	@rm -rf $(NAME)
 
@@ -166,6 +186,31 @@ change_cflag:
 	@$(eval CFLAGS = -fsanitize=address)
 
 # rule to recreate includes folder
+
 $(INC_DIR):
 	@rm -rf includes && mkdir includes && find . -name "*.h" -exec ln -s .{} includes \;
 	@echo "Recreated $(MAG)$(INC_DIR)$(EOC) folder"
+
+# rule to compile sdl2
+
+sdl2:
+	@if [ ! -d "./lib/sdl2" ]; then \
+		echo "SDL2 is not installed ! ..."; \
+		echo "Compiling SDL2-$(SDL_VER) ..."; \
+		printf "In 3 ..."; sleep 1; \
+		printf "\rIn 2 ..."; sleep 1; \
+		printf "\rIn 1 ..."; sleep 1; printf "\n"; \
+		curl -OL http://www.libsdl.org/release/SDL2-$(SDL_VER).tar.gz && \
+		tar -zxvf SDL2-$(SDL_VER).tar.gz && \
+		rm SDL2-$(SDL_VER).tar.gz && \
+		mkdir -p $(SDL_PATH) && \
+		cd SDL2-$(SDL_VER) && \
+			sh configure --prefix=$(SDL_PATH) && \
+			make && \
+			make install && \
+		cd .. && \
+		rm -rf SDL2-$(SDL_VER); \
+		echo "SDl2-$(SDL_VER) installed !"; \
+	else \
+		echo "SDl2-$(SDL_VER) already installed"; \
+	fi
