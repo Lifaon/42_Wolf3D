@@ -44,7 +44,7 @@ CC							:=			gcc
 # Can use this with cmd: `env DEV make`
 ifneq ($(DEBUG),)
 OBJS_DIR					:=			debug/
-CFLAGS						+=			-g3
+CFLAGS						+=			-g3 -fsanitize=address
 else
   ifneq ($(DEV),)
   OBJS_DIR					:=			dev/
@@ -101,7 +101,7 @@ SRCS_DIR					:=			src/
 
 INCS_NAME					:=			wolf3d.h
 
-SRCS_NAME					:=			main.c
+SRCS_NAME					:=			main.c						\
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(addprefix $(SRCS_DIR),$(INCS_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
@@ -137,7 +137,7 @@ PATH_PARSER					:=			$(SRCS_DIR)$(SRCS_PARSER_DIR)
 
 INCS_PARSER_NAME			:=			parser.h
 
-SRCS_PARSER_NAME			:=			parse_wolf_map.c
+SRCS_PARSER_NAME			:=			parse_wolf_map.c			\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR),$(SRCS_PARSER_NAME:.c=.o))
@@ -153,7 +153,8 @@ SRCS_UTILS_DIR				:=			utils/
 
 INCS_UTILS_NAME				:=			wutils.h
 
-SRCS_UTILS_NAME				:=			read_file.c
+SRCS_UTILS_NAME				:=			read_file.c					\
+										read_file2d.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR),$(SRCS_UTILS_NAME:.c=.o))
