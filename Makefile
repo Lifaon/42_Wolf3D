@@ -41,7 +41,7 @@ OBJS_DIR					:=			obj/
 CC							:=			gcc
 # CFLAGS						:=			-Wall -Wextra -Werror
 
-# Can use this with cmd: `env DEV make`
+# Can use this with cmd: `env DEV=1 make`
 ifneq ($(DEBUG),)
 OBJS_DIR					:=			debug/
 CFLAGS						+=			-g3 -fsanitize=address
@@ -149,7 +149,7 @@ $(OBJS_DIR)$(SRCS_PARSER_DIR)%.o: $(PATH_PARSER)%.c $(addprefix $(PATH_PARSER),$
 #	WAT_PARSER
 
 SRCS_WAT_PARSER_DIR			:=			wat_parse/
-PATH_WAT_PARSER				:=			$(SRCS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)
+PATH_WAT_PARSER				:=			$(PATH_PARSER)$(SRCS_WAT_PARSER_DIR)
 
 
 INCS_WAT_PARSER_NAME		:=			wat_parse.h
@@ -168,14 +168,18 @@ $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)%.o: $(PATH_WAT_PARSER)%.c $(
 #   UTILS   #
 
 SRCS_UTILS_DIR				:=			utils/
+PATH_UTILS					:=			$(SRCS_DIR)$(SRC_UTILS_DIR)
 
 INCS_UTILS_NAME				:=			wutils.h
 
 SRCS_UTILS_NAME				:=			ft_memcmp.c					\
 										ft_memcpy.c					\
+										ft_memmove.c				\
 										ft_strlen.c					\
+										is_pow_of2.c				\
 										read_file.c					\
 										read_file2d.c				\
+										round_up_pow.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR),$(SRCS_UTILS_NAME:.c=.o))
@@ -184,6 +188,35 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
+#   ARRAY
+
+SRCS_ARRAY_DIR				:=			array/
+PATH_ARRAY					:=			$(PATH_UTILS)$(SRCS_ARRAY_DIR)
+
+INCS_ARRAY_NAME				:=			array.h						\
+
+SRCS_ARRAY_NAME				:=			array_delete.c				\
+										array_find.c				\
+										array_find_index.c			\
+										array_foreach.c				\
+										array_map.c					\
+										array_new.c					\
+										array_push.c				\
+										array_push_at.c				\
+										array_realloc.c				\
+										array_show.c				\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_ARRAY_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_ARRAY_DIR),$(SRCS_ARRAY_NAME:.c=.o))
+
+$(OBJ_DIR)$(SRC_UTILS_DIR)$(SRCS_ARRAY_DIR)%.o: $(PATH_ARRAY)%.c $(addprefix $(PATH_ARRAY),$(INCS_ARRAY_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR)
+	@printf "${C_C}%s${C_X} :: ${C_R}%s${C_X}\n"  $(NAME) $@
+
+
+#==============================================================================#
+#------------------------------------------------------------------------------#
+#                                  RULES                                       #
 
 .PHONY: all clean fclean re debug re_debug change_cflag sdl2 $(INC_DIR)
 
