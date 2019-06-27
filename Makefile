@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/27 14:16:26 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/06/27 14:50:05 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ DIR_SDL2					:=			$(DIR_LIB)sdl2
 SDL_VER						:=			2.0.9
 SDL_PATH					:=			$(addprefix $(shell pwd)/, $(DIR_SDL2))
 
-ifeq ($(shell test -d $(DIR_SDL2); echo $?),)
+ifneq ($(wildcard $(DIR_SDL2)),)
   LIB_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --libs)
   LIBS						+=			$(LIB_SDL2)
 
