@@ -1,12 +1,32 @@
 # not mandatory (can use basic color if texture not set)
 
+@texture
+id=n
+file=../texture/north.xpm
+@end
+
+@texture
+id=s
+file=../texture/south.xpm
+@end
+
+@texture
+id=e
+file=../texture/east.xpm
+@end
+
+@texture
+id=w
+file=../texture/west.xpm
+@end
+
 @block
 id=s
 type=wall
-north=../texture/north.xpm
-south=../texture/south.xpm
-east=../texture/east.xpm
-west=../texture/west.xpm
+north=n
+south=s
+east=e
+west=w
 @end
 
 # some comment hehe
