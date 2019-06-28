@@ -1,7 +1,8 @@
 #include "ft_printf.h"
 #include "wat_parse.h"
 
-void	*wat_parse(const char **file, const struct s_wat_payload *config)
+void	*wat_parse(const unsigned char **file,
+		const struct s_wat_payload *config)
 {
 	// void					**res;
 	struct s_wat_element	*el;

@@ -2,14 +2,14 @@
 #include "wat_parse.h"
 #include "wutils.h"
 
-void	*wat_element_match(const char *line,
+void	*wat_element_match(const unsigned char *line,
 		const struct s_wat_payload *config)
 {
 	size_t	line_len;
 	size_t	idx;
 
 	idx = 0;
-    line_len = ft_strlen(line);
+	line_len = ft_strlen((const char *)line);
 	while (idx < config->size)
 	{
 		if (line_len == ft_strlen(config->data[idx].name))

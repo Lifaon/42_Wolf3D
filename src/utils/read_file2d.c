@@ -22,7 +22,7 @@ static size_t	count_char(const char *s, const char c)
 	return (res);
 }
 
-static char	*ft_schr(const char *s, const char c)
+static char		*ft_schr(const char *s, const char c)
 {
 	while (*s != '\0' && *s != c)
 		++s;
@@ -56,7 +56,7 @@ static int		split_line(char **res, char *buf)
 	return (0);
 }
 
-char			**read_file2d(char *filename)
+unsigned char	**read_file2d(char *filename)
 {
 	size_t  size_line;
 	char	*file;
@@ -76,5 +76,5 @@ char			**read_file2d(char *filename)
 		}
 	}
 	free(file);
-	return (res);
+	return ((unsigned char **)res);
 }

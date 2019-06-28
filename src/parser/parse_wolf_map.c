@@ -36,7 +36,7 @@ void	*parse_wolf_map(char *filename)
 	struct s_wat_element	els[2];
 	void					*res;
 	size_t					idx;
-	char					**file;
+	unsigned char			**file;
 
 	file = read_file2d(filename);
 	if (file == NULL)
@@ -48,7 +48,7 @@ void	*parse_wolf_map(char *filename)
 		++idx;
 	}
 	config_payload(&config, els);
-	res = wat_parse((const char **)file, &config);
+	res = wat_parse((const unsigned char **)file, &config);
 	idx = 0;
 	while (file[idx] != 0)
 	{
