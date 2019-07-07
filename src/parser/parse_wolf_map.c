@@ -38,7 +38,7 @@ void	*parse_wolf_map(char *filename)
 	size_t					idx;
 	unsigned char			**file;
 
-	file = read_file2d(filename);
+	file = (unsigned char **)read_file2d(filename);
 	if (file == NULL)
 		return (NULL);
 	idx = 0;

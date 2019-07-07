@@ -172,10 +172,12 @@ PATH_UTILS					:=			$(SRCS_DIR)$(SRC_UTILS_DIR)
 
 INCS_UTILS_NAME				:=			wutils.h
 
-SRCS_UTILS_NAME				:=			ft_memcmp.c					\
+SRCS_UTILS_NAME				:=			ft_getline.c				\
+										ft_memcmp.c					\
 										ft_memcpy.c					\
 										ft_memmove.c				\
 										ft_strlen.c					\
+										ft_strncmp.c				\
 										is_pow_of2.c				\
 										read_file.c					\
 										read_file2d.c				\

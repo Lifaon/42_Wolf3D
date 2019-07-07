@@ -49,7 +49,7 @@ typedef struct	s_map
 	unsigned char	**map;
 	size_t			x;
 	size_t			y;
-};
+}				t_map;
 
 /**
  * @param type

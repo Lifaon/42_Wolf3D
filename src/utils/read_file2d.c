@@ -4,8 +4,6 @@
 #include <unistd.h>
 #include "wutils.h"
 
-// TODO remove string for using memcpy
-#include <string.h>
 static size_t	count_char(const char *s, const char c)
 {
 	size_t	res;
@@ -48,7 +46,7 @@ static int		split_line(char **res, char *buf)
 				free(res[res_idx]);
 			return (-1);
 		}
-		memcpy(res[res_idx], buf_ptr, size_line); // TODO replace this by ft_memcpy
+		ft_memcpy(res[res_idx], buf_ptr, size_line);
 		res[res_idx][size_line] = '\0';
 		buf_ptr = new_line_ptr + 1;
 		++res_idx;
@@ -56,7 +54,7 @@ static int		split_line(char **res, char *buf)
 	return (0);
 }
 
-unsigned char	**read_file2d(char *filename)
+char	**read_file2d(char *filename)
 {
 	size_t  size_line;
 	char	*file;
@@ -76,5 +74,5 @@ unsigned char	**read_file2d(char *filename)
 		}
 	}
 	free(file);
-	return ((unsigned char **)res);
+	return (res);
 }
