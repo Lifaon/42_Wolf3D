@@ -129,6 +129,61 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
 #-----------#
+#    DATA   #
+
+SRCS_DATA_DIR				:=			data/
+PATH_DATA					:=			$(SRCS_DIR)$(SRCS_DATA_DIR)
+
+
+INCS_DATA_NAME				:=			data.h
+
+SRCS_DATA_NAME				:=			data_del.c					\
+										data_new.c					\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR),$(SRCS_DATA_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_DATA_DIR)%.o: $(PATH_DATA)%.c $(addprefix $(PATH_DATA),$(INCS_DATA_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#	BLOCK
+
+SRCS_BLOCK_DIR				:=			block/
+PATH_BLOCK					:=			$(PATH_DATA)$(SRCS_BLOCK_DIR)
+
+
+INCS_BLOCK_NAME				:=			block.h
+
+SRCS_BLOCK_NAME				:=			block_del.c					\
+										block_new.c					\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_BLOCK_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_BLOCK_DIR),$(SRCS_BLOCK_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_BLOCK_DIR)%.o: $(PATH_BLOCK)%.c $(addprefix $(PATH_BLOCK),$(INCS_BLOCK_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#	MAP
+
+SRCS_MAP_DIR				:=			map/
+PATH_MAP					:=			$(PATH_DATA)$(SRCS_MAP_DIR)
+
+
+INCS_MAP_NAME				:=			map.h
+
+SRCS_MAP_NAME				:=			map_del.c					\
+										map_new.c					\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_MAP_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_MAP_DIR),$(SRCS_MAP_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_MAP_DIR)%.o: $(PATH_MAP)%.c $(addprefix $(PATH_MAP),$(INCS_MAP_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#-----------#
 #   PARSER  #
 
 SRCS_PARSER_DIR				:=			parser/
