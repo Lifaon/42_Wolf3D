@@ -17,6 +17,7 @@ struct s_wat_element
 	void						(*failure_warning)(int);
 	size_t						max;
 	size_t						min; // min > 0 then mandatory element
+	size_t						length;
 	struct s_wat_element_opt	opt;
 };
 

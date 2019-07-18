@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include "array.h"
+#include "data.h"
 #include "ft_printf.h"
 #include "wat_parse.h"
 #include "wutils.h"
@@ -12,6 +14,7 @@ static void	config_payload(struct s_wat_payload *config,
 		.failure_warning = NULL,
 		.max = 30,
 		.min = 0,
+		.length = 0,
 		.opt.display_warning_on_failure = 0,
 		.opt.continue_on_failure = 0
 	};
@@ -21,11 +24,22 @@ static void	config_payload(struct s_wat_payload *config,
 		.failure_warning = NULL,
 		.max = 1,
 		.min = 1,
+		.length = 0,
+		.opt.display_warning_on_failure = 0,
+		.opt.continue_on_failure = 0
+	};
+	els[2] = (struct s_wat_element){
+		.name = "texture",
+		.parse = NULL, // TODO parser for @texture
+		.failure_warning = NULL,
+		.max = 64,
+		.min = 0,
+		.length = 0,
 		.opt.display_warning_on_failure = 0,
 		.opt.continue_on_failure = 0
 	};
 	config->data = els;
-	config->size = 2;
+	config->size = 3;
 	config->opt.continue_on_failure = 1;
 	config->opt.display_warning_on_failure = 1;
 }
@@ -33,7 +47,7 @@ static void	config_payload(struct s_wat_payload *config,
 void	*parse_wolf_map(char *filename)
 {
 	struct s_wat_payload	config;
-	struct s_wat_element	els[2];
+	struct s_wat_element	els[3];
 	void					*res;
 	size_t					idx;
 	unsigned char			**file;
@@ -56,5 +70,8 @@ void	*parse_wolf_map(char *filename)
 		++idx;
 	}
 	free(file);
+
+	// TODO remove this (avoiding leaks right now)
+	array_delete((t_array *)res, &data_del);
 	return (res);
 }

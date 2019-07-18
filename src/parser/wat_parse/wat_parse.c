@@ -3,13 +3,44 @@
 #include "wat_parse.h"
 #include "wolf3d.h"
 
-void	*wat_parse_at_mark(void)
+void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
+		const struct s_wat_element *el)
 {
-	// get @end mark
-	// prepare template between @ marks
-	// ret = element.parse()
-	// append if no null ret append to res else handle failure
-	return (NULL);
+	static struct s_wat_element			end[1] = {
+		[0] = {
+			.name = "end",
+			.max = 1,
+			.min = 1,
+			.length = 0
+		}
+	};
+	static const struct s_wat_payload	payload = {
+		.data = end,
+		.size = 1
+	};
+	void								*result;
+	void								*end_res;
+	char								**template = NULL;
+	size_t								idx_end;
+
+	idx_end = *idx_line;
+	while (file[idx_end] != 0)
+	{
+		(*end).length = 0;
+		if (file[idx_end][0] == '@'
+				&& (end_res = wat_element_match(file[idx_end] + 1, &payload)) != NULL)
+			break ;
+		++idx_end;
+	}
+	result = NULL;
+	if (end_res != NULL)
+	{
+		// prepare template between @ marks (between "*idx_line + 1" to "idx_end - 1")
+		if (el->parse != NULL)
+			result = el->parse(template);
+	}
+	*idx_line = idx_end + ((file[idx_end] != 0) ? 1 : 0);
+	return (result);
 }
 
 void	*wat_parse(const unsigned char **file,
@@ -26,11 +57,11 @@ void	*wat_parse(const unsigned char **file,
 	{
 		if (file[idx_line][0] == '@')
 		{
-			el = wat_element_match(file[idx_line] + 1, config);
-			if (el == NULL)
+			el = (struct s_wat_element *)wat_element_match(file[idx_line] + 1, config);
+			if (el == NULL || (parse_result = wat_parse_at_mark(file, &idx_line, el)) == NULL)
 			{
 				if (config->opt.display_warning_on_failure)
-					ft_dprintf(2, "WARNING ! line %llu: invalid mark: %s\n",
+					ft_dprintf(2, "WARNING ! line %llu: on mark: %s\n",
 							idx_line, file[idx_line]);
 				if (!config->opt.continue_on_failure)
 				{
@@ -40,32 +71,16 @@ void	*wat_parse(const unsigned char **file,
 			}
 			else
 			{
-				parse_result = wat_parse_at_mark();
-				if (parse_result != NULL)
+				if (array_push((t_array *)result, parse_result, 1) == EXIT_FAILURE)
 				{
-					if (array_push((t_array *)result, parse_result, 1) == EXIT_FAILURE)
-					{
-						array_delete((t_array *)result, &data_del);
-						return (NULL);
-					}
-				}
-				else
-				{
-					if (config->opt.display_warning_on_failure)
-					{
-						// print error reason
-					}
-					if (!config->opt.continue_on_failure)
-					{
-						array_delete((t_array *)result, &data_del);
-						return (NULL);
-					}
+					array_delete((t_array *)result, &data_del);
+					return (NULL);
 				}
 				ft_printf("___ found @%s\n", el->name);
 			}
 		}
-		++idx_line;
+		else
+			++idx_line;
 	}
-    // handle returns
-	return (NULL);
+	return ((void *)result);
 }
