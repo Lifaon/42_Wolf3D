@@ -3,7 +3,7 @@
 #include "block.h"
 #include "map.h"
 
-t_data			*data_new(const size_t type)
+t_data	*data_new(const size_t type)
 {
 	static void	*(*node_new[T_DA_SIZE])(void) = {
 		[T_DA_MAP] = &map_new,

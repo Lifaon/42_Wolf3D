@@ -13,7 +13,7 @@ struct s_wat_element
 {
 	char						*name;
 	void						*(*parse)(char **);
-    void                        (*delete_node)(void *);
+	void						(*delete_node)(void *);
 	void						(*failure_warning)(int);
 	size_t						max;
 	size_t						min; // min > 0 then mandatory element

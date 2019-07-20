@@ -72,7 +72,7 @@ DIR_FT_PRINTF				:=			$(DIR_LIB)ft_printf/
 LIB_FT_PRINTF				:=			-L$(DIR_FT_PRINTF) -lftprintf
 LIBS						+=			$(LIB_FT_PRINTF)
 
-INC_FT_PRINTF				:=			-I$(DIR_FT_PRINTF)/includes
+INC_FT_PRINTF				:=			-I$(DIR_FT_PRINTF)includes
 INCS						+=			$(INC_FT_PRINTF)
 
 #----------#
@@ -158,10 +158,10 @@ INCS_BLOCK_NAME				:=			block.h
 SRCS_BLOCK_NAME				:=			block_del.c					\
 										block_new.c					\
 
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_BLOCK_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_BLOCK_DIR),$(SRCS_BLOCK_NAME:.c=.o))
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR),$(SRCS_BLOCK_NAME:.c=.o))
 
-$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_BLOCK_DIR)%.o: $(PATH_BLOCK)%.c $(addprefix $(PATH_BLOCK),$(INCS_BLOCK_NAME))
+$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR)%.o: $(PATH_BLOCK)%.c $(addprefix $(PATH_BLOCK),$(INCS_BLOCK_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
@@ -176,10 +176,64 @@ INCS_MAP_NAME				:=			map.h
 SRCS_MAP_NAME				:=			map_del.c					\
 										map_new.c					\
 
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_MAP_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_MAP_DIR),$(SRCS_MAP_NAME:.c=.o))
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR),$(SRCS_MAP_NAME:.c=.o))
 
-$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_MAP_DIR)%.o: $(PATH_MAP)%.c $(addprefix $(PATH_MAP),$(INCS_MAP_NAME))
+$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR)%.o: $(PATH_MAP)%.c $(addprefix $(PATH_MAP),$(INCS_MAP_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#	TEXTURE
+
+SRCS_TEXTURE_DIR			:=			texture/
+PATH_TEXTURE				:=			$(PATH_DATA)$(SRCS_TEXTURE_DIR)
+
+
+INCS_TEXTURE_NAME			:=			texture.h
+
+SRCS_TEXTURE_NAME			:=			texture_del.c				\
+										texture_new.c				\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR),$(SRCS_TEXTURE_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)%.o: $(PATH_TEXTURE)%.c $(addprefix $(PATH_TEXTURE),$(INCS_TEXTURE_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#	TEXTURE		LOADED
+
+SRCS_TEXTURE_LOADED_DIR		:=			loaded/
+PATH_TEXTURE_LOADED			:=			$(PATH_TEXTURE)$(SRCS_TEXTURE_LOADED_DIR)
+
+
+INCS_TEXTURE_LOADED_NAME	:=			loaded.h
+
+SRCS_TEXTURE_LOADED_NAME	:=			loaded_del.c				\
+										loaded_new.c				\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR),$(SRCS_TEXTURE_LOADED_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR)%.o: $(PATH_TEXTURE_LOADED)%.c $(addprefix $(PATH_TEXTURE_LOADED),$(INCS_TEXTURE_LOADED_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#	TEXTURE		SG
+
+SRCS_TEXTURE_SG_DIR			:=			sg/
+PATH_TEXTURE_SG				:=			$(PATH_TEXTURE)$(SRCS_TEXTURE_SG_DIR)
+
+
+INCS_TEXTURE_SG_NAME		:=			sg.h
+
+SRCS_TEXTURE_SG_NAME		:=			sg_del.c				\
+										sg_new.c				\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR),$(SRCS_TEXTURE_SG_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR)%.o: $(PATH_TEXTURE_SG)%.c $(addprefix $(PATH_TEXTURE_SG),$(INCS_TEXTURE_SG_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
@@ -287,11 +341,13 @@ all: $(NAME)
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
+
+$(ALL_OBJS_SUB_DIRS):
 	@mkdir -p $(ALL_OBJS_SUB_DIRS)
 
 # rule to compile wolf3d
 
-$(NAME): $(OBJS_DIR) $(OBJS)
+$(NAME): $(OBJS_DIR) $(ALL_OBJS_SUB_DIRS) $(OBJS)
 	@$(MAKE) -C $(DIR_FT_PRINTF)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(MAG)$(NAME)$(EOC)"

@@ -1,5 +1,11 @@
 # not mandatory (can use basic color if texture not set)
 
+# possible "texture"
+# @texture
+# id=t
+# color=#ff00ff
+# @end
+
 @texture
 id=n
 file=../texture/north.xpm
