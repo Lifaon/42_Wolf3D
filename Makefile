@@ -234,6 +234,7 @@ SRCS_UTILS_NAME				:=			ft_getline.c				\
 										ft_strlen.c					\
 										ft_strncmp.c				\
 										is_pow_of2.c				\
+										prepare_template.c			\
 										read_file.c					\
 										read_file2d.c				\
 										round_up_pow.c				\
