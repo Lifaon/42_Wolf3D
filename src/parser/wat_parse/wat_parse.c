@@ -2,6 +2,7 @@
 #include "ft_printf.h"
 #include "wat_parse.h"
 #include "wolf3d.h"
+#include "wutils.h"
 
 void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
 		const struct s_wat_element *el)
@@ -20,7 +21,7 @@ void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
 	};
 	void								*result;
 	void								*end_res;
-	char								**template = NULL;
+	char								**template;
 	size_t								idx_end;
 
 	idx_end = *idx_line;
@@ -35,9 +36,14 @@ void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
 	result = NULL;
 	if (end_res != NULL)
 	{
-		// prepare template between @ marks (between "*idx_line + 1" to "idx_end - 1")
+		template = prepare_template(file,
+				(const size_t)(*idx_line + 1), (const size_t)idx_end);
+		if (template == NULL)
+			return (NULL);
 		if (el->parse != NULL)
 			result = el->parse(template);
+		else
+			ft_dprintf(2, "parsing == NULL\n"); // TODO to remove -> debug purpose
 	}
 	*idx_line = idx_end + ((file[idx_end] != 0) ? 1 : 0);
 	return (result);
@@ -57,12 +63,12 @@ void	*wat_parse(const unsigned char **file,
 	{
 		if (file[idx_line][0] == '@')
 		{
+			size_t	tmp = idx_line;
 			el = (struct s_wat_element *)wat_element_match(file[idx_line] + 1, config);
 			if (el == NULL || (parse_result = wat_parse_at_mark(file, &idx_line, el)) == NULL)
 			{
 				if (config->opt.display_warning_on_failure)
-					ft_dprintf(2, "WARNING ! line %llu: on mark: %s\n",
-							idx_line, file[idx_line]);
+					ft_dprintf(2, "WARNING ! Around l.%llu:%s\n", idx_line, file[tmp]);
 				if (!config->opt.continue_on_failure)
 				{
 					array_delete((t_array *)result, &data_del);
