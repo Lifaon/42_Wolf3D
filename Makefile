@@ -181,10 +181,39 @@ SRCS_EVENTS_NAME				:=		events.c					\
 										mouse_events.c				\
 										window_events.c				\
 
-ALL_OBJS_SUB_DIRS				+=			$(OBJS_DIR)$(SRCS_EVENTS_DIR)
-OBJS							+=			$(addprefix $(OBJS_DIR)$(SRCS_EVENTS_DIR),$(SRCS_EVENTS_NAME:.c=.o))
+ALL_OBJS_SUB_DIRS				+=		$(OBJS_DIR)$(SRCS_EVENTS_DIR)
+OBJS							+=		$(addprefix $(OBJS_DIR)$(SRCS_EVENTS_DIR),$(SRCS_EVENTS_NAME:.c=.o))
 
 $(OBJS_DIR)$(SRCS_EVENTS_DIR)%.o: $(PATH_EVENTS)%.c $(addprefix $(PATH_EVENTS),$(INCS_EVENTS_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#------------#
+#   UTILS    #
+
+SRCS_UTILS_DIR					:=		utils/
+PATH_UTILS						:=		$(SRCS_DIR)$(SRCS_UTILS_DIR)
+
+INCS_UTILS_NAME					:=		wutils.h					\
+
+
+SRCS_UTILS_NAME					:=		ft_getline.c				\
+										ft_memcmp.c					\
+										ft_memcpy.c					\
+										ft_memmove.c				\
+										ft_str2del.c				\
+										ft_strlen.c					\
+										ft_strncmp.c				\
+										is_pow_of2.c				\
+										prepare_template.c			\
+										read_file.c					\
+										read_file2d.c				\
+										round_up_pow.c				\
+
+ALL_OBJS_SUB_DIRS				+=		$(OBJS_DIR)$(SRCS_UTILS_DIR)
+OBJS							+=		$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR),$(SRCS_UTILS_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(INCS_UTILS_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
