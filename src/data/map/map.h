@@ -24,5 +24,6 @@ typedef struct	s_map
 
 void			map_del(void *a);
 void			*map_new(void);
+void			*map_parse(const char **input);
 
 #endif

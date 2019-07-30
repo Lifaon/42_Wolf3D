@@ -1,7 +1,10 @@
 #include <stdlib.h>
 #include "array.h"
+#include "block.h"
 #include "data.h"
 #include "ft_printf.h"
+#include "map.h"
+#include "texture.h"
 #include "wat_parse.h"
 #include "wutils.h"
 
@@ -10,7 +13,7 @@ static void	config_payload(struct s_wat_payload *config,
 {
 	els[0] = (struct s_wat_element){
 		.name = "block",
-		.parse = NULL, // TODO parser for @block
+		.parse = &block_parse,
 		.failure_warning = NULL,
 		.max = 30,
 		.min = 0,
@@ -20,7 +23,7 @@ static void	config_payload(struct s_wat_payload *config,
 	};
 	els[1] = (struct s_wat_element){
 		.name = "map",
-		.parse = NULL, // TODO parser for @map
+		.parse = &map_parse,
 		.failure_warning = NULL,
 		.max = 1,
 		.min = 1,
@@ -30,7 +33,7 @@ static void	config_payload(struct s_wat_payload *config,
 	};
 	els[2] = (struct s_wat_element){
 		.name = "texture",
-		.parse = NULL, // TODO parser for @texture
+		.parse = &texture_parse,
 		.failure_warning = NULL,
 		.max = 64,
 		.min = 0,

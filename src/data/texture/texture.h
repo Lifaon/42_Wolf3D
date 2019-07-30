@@ -16,5 +16,6 @@ typedef t_type	t_texture;
 
 void				texture_del(t_texture *a);
 t_texture			*texture_new(const size_t type);
+void				*texture_parse(const char **input);
 
 #endif
