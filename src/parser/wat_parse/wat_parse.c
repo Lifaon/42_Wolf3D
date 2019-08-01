@@ -41,7 +41,7 @@ void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
 		if (template == NULL)
 			return (NULL);
 		if (el->parse != NULL)
-			result = el->parse(template);
+			result = el->parse((const char **)template);
 		else
 			ft_dprintf(2, "parsing == NULL\n"); // TODO to remove -> debug purpose
 		ft_str2del(template);
