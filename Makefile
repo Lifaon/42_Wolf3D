@@ -273,7 +273,39 @@ PATH_UTILS						:=		$(SRCS_DIR)$(SRCS_UTILS_DIR)
 INCS_UTILS_NAME					:=		wutils.h					\
 
 
-SRCS_UTILS_NAME					:=		ft_getline.c				\
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR),$(SRCS_WAT_PARSER_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)%.o: $(PATH_WAT_PARSER)%.c $(addprefix $(PATH_WAT_PARSER),$(INCS_WAT_PARSER_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#	DICTO
+
+SRCS_DICTO_DIR				:=			dicto/
+PATH_DICTO					:=			$(PATH_PARSER)$(SRCS_DICTO_DIR)
+
+
+INCS_DICTO_NAME				:=			dicto.h
+
+SRCS_DICTO_NAME				:=			dicto.c						\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_DICTO_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_DICTO_DIR),$(SRCS_DICTO_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_DICTO_DIR)%.o: $(PATH_DICTO)%.c $(addprefix $(PATH_DICTO),$(INCS_DICTO_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#-----------#
+#   UTILS   #
+
+SRCS_UTILS_DIR				:=			utils/
+PATH_UTILS					:=			$(SRCS_DIR)$(SRC_UTILS_DIR)
+
+INCS_UTILS_NAME				:=			wutils.h
+
+SRCS_UTILS_NAME				:=			ft_getline.c				\
 										ft_memcmp.c					\
 										ft_memcpy.c					\
 										ft_memmove.c				\
