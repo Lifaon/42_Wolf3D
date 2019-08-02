@@ -328,6 +328,51 @@ $(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(IN
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
+#   ARRAY
+
+SRCS_ARRAY_DIR				:=			array/
+PATH_ARRAY					:=			$(PATH_UTILS)$(SRCS_ARRAY_DIR)
+
+INCS_ARRAY_NAME				:=			array.h						\
+
+SRCS_ARRAY_NAME				:=			array_delete.c				\
+										array_find.c				\
+										array_find_index.c			\
+										array_foreach.c				\
+										array_map.c					\
+										array_new.c					\
+										array_push.c				\
+										array_push_at.c				\
+										array_realloc.c				\
+										array_show.c				\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_ARRAY_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_ARRAY_DIR),$(SRCS_ARRAY_NAME:.c=.o))
+
+$(OBJ_DIR)$(SRC_UTILS_DIR)$(SRCS_ARRAY_DIR)%.o: $(PATH_ARRAY)%.c $(addprefix $(PATH_ARRAY),$(INCS_ARRAY_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR)
+	@printf "${C_C}%s${C_X} :: ${C_R}%s${C_X}\n"  $(NAME) $@
+
+#   PAIR
+
+SRCS_PAIR_DIR				:=			pair/
+PATH_PAIR					:=			$(PATH_UTILS)$(SRCS_PAIR_DIR)
+
+INCS_PAIR_NAME				:=			pair.h						\
+
+SRCS_PAIR_NAME				:=			pair_delete.c				\
+										pair_key_new.c				\
+										pair_new.c					\
+										pair_parse.c				\
+										pair_value_new.c			\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_PAIR_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_PAIR_DIR),$(SRCS_PAIR_NAME:.c=.o))
+
+$(OBJ_DIR)$(SRC_UTILS_DIR)$(SRCS_PAIR_DIR)%.o: $(PATH_PAIR)%.c $(addprefix $(PATH_PAIR),$(INCS_PAIR_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR)
+	@printf "${C_C}%s${C_X} :: ${C_R}%s${C_X}\n"  $(NAME) $@
+
 #==============================================================================#
 #------------------------------------------------------------------------------#
 #                                  RULES                                       #
