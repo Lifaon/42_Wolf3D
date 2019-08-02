@@ -310,6 +310,9 @@ SRCS_UTILS_NAME				:=			ft_getline.c				\
 										ft_memcpy.c					\
 										ft_memmove.c				\
 										ft_str2del.c				\
+										ft_strcdup.c				\
+										ft_strchr.c					\
+										ft_strdup.c					\
 										ft_strlen.c					\
 										ft_strncmp.c				\
 										is_pow_of2.c				\
