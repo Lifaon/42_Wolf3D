@@ -2,6 +2,7 @@
 # define LOADED_H
 
 # include <stddef.h>
+# include "pair.h"
 
 /**
  * @param ibuf
@@ -28,6 +29,7 @@ typedef struct	s_texture_loaded
 }				t_texture_loaded;
 
 void			texture_loaded_del(void *a);
+int				texture_loaded_load(void *a, t_pairs *pairs);
 void			*texture_loaded_new(void);
 
 #endif

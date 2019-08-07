@@ -38,7 +38,7 @@ typedef struct	s_block
 }				t_block;
 
 void			block_del(void *a);
-void			*block_new(void);
+void			*block_new(const size_t unused);
 void			*block_parse(const char **input);
 
 #endif

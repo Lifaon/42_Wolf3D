@@ -2,6 +2,7 @@
 # define SG_H
 
 # include <stddef.h>
+# include "pair.h"
 
 /**
  * @param color
@@ -34,6 +35,7 @@ typedef struct	s_texture_sg
 }				t_texture_sg;
 
 void			texture_sg_del(void *a);
+int				texture_sg_load(void *a, t_pairs *pairs);
 void			*texture_sg_new(void);
 
 #endif

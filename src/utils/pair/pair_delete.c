@@ -3,7 +3,7 @@
 
 inline void	pair_delete(t_pair **a)
 {
-	if (a != NULL && *a != NULL)
+	if (a != NULL)
 	{
 		free((*a)->key);
 		free((*a)->value);

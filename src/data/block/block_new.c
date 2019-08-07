@@ -1,10 +1,11 @@
 #include <stdlib.h>
 #include "block.h"
 
-void	*block_new(void)
+void	*block_new(const size_t unused)
 {
 	t_block	*res;
 
+	(void)unused;
 	if ((res = (t_block *)malloc(sizeof(*res))) != NULL)
 	{
 		res->type = T_BL_NONE;

@@ -58,7 +58,8 @@ void	*wat_parse(const unsigned char **file,
 	struct s_wat_element	*el;
 	size_t					idx_line;
 
-	result = (t_datas *)array_new(sizeof(t_data));
+	ft_printf("Processing parser !\n");
+	result = (t_datas *)array_new(sizeof(t_data *));
 	idx_line = 0;
 	while (file[idx_line] != 0)
 	{
@@ -78,7 +79,7 @@ void	*wat_parse(const unsigned char **file,
 			}
 			else
 			{
-				if (array_push((t_array *)result, parse_result, 1) == EXIT_FAILURE)
+				if (array_push((t_array *)result, (void *)&parse_result, 1) == EXIT_FAILURE)
 				{
 					array_delete((t_array *)result, &data_del);
 					return (NULL);

@@ -2,6 +2,7 @@
 # define TEXTURE_H
 
 # include <stddef.h>
+# include "pair.h"
 # include "type.h"
 
 enum e_texture_type
@@ -14,8 +15,9 @@ enum e_texture_type
 
 typedef t_type	t_texture;
 
-void				texture_del(t_texture *a);
-t_texture			*texture_new(const size_t type);
-void				*texture_parse(const char **input);
+void			texture_del(void *a);
+int				texture_load(void *a, t_pairs *pairs);
+void			*texture_new(const size_t type);
+void			*texture_parse(const char **input);
 
 #endif

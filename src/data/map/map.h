@@ -23,7 +23,7 @@ typedef struct	s_map
 }				t_map;
 
 void			map_del(void *a);
-void			*map_new(void);
+void			*map_new(const size_t ununsed);
 void			*map_parse(const char **input);
 
 #endif

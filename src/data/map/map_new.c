@@ -1,10 +1,11 @@
 #include <stdlib.h>
 #include "map.h"
 
-void	*map_new(void)
+void	*map_new(const size_t unused)
 {
 	t_map	*res;
 
+	(void)unused;
 	if ((res = (t_map *)malloc(sizeof(*res))) != NULL)
 	{
 		res->map = NULL;

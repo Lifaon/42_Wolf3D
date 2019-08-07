@@ -196,6 +196,7 @@ PATH_TEXTURE				:=			$(PATH_DATA)$(SRCS_TEXTURE_DIR)
 INCS_TEXTURE_NAME			:=			texture.h
 
 SRCS_TEXTURE_NAME			:=			texture_del.c				\
+										texture_load.c				\
 										texture_new.c				\
 										texture_parse.c				\
 
@@ -217,6 +218,14 @@ INCS_PARSER_NAME			:=			parser.h					\
 SRCS_PARSER_NAME			:=			read_file.c					\
 										parse.c
 
+# SRCS_TEXTURE_LOADED_NAME	:=			loaded_del.c				\
+# 										loaded_load.c				\
+# 										loaded_new.c				\
+
+# SRCS_TEXTURE_SG_NAME		:=			sg_del.c					\
+# 										sg_load.c					\
+# 										sg_new.c					\
+
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR),$(SRCS_PARSER_NAME:.c=.o))
 
@@ -235,6 +244,7 @@ INCS_RAYCASTING_NAME			:=		raycasting.h					\
 SRCS_RAYCASTING_NAME			:=		raycasting.c					\
 										draw_line.c						\
 										vec_op.c						\
+
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_RAYCASTING_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_RAYCASTING_DIR),$(SRCS_RAYCASTING_NAME:.c=.o))
