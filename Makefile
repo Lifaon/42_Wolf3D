@@ -315,7 +315,8 @@ PATH_UTILS					:=			$(SRCS_DIR)$(SRC_UTILS_DIR)
 
 INCS_UTILS_NAME				:=			wutils.h
 
-SRCS_UTILS_NAME				:=			ft_getline.c				\
+SRCS_UTILS_NAME				:=			ft_atoul_base.c				\
+										ft_getline.c				\
 										ft_memcmp.c					\
 										ft_memcpy.c					\
 										ft_memmove.c				\
@@ -371,6 +372,7 @@ PATH_PAIR					:=			$(PATH_UTILS)$(SRCS_PAIR_DIR)
 INCS_PAIR_NAME				:=			pair.h						\
 
 SRCS_PAIR_NAME				:=			pair_delete.c				\
+										pair_get.c					\
 										pair_key_new.c				\
 										pair_new.c					\
 										pair_parse.c				\

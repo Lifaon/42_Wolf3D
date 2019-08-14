@@ -21,6 +21,7 @@ char			*pair_key_new(const char *s);
 char			*pair_value_new(const char *s);
 
 extern void		pair_delete(t_pair **a);
+extern char		*pair_get(t_pairs *p, const char *key);
 extern t_pair	*pair_new(void);
 extern t_pair	*pair_parse(t_pair *a, const char *s);
 

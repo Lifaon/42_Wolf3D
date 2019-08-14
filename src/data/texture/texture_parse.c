@@ -30,18 +30,18 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 	conf->els = els;
 }
 
-int		has_texture(void *a, void *b)
+static int	has_texture(void *a, void *b)
 {
 	t_pair	**p;
 
 	(void)b;
 	p = (t_pair **)a;
-	if (ft_strncmp((*p)->key, "file", 4))
+	if (ft_strncmp((*p)->key, "file", 4) == 0)
 		return (0);
 	return (-1);
 }
 
-void	*texture_parse(const char **input)
+void		*texture_parse(const char **input)
 {
 	t_dicto_payload	config;
 	t_dicto_element	els[3];
@@ -51,8 +51,8 @@ void	*texture_parse(const char **input)
 
 	config_payload(&config, els);
 	pairs = dicto(input, (const t_dicto_payload *)&config);
-	// if (pairs == NULL)
-	// 	ft_dprintf(2, "error on dicto\n");
+	if (pairs == NULL)
+		ft_dprintf(2, "error on dicto\n");
 	type = array_find((t_array *)pairs, &has_texture, NULL)
 		? T_TEX_LOADED : T_TEX_SG;
 	if ((texture = data_new(T_DA_TEXTURE, type)) != NULL)
