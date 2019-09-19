@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "array.h"
 #include "block.h"
-#include "data.h"
 #include "ft_printf.h"
 #include "map.h"
 #include "singletone.h"
@@ -15,6 +14,7 @@ static void	config_payload(struct s_wat_payload *config,
 	els[0] = (struct s_wat_element){
 		.name = "block",
 		.parse = &block_parse,
+		// .parse = NULL,
 		.failure_warning = NULL,
 		.max = 256,
 		.min = 0,

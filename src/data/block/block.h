@@ -32,14 +32,14 @@ enum e_block_type
 typedef struct	s_block
 {
 	size_t			type;
-	unsigned char	*tex_north;
-	unsigned char	*tex_south;
-	unsigned char	*tex_east;
-	unsigned char	*tex_west;
+	unsigned int	tex_north;
+	unsigned int	tex_south;
+	unsigned int	tex_east;
+	unsigned int	tex_west;
 }				t_block;
 
 void			block_del(void *a);
-void			*block_new(const size_t unused);
+void			*block_new(void);
 void			*block_parse(const char **input);
 
 #endif

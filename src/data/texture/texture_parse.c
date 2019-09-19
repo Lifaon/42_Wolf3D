@@ -2,7 +2,6 @@
 #include "array.h"
 #include "dicto.h"
 #include "ft_printf.h"
-#include "data.h"
 #include "texture.h"
 
 #include "wutils.h"
@@ -30,13 +29,16 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 	conf->els = els;
 }
 
-// void	pairs_show(void *a)
-// {
-// 	t_pair	**p;
+static void		show_pair(void *e)
+{
+	t_pair	**p;
 
-// 	p = (t_pair **)a;
-// 	ft_printf("[%s] => '%s'\n", (*p)->key, (*p)->value);
-// }
+	p = (t_pair **)e;
+	if (p != NULL && *p != NULL)
+		ft_printf("[%s] => '%s'\n", (*p)->key, (*p)->value);
+	else
+		ft_printf("pair === NULL\n");
+}
 
 static int	has_texture(void *a, void *b)
 {
@@ -54,20 +56,21 @@ void		*texture_parse(const char **input)
 	t_dicto_payload	config;
 	t_dicto_element	els[3];
 	t_pairs			*pairs;
-	t_data			*texture;
+	t_texture		*texture;
 	size_t			type;
 
 	config_payload(&config, els);
 	pairs = dicto(input, (const t_dicto_payload *)&config);
 	if (pairs == NULL)
 		ft_dprintf(2, "error on dicto\n");
+	array_foreach((t_array *)pairs, &show_pair);
 	type = array_find((t_array *)pairs, &has_texture, NULL)
 		? T_TEX_LOADED : T_TEX_SG;
-	if ((texture = data_new(T_DA_TEXTURE, type)) != NULL)
+	if ((texture = texture_new(type)) != NULL)
 	{
-		if (texture_load(texture->node, pairs) != 0)
+		if (texture_load(texture, pairs) != 0)
 		{
-			texture_del((void *)&texture);
+			texture_del(texture);
 			texture = NULL;
 		}
 	}

@@ -136,19 +136,6 @@ $(OBJS_DIR)$(SRCS_MYSDL_DIR)%.o: $(PATH_MYSDL)%.c $(addprefix $(PATH_MYSDL),$(IN
 SRCS_DATA_DIR				:=			data/
 PATH_DATA					:=			$(SRCS_DIR)$(SRCS_DATA_DIR)
 
-
-INCS_DATA_NAME				:=			data.h
-
-SRCS_DATA_NAME				:=			data_del.c					\
-										data_new.c					\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR),$(SRCS_DATA_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_DATA_DIR)%.o: $(PATH_DATA)%.c $(addprefix $(PATH_DATA),$(INCS_DATA_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
-	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
 #	BLOCK
 
 SRCS_BLOCK_DIR				:=			block/

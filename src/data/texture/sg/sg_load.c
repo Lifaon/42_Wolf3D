@@ -1,4 +1,5 @@
 #include "sg.h"
+#include "texture.h"
 #include "pair.h"
 #include "wutils.h"
 
@@ -6,13 +7,13 @@
 int		texture_sg_load(void *a, t_pairs *pairs)
 {
 	t_texture_sg	*sg;
-	char			*pair_value;
+	unsigned char	*s;
 
 	sg = (t_texture_sg *)a;
-	pair_value = pair_get(pairs, "color");
-	if (pair_value == NULL || pair_value[0] != '#')
-		return (-1);
-	sg->color = ft_atoul_base(pair_value + 1, 16);
-	ft_printf("sg->color === %.6llx\n", sg->color);
+	s = (unsigned char *)pair_get(pairs, "color");
+	if (s == NULL || s[0] != '#')
+		return (-3);
+	sg->color = ft_atoul_base((const char *)(s + 1), 16);
+	ft_printf("texture_sg->color === %.6llx\n", sg->color);
 	return (0);
 }
