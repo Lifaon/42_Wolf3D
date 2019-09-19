@@ -28,7 +28,7 @@ struct s_wat_payload
 	struct s_wat_element_opt	opt;
 };
 
-void	*wat_parse(const unsigned char **file,
+int		wat_parse(const unsigned char **file,
 		const struct s_wat_payload *config);
 void	*wat_element_match(const unsigned char *line,
 		const struct s_wat_payload *config);

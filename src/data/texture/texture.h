@@ -4,6 +4,7 @@
 # include <stddef.h>
 # include "pair.h"
 # include "type.h"
+# define TEXTURE_SPACE 256
 
 enum e_texture_type
 {

@@ -4,6 +4,8 @@
 #include "wolf3d.h"
 #include "wutils.h"
 
+#include "block.h"
+#include <unistd.h>
 void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
 		const struct s_wat_element *el)
 {
@@ -41,7 +43,11 @@ void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
 		if (template == NULL)
 			return (NULL);
 		if (el->parse != NULL)
+		{
+			ft_printf("___ start parse [%s]\n", el->name);
 			result = el->parse((const char **)template);
+			ft_printf("___ finish parse ??\n");
+		}
 		else
 			ft_dprintf(2, "parsing == NULL\n"); // TODO to remove -> debug purpose
 		ft_str2del(template);
@@ -50,16 +56,14 @@ void	*wat_parse_at_mark(const unsigned char **file, size_t *idx_line,
 	return (result);
 }
 
-void	*wat_parse(const unsigned char **file,
+int		wat_parse(const unsigned char **file,
 		const struct s_wat_payload *config)
 {
-	t_datas					*result;
 	void					*parse_result;
 	struct s_wat_element	*el;
 	size_t					idx_line;
 
 	ft_printf("Processing parser !\n");
-	result = (t_datas *)array_new(sizeof(t_data *));
 	idx_line = 0;
 	while (file[idx_line] != 0)
 	{
@@ -69,26 +73,21 @@ void	*wat_parse(const unsigned char **file,
 			el = (struct s_wat_element *)wat_element_match(file[idx_line] + 1, config);
 			if (el == NULL || (parse_result = wat_parse_at_mark(file, &idx_line, el)) == NULL)
 			{
+				ft_printf("___ fail? ??\n");
 				if (config->opt.display_warning_on_failure)
 					ft_dprintf(2, "WARNING ! Around l.%llu:%s\n", idx_line, file[tmp]);
 				if (!config->opt.continue_on_failure)
 				{
-					array_delete((t_array *)result, &data_del);
-					return (NULL);
+					return (-1);
 				}
 			}
 			else
 			{
-				if (array_push((t_array *)result, (void *)&parse_result, 1) == EXIT_FAILURE)
-				{
-					array_delete((t_array *)result, &data_del);
-					return (NULL);
-				}
 				ft_printf("___ found @%s\n", el->name);
 			}
 		}
 		else
 			++idx_line;
 	}
-	return ((void *)result);
+	return (0);
 }

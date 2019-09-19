@@ -4,6 +4,7 @@
 #include "data.h"
 #include "ft_printf.h"
 #include "map.h"
+#include "singletone.h"
 #include "texture.h"
 #include "wat_parse.h"
 #include "wutils.h"
@@ -15,7 +16,7 @@ static void	config_payload(struct s_wat_payload *config,
 		.name = "block",
 		.parse = &block_parse,
 		.failure_warning = NULL,
-		.max = 30,
+		.max = 256,
 		.min = 0,
 		.length = 0,
 		.opt.display_warning_on_failure = 0,
@@ -47,11 +48,11 @@ static void	config_payload(struct s_wat_payload *config,
 	config->opt.display_warning_on_failure = 1;
 }
 
-void	*parse_wolf_map(char *filename)
+int		parse_wolf_map(char *filename)
 {
 	struct s_wat_payload	config;
 	struct s_wat_element	els[3];
-	void					*res;
+	int						res;
 	size_t					idx;
 	unsigned char			**file;
 
@@ -59,7 +60,21 @@ void	*parse_wolf_map(char *filename)
 	if (file == NULL)
 	{
 		ft_dprintf(2, "error: invalid file or run out of memory\n");
-		return (NULL);
+		return (-2);
+	}
+	if (*singletone_block() == NULL || *singletone_texture() == NULL)
+	{
+		idx = 0;
+		while (file[idx] != 0)
+		{
+			free(file[idx]);
+			++idx;
+		}
+		free(file);
+		singletone_block_del();
+		singletone_texture_del();
+		ft_dprintf(2, "error: run out of memory during parsing\n");
+		return (-1);
 	}
 	idx = 0;
 	while (file[idx] != 0)

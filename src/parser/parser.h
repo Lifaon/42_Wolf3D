@@ -53,4 +53,5 @@ typedef struct	s_cam
 int		parse(char *path, t_map *map, t_cam *cam);
 char	*read_file(char *path);
 
+int		parse_wolf_map(char *filename);
 #endif

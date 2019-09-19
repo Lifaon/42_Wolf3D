@@ -2,6 +2,7 @@
 #include "pair.h"
 #include "wutils.h"
 
+#include "ft_printf.h"
 int		texture_sg_load(void *a, t_pairs *pairs)
 {
 	t_texture_sg	*sg;
@@ -12,5 +13,6 @@ int		texture_sg_load(void *a, t_pairs *pairs)
 	if (pair_value == NULL || pair_value[0] != '#')
 		return (-1);
 	sg->color = ft_atoul_base(pair_value + 1, 16);
+	ft_printf("sg->color === %.6llx\n", sg->color);
 	return (0);
 }

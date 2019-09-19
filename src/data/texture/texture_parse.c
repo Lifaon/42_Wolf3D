@@ -30,6 +30,14 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 	conf->els = els;
 }
 
+// void	pairs_show(void *a)
+// {
+// 	t_pair	**p;
+
+// 	p = (t_pair **)a;
+// 	ft_printf("[%s] => '%s'\n", (*p)->key, (*p)->value);
+// }
+
 static int	has_texture(void *a, void *b)
 {
 	t_pair	**p;

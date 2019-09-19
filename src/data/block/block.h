@@ -2,6 +2,7 @@
 # define BLOCK_H
 
 # include <stddef.h>
+# define BLOCK_SPACE 256
 
 enum e_block_type
 {

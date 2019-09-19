@@ -39,7 +39,7 @@ OBJS_DIR					:=			obj/
 #                            COMPILER & FLAGS                                  #
 
 CC							:=			gcc
-# CFLAGS						:=			-Wall -Wextra -Werror
+CFLAGS						:=			-Wall -Wextra -Werror
 
 # Can use this with cmd: `env DEV=1 make`
 ifneq ($(DEBUG),)
@@ -78,17 +78,17 @@ INCS						+=			$(INC_FT_PRINTF)
 #----------#
 #   SDL2   #
 
-DIR_SDL2					:=			$(DIR_LIB)sdl2
-SDL_VER						:=			2.0.9
-SDL_PATH					:=			$(addprefix $(shell pwd)/, $(DIR_SDL2))
+# DIR_SDL2					:=			$(DIR_LIB)sdl2
+# SDL_VER						:=			2.0.9
+# SDL_PATH					:=			$(addprefix $(shell pwd)/, $(DIR_SDL2))
 
-ifneq ($(wildcard $(DIR_SDL2)),)
-  LIB_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --libs)
-  LIBS						+=			$(LIB_SDL2)
+# ifneq ($(wildcard $(DIR_SDL2)),)
+#   LIB_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --libs)
+#   LIBS						+=			$(LIB_SDL2)
 
-  INC_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --cflags)
-  INCS						+=			$(INC_SDL2)
-endif
+#   INC_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --cflags)
+#   INCS						+=			$(INC_SDL2)
+# endif
 
 #==============================================================================#
 #------------------------------------------------------------------------------#
@@ -186,6 +186,26 @@ OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR),$(SRCS_MAP
 $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR)%.o: $(PATH_MAP)%.c $(addprefix $(PATH_MAP),$(INCS_MAP_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+#	SINGLETONE
+
+SRCS_SINGLETONE_DIR			:=			singletone/
+PATH_SINGLETONE				:=			$(PATH_DATA)$(SRCS_SINGLETONE_DIR)
+
+
+INCS_SINGLETONE_NAME		:=			singletone.h
+
+SRCS_SINGLETONE_NAME		:=			singletone_block.c			\
+										singletone_texture.c		\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_SINGLETONE_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_SINGLETONE_DIR),$(SRCS_SINGLETONE_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_SINGLETONE_DIR)%.o: $(PATH_SINGLETONE)%.c $(addprefix $(PATH_SINGLETONE),$(INCS_SINGLETONE_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
+
 
 #	TEXTURE
 
@@ -320,6 +340,7 @@ SRCS_UTILS_NAME				:=			ft_atoul_base.c				\
 										ft_memcmp.c					\
 										ft_memcpy.c					\
 										ft_memmove.c				\
+										ft_memset.c					\
 										ft_str2del.c				\
 										ft_strcdup.c				\
 										ft_strchr.c					\

@@ -44,7 +44,7 @@ static int	dicto_parse(t_pairs *a,
 				|| (target->is_valid != NULL && !target->is_valid())
 				|| array_push((t_array *)a, (const void *)&pair, 1) == EXIT_FAILURE)
 		{
-			pair_delete(pair);
+			pair_delete(&pair);
 			return (-1);
 		}
 		++idx;

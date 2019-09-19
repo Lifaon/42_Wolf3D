@@ -9,6 +9,7 @@ extern char					**ft_getline(const char **s1, const char *s2,
 extern int					ft_memcmp(const void *s1, const void *s2, size_t n);
 extern void					*ft_memcpy(void *d, const void *s, size_t n);
 extern void					*ft_memmove(void *dst, const void *src, size_t len);
+extern void					ft_memset(void *b, const int c, const size_t len);
 extern void					ft_str2del(char **s);
 extern char					*ft_strcdup(const char *s, const int c);
 extern char					*ft_strchr(const char *s, const int c);
