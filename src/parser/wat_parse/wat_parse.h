@@ -12,7 +12,7 @@ struct s_wat_element_opt
 struct s_wat_element
 {
 	char						*name;
-	void						*(*parse)(const char **);
+	int							(*parse)(const char **);
 	void						(*delete_node)(void *);
 	void						(*failure_warning)(const int);
 	size_t						max;

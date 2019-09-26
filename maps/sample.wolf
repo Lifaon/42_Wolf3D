@@ -1,5 +1,12 @@
 # not mandatory (can use basic color if texture not set)
 
+@env
+MAP_SIZE_X=20
+MAP_SIZE_Y=13
+SPAWN_X=4
+SPAWN_Y=4
+@end
+
 # possible "texture"
 @texture
 id=t

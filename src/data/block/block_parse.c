@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include "array.h"
-#include "dicto.h"
 #include "block.h"
+#include "dicto.h"
 #include "singletone.h"
-
 #include "wutils.h"
 #include "ft_printf.h"
+
 static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 {
 	conf->length = 6;
@@ -46,17 +46,6 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 		.is_valid = NULL
 	};
 	conf->els = els;
-}
-
-static void		show_pair(void *e)
-{
-	t_pair	**p;
-
-	p = (t_pair **)e;
-	if (p != NULL && *p != NULL)
-		ft_printf("[%s] => '%s'\n", (*p)->key, (*p)->value);
-	else
-		ft_printf("pair === NULL\n");
 }
 
 int			block_parse_pairs(t_block *b, void *pairs_p)
@@ -102,42 +91,36 @@ int			block_parse_pairs(t_block *b, void *pairs_p)
 	if ((*tex_metadata)[b->tex_east] == NULL
 		|| (*tex_metadata)[b->tex_north] == NULL
 		|| (*tex_metadata)[b->tex_south] == NULL
-		|| (*tex_metadata)[b->tex_east] == NULL
 		|| (*tex_metadata)[b->tex_west] == NULL)
 		return (-6);
 	return (0);
 }
 
-void		*block_parse(const char **input)
+int			block_parse(const char **input)
 {
 	t_dicto_payload	config;
-	t_dicto_element	els[3];
+	t_dicto_element	els[6];
 	t_pairs			*pairs;
 	t_block			*block;
+	int				ret;
 
-	block = NULL;
 	config_payload(&config, els);
 	pairs = dicto(input, (const t_dicto_payload *)&config);
 	if (pairs == NULL)
+	{
 		ft_dprintf(2, "error on dicto\n");
-	array_foreach((t_array *)pairs, &show_pair);
-	ft_printf("hello world !\n");
+		return (-1);
+	}
+	ret = -1;
 	if ((block = (t_block *)block_new()) != NULL)
 	{
-		ft_printf("block parse pairs !\n");
 		// TODO need to free id of this block if failure
-		if (block_parse_pairs(block, pairs) != 0)
+		if ((ret = block_parse_pairs(block, pairs)) != 0)
 		{
-			ft_printf("block del !\n");
 			block_del(block);
 			block = NULL;
 		}
 	}
 	array_delete((t_array *)pairs, &pair_delete);
-	ft_printf("block->type = %llu\n", block->type);
-	ft_printf("block->tex_north = %c\n", block->tex_north);
-	ft_printf("block->tex_south = %c\n", block->tex_south);
-	ft_printf("block->tex_east = %c\n", block->tex_east);
-	ft_printf("block->tex_west = %c\n", block->tex_west);
-	return ((void *)block);
+	return (ret);
 }

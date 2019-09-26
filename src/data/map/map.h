@@ -1,7 +1,9 @@
 #ifndef MAP_H
 # define MAP_H
 
-#include <stddef.h>
+# include <stddef.h>
+
+# define MAP_SPACE 1
 
 /**
  * @param map
@@ -22,8 +24,8 @@ typedef struct	s_map
 	size_t			y;
 }				t_map;
 
-void			map_del(void *a);
-void			*map_new(const size_t ununsed);
-void			*map_parse(const char **input);
+extern void		map_del(void *a);
+extern void		*map_new(const size_t ununsed);
+extern int		map_parse(const char **input);
 
 #endif

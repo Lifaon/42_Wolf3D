@@ -38,8 +38,8 @@ typedef struct	s_block
 	unsigned int	tex_west;
 }				t_block;
 
-void			block_del(void *a);
-void			*block_new(void);
-void			*block_parse(const char **input);
+extern void		block_del(void *a);
+extern void		*block_new(void);
+extern int		block_parse(const char **input);
 
 #endif

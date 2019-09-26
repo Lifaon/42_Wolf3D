@@ -9,9 +9,9 @@ t_block	***singletone_block(void)
 
 	if (a == NULL)
 	{
-		a = malloc(sizeof(t_block *) * 256);
+		a = (t_block **)malloc(sizeof(t_block *) * BLOCK_SPACE);
 		if (a != NULL)
-			ft_memset((void *)a, 0, sizeof(t_block *) * 256);
+			ft_memset((void *)a, 0, sizeof(t_block *) * BLOCK_SPACE);
 	}
 	return (&a);
 }

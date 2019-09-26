@@ -16,9 +16,9 @@ enum e_texture_type
 
 typedef t_type	t_texture;
 
-void			texture_del(void *a);
-int				texture_load(void *a, t_pairs *pairs);
-void			*texture_new(const size_t type);
-void			*texture_parse(const char **input);
+extern void			texture_del(void *a);
+extern int			texture_load(void *a, t_pairs *pairs);
+extern void			*texture_new(const size_t type);
+extern int			texture_parse(const char **input);
 
 #endif

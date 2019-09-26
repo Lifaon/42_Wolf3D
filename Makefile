@@ -155,6 +155,26 @@ $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR)%.o: $(PATH_BLOCK)%.c $(addprefix $(
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
+#	ENV
+
+SRCS_ENV_DIR				:=			env/
+PATH_ENV					:=			$(PATH_DATA)$(SRCS_ENV_DIR)
+
+
+INCS_ENV_NAME				:=			env.h
+
+SRCS_ENV_NAME				:=			env_del.c					\
+										env_new.c					\
+										env_get.c					\
+										env_parse.c					\
+
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_ENV_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_ENV_DIR),$(SRCS_ENV_NAME:.c=.o))
+
+$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_ENV_DIR)%.o: $(PATH_ENV)%.c $(addprefix $(PATH_ENV),$(INCS_ENV_NAME))
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
+
 #	MAP
 
 SRCS_MAP_DIR				:=			map/
@@ -183,6 +203,8 @@ PATH_SINGLETONE				:=			$(PATH_DATA)$(SRCS_SINGLETONE_DIR)
 INCS_SINGLETONE_NAME		:=			singletone.h
 
 SRCS_SINGLETONE_NAME		:=			singletone_block.c			\
+										singletone_env.c			\
+										singletone_map.c			\
 										singletone_texture.c		\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_SINGLETONE_DIR)

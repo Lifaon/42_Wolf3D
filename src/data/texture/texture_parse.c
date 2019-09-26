@@ -3,8 +3,8 @@
 #include "dicto.h"
 #include "ft_printf.h"
 #include "texture.h"
-
 #include "wutils.h"
+
 static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 {
 	conf->length = 3;
@@ -29,17 +29,6 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 	conf->els = els;
 }
 
-static void		show_pair(void *e)
-{
-	t_pair	**p;
-
-	p = (t_pair **)e;
-	if (p != NULL && *p != NULL)
-		ft_printf("[%s] => '%s'\n", (*p)->key, (*p)->value);
-	else
-		ft_printf("pair === NULL\n");
-}
-
 static int	has_texture(void *a, void *b)
 {
 	t_pair	**p;
@@ -51,29 +40,34 @@ static int	has_texture(void *a, void *b)
 	return (-1);
 }
 
-void		*texture_parse(const char **input)
+int			texture_parse(const char **input)
 {
 	t_dicto_payload	config;
 	t_dicto_element	els[3];
 	t_pairs			*pairs;
 	t_texture		*texture;
 	size_t			type;
+	int				ret;
 
 	config_payload(&config, els);
 	pairs = dicto(input, (const t_dicto_payload *)&config);
 	if (pairs == NULL)
+	{
 		ft_dprintf(2, "error on dicto\n");
-	array_foreach((t_array *)pairs, &show_pair);
+		array_delete((t_array *)pairs, &pair_delete);
+		return (-1);
+	}
 	type = array_find((t_array *)pairs, &has_texture, NULL)
 		? T_TEX_LOADED : T_TEX_SG;
+	ret = -1;
 	if ((texture = texture_new(type)) != NULL)
 	{
-		if (texture_load(texture, pairs) != 0)
+		if ((ret = texture_load(texture, pairs)) != 0)
 		{
 			texture_del(texture);
 			texture = NULL;
 		}
 	}
 	array_delete((t_array *)pairs, &pair_delete);
-	return (texture);
+	return (ret);
 }

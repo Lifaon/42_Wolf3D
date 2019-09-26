@@ -14,7 +14,6 @@ static void	config_payload(struct s_wat_payload *config,
 	els[0] = (struct s_wat_element){
 		.name = "block",
 		.parse = &block_parse,
-		// .parse = NULL,
 		.failure_warning = NULL,
 		.max = 256,
 		.min = 0,
@@ -36,14 +35,24 @@ static void	config_payload(struct s_wat_payload *config,
 		.name = "texture",
 		.parse = &texture_parse,
 		.failure_warning = NULL,
-		.max = 64,
+		.max = 256,
+		.min = 0,
+		.length = 0,
+		.opt.display_warning_on_failure = 0,
+		.opt.continue_on_failure = 0
+	};
+	els[3] = (struct s_wat_element){
+		.name = "env",
+		.parse = &env_parse,
+		.failure_warning = NULL,
+		.max = 1,
 		.min = 0,
 		.length = 0,
 		.opt.display_warning_on_failure = 0,
 		.opt.continue_on_failure = 0
 	};
 	config->data = els;
-	config->size = 3;
+	config->size = 4;
 	config->opt.continue_on_failure = 1;
 	config->opt.display_warning_on_failure = 1;
 }
@@ -51,7 +60,7 @@ static void	config_payload(struct s_wat_payload *config,
 int		parse_wolf_map(char *filename)
 {
 	struct s_wat_payload	config;
-	struct s_wat_element	els[3];
+	struct s_wat_element	els[4];
 	int						res;
 	size_t					idx;
 	unsigned char			**file;
@@ -62,17 +71,16 @@ int		parse_wolf_map(char *filename)
 		ft_dprintf(2, "error: invalid file or run out of memory\n");
 		return (-2);
 	}
-	if (*singletone_block() == NULL || *singletone_texture() == NULL)
+	if (*singletone_block() == NULL
+			|| *singletone_texture() == NULL
+			|| *singletone_map() == NULL
+			|| *singletone_env() == NULL)
 	{
-		idx = 0;
-		while (file[idx] != 0)
-		{
-			free(file[idx]);
-			++idx;
-		}
-		free(file);
+		ft_str2del((char **)file);
 		singletone_block_del();
 		singletone_texture_del();
+		singletone_map_del();
+		singletone_env_del();
 		ft_dprintf(2, "error: run out of memory during parsing\n");
 		return (-1);
 	}
@@ -84,12 +92,6 @@ int		parse_wolf_map(char *filename)
 	}
 	config_payload(&config, els);
 	res = wat_parse((const unsigned char **)file, &config);
-	idx = 0;
-	while (file[idx] != 0)
-	{
-		free(file[idx]);
-		++idx;
-	}
-	free(file);
+	ft_str2del((char **)file);
 	return (res);
 }

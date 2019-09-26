@@ -9,9 +9,9 @@ t_texture	***singletone_texture(void)
 
 	if (a == NULL)
 	{
-		a = malloc(sizeof(t_texture *) * 256);
+		a = (t_texture **)malloc(sizeof(t_texture *) * TEXTURE_SPACE);
 		if (a != NULL)
-			ft_memset((void *)a, 0, sizeof(t_texture *) * 256);
+			ft_memset((void *)a, 0, sizeof(t_texture *) * TEXTURE_SPACE);
 	}
 	return (&a);
 }
@@ -19,7 +19,7 @@ t_texture	***singletone_texture(void)
 void	singletone_texture_del(void)
 {
 	t_texture	***a;
-	size_t	idx;
+	size_t		idx;
 
 	a = singletone_texture();
 	if (*a != NULL)
@@ -27,7 +27,7 @@ void	singletone_texture_del(void)
 		idx = 0;
 		while (idx < TEXTURE_SPACE)
 		{
-			free((*a)[idx]);
+			texture_del((*a)[idx]);
 			++idx;
 		}
 		free(*a);

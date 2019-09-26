@@ -3,7 +3,6 @@
 #include "pair.h"
 #include "wutils.h"
 
-#include "ft_printf.h"
 t_dicto_element	*dicto_get_elem(const char *key, const t_dicto_payload *conf)
 {
 	t_dicto_element	*els;
