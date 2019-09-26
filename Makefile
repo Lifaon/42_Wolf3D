@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/09/25 17:15:32 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/09/26 17:06:40 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -176,6 +176,9 @@ INCS_EVENTS_NAME				:=		events.h					\
 
 SRCS_EVENTS_NAME				:=		events.c					\
 										update_cam.c				\
+										key_events.c				\
+										mouse_events.c				\
+										window_events.c				\
 
 ALL_OBJS_SUB_DIRS				+=			$(OBJS_DIR)$(SRCS_EVENTS_DIR)
 OBJS							+=			$(addprefix $(OBJS_DIR)$(SRCS_EVENTS_DIR),$(SRCS_EVENTS_NAME:.c=.o))

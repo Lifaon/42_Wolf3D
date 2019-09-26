@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 14:05:29 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 16:21:51 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ _Bool			update_cam(t_e *e, _Bool key_downs[4])
 
 	rotated = rotate(e, 4.0, key_downs);
 	moved = move(e, key_downs);
-	if (rotated || moved || e->update)
-		return (raycasting(e));
+	// if (rotated || moved || e->update)
+	return (raycasting(e));
 	return (EXIT_SUCCESS);
 }
