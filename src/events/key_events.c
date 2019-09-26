@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:41 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:29:06 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 18:54:00 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	toggle_fullscreen(t_e *e)
 	static int		w;
 	static int		h;
 	SDL_DisplayMode	dm;
-
 
 	if (!is_fullscreen)
 	{
@@ -48,7 +47,29 @@ static void	toggle_fullscreen(t_e *e)
 	is_fullscreen = !is_fullscreen;
 }
 
-void	key_event(t_e *e, _Bool key_downs[4], SDL_Event ev)
+static void	update_key_downs(_Bool key_downs[6], SDL_Event ev, SDL_Keycode k)
+{
+	if (ev.type == SDL_KEYDOWN)
+	{
+		key_downs[W] = (k == SDLK_UP || k == SDLK_w) ? 1 : key_downs[W];
+		key_downs[S] = (k == SDLK_DOWN || k == SDLK_s) ? 1 : key_downs[S];
+		key_downs[A] = k == SDLK_a ? 1 : key_downs[A];
+		key_downs[D] = k == SDLK_d ? 1 : key_downs[D];
+		key_downs[LEFT] = k == SDLK_LEFT ? 1 : key_downs[LEFT];
+		key_downs[RIGHT] = k == SDLK_RIGHT ? 1 : key_downs[RIGHT];
+	}
+	else
+	{
+		key_downs[W] = (k == SDLK_UP || k == SDLK_w) ? 0 : key_downs[W];
+		key_downs[S] = (k == SDLK_DOWN || k == SDLK_s) ? 0 : key_downs[S];
+		key_downs[A] = k == SDLK_a ? 0 : key_downs[A];
+		key_downs[D] = k == SDLK_d ? 0 : key_downs[D];
+		key_downs[LEFT] = k == SDLK_LEFT ? 0 : key_downs[LEFT];
+		key_downs[RIGHT] = k == SDLK_RIGHT ? 0 : key_downs[RIGHT];
+	}
+}
+
+void		key_event(t_e *e, _Bool key_downs[6], SDL_Event ev)
 {
 	SDL_Keycode k;
 
@@ -61,16 +82,6 @@ void	key_event(t_e *e, _Bool key_downs[4], SDL_Event ev)
 			toggle_fullscreen(e);
 		if (k == SDLK_t)
 			e->outlines = !e->outlines;
-		key_downs[LEFT] = k == SDLK_LEFT ? 1 : key_downs[LEFT];
-		key_downs[RIGHT] = k == SDLK_RIGHT ? 1 : key_downs[RIGHT];
-		key_downs[UP] = (k == SDLK_UP || k == SDLK_w) ? 1 : key_downs[UP];
-		key_downs[DOWN] = (k == SDLK_DOWN || k == SDLK_s) ? 1 : key_downs[DOWN];
 	}
-	else
-	{
-		key_downs[LEFT] = k == SDLK_LEFT ? 0 : key_downs[LEFT];
-		key_downs[RIGHT] = k == SDLK_RIGHT ? 0 : key_downs[RIGHT];
-		key_downs[UP] = (k == SDLK_UP || k == SDLK_w) ? 0 : key_downs[UP];
-		key_downs[DOWN] = (k == SDLK_DOWN || k == SDLK_s) ? 0 : key_downs[DOWN];
-	}
+	update_key_downs(key_downs, ev, k);
 }

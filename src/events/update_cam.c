@@ -6,18 +6,18 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:30:09 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 19:07:27 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 
-static void		clipping(t_e *e, double coeff, _Bool moved[2])
+static void		clipping(t_e *e, t_vec dir, _Bool moved[2])
 {
 	t_vec	pos;
 	t_pos	pos_i;
 
-	pos = vec_add(e->cam.pos, vec_multiply(e->cam.dir, coeff * 2));
+	pos = vec_add(e->cam.pos, vec_multiply(dir, 2));
 	pos_i.x = (int)pos.x;
 	pos_i.y = (int)pos.y;
 	moved[0] = 0;
@@ -30,21 +30,36 @@ static void		clipping(t_e *e, double coeff, _Bool moved[2])
 		moved[1] = 1;
 }
 
-static _Bool	move(t_e *e, _Bool key_downs[4])
+static t_vec	get_moving_dir(t_e *e, _Bool key_downs[6])
 {
 	double	coeff;
+	t_vec	dirs[4];
+	t_vec	dir;
+
+	coeff = 0.05;
+	dirs[0] = vec_multiply(e->cam.dir, 1 * (double)key_downs[W]);
+	dirs[1] = vec_multiply(e->cam.dir, -1 * (double)key_downs[S]);
+	dirs[2] = vec_multiply(e->cam.plane, 1 * (double)key_downs[A]);
+	dirs[3] = vec_multiply(e->cam.plane, -1 * (double)key_downs[D]);
+	dir = vec_add(vec_add(dirs[0], dirs[1]), vec_add(dirs[2], dirs[3]));
+	dir = vec_normalize(dir);
+	dir = vec_multiply(dir, coeff);
+	return (dir);
+}
+
+static void		move(t_e *e, _Bool key_downs[6])
+{
 	_Bool	moved[2];
 	t_vec	pos;
+	t_vec	dir;
 
-	if (key_downs[UP] == key_downs[DOWN])
-		return (0);
-	coeff = 0.05;
-	if (key_downs[DOWN])
-		coeff = -coeff;
-	clipping(e, coeff, moved);
+	dir = get_moving_dir(e, key_downs);
+	if (dir.x == 0.0 && dir.y == 0.0)
+		return ;
+	clipping(e, dir, moved);
 	if (!moved[0] && !moved[1])
-		return (0);
-	pos = vec_add(e->cam.pos, vec_multiply(e->cam.dir, coeff));
+		return ;
+	pos = vec_add(e->cam.pos, dir);
 	if (moved[0])
 	{
 		e->cam.pos.x = pos.x;
@@ -55,17 +70,16 @@ static _Bool	move(t_e *e, _Bool key_downs[4])
 		e->cam.pos.y = pos.y;
 		e->cam.pos_i.y = (int)pos.y;
 	}
-	return (1);
 }
 
-_Bool			rotate(t_e *e, double angle, _Bool key_downs[4])
+void			rotate(t_e *e, double angle, _Bool key_downs[6])
 {
 	t_vec	dir;
 	t_vec	plane;
 	double	theta;
 
 	if (key_downs[LEFT] == key_downs[RIGHT])
-		return (0);
+		return ;
 	dir = e->cam.dir;
 	plane = e->cam.plane;
 	theta = angle / 180.0 * M_PI;
@@ -75,15 +89,11 @@ _Bool			rotate(t_e *e, double angle, _Bool key_downs[4])
 	e->cam.dir.y = dir.x * sin(theta) + dir.y * cos(theta);
 	e->cam.plane.x = plane.x * cos(theta) - plane.y * sin(theta);
 	e->cam.plane.y = plane.x * sin(theta) + plane.y * cos(theta);
-	return (1);
 }
 
-_Bool			update_cam(t_e *e, _Bool key_downs[4])
+_Bool			update_cam(t_e *e, _Bool key_downs[6])
 {
-	_Bool	rotated;
-	_Bool	moved;
-
-	rotated = rotate(e, 4.0, key_downs);
-	moved = move(e, key_downs);
+	move(e, key_downs);
+	rotate(e, 4.0, key_downs);
 	return (raycasting(e));
 }

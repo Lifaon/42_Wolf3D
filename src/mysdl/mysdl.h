@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:24:41 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/25 16:23:11 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:51:30 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct		s_sdl
 	int				h;
 }					t_sdl;
 
-int		init_sdl(t_sdl *sdl);
-void	quit_sdl(t_sdl *sdl);
-void	put_pixel(t_sdl *sdl, t_col col, int x, int y);
-void	print_tex(t_sdl *sdl);
+int					init_sdl(t_sdl *sdl);
+void				quit_sdl(t_sdl *sdl);
+void				put_pixel(t_sdl *sdl, t_col col, int x, int y);
+void				print_tex(t_sdl *sdl);
 
 #endif

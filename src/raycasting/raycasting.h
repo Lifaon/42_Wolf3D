@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:30:45 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:51:49 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ typedef struct	s_line
 	int			cardinal;
 }				t_line;
 
-_Bool	raycasting(t_e *e);
-void	draw_line(t_e *e, t_line line, t_vec ray);
+_Bool			raycasting(t_e *e);
+void			draw_line(t_e *e, t_line line, t_vec ray);
 
-t_vec	vec_add(t_vec u, t_vec v);
-t_vec	vec_substract(t_vec u, t_vec v);
-t_vec	vec_multiply(t_vec u, double t);
-t_vec	vec_normalize(t_vec u);
+t_vec			vec_add(t_vec u, t_vec v);
+t_vec			vec_substract(t_vec u, t_vec v);
+t_vec			vec_multiply(t_vec u, double t);
+t_vec			vec_normalize(t_vec u);
 
 #endif
