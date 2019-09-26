@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:06:38 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 14:05:43 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:30:28 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ _Bool		raycasting(t_e *e)
 	int			i;
 	int			j;
 
-	e->update = 0;
 	i = -1;
 	while (++i < NB_THR)
 	{

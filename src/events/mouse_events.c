@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:37 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:16:39 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:29:49 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	mouse_event(t_e *e, SDL_Event ev)
 		return ;
 	rotate(e, (double)(cursor - center) / ((double)e->sdl.w / 95.0), key_downs);
 	SDL_WarpMouseInWindow(e->sdl.win, e->sdl.w / 2, e->sdl.h / 2);
-	e->update = 1;
 }

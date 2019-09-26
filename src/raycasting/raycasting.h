@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:05:58 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:30:45 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct	s_e
 	t_map		map;
 	t_cam		cam;
 	pthread_t	thread[NB_THR];
-	_Bool		update;
 	_Bool		show_cursor;
+	_Bool		outlines;
 }				t_e;
 
 typedef struct	s_blocks

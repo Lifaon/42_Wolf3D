@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:39 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 15:50:29 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:30:23 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ _Bool	window_event(t_e *e, SDL_Event ev)
 			return (EXIT_FAILURE);
 		}
 	}
-	e->update = 1;
 	return (EXIT_SUCCESS);
 }

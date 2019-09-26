@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:41 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 16:31:04 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:29:06 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	key_event(t_e *e, _Bool key_downs[4], SDL_Event ev)
 			toggle_cursor(e);
 		if (k == SDLK_f)
 			toggle_fullscreen(e);
+		if (k == SDLK_t)
+			e->outlines = !e->outlines;
 		key_downs[LEFT] = k == SDLK_LEFT ? 1 : key_downs[LEFT];
 		key_downs[RIGHT] = k == SDLK_RIGHT ? 1 : key_downs[RIGHT];
 		key_downs[UP] = (k == SDLK_UP || k == SDLK_w) ? 1 : key_downs[UP];
