@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdl_structs.h                                      :+:      :+:    :+:   */
+/*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/27 17:45:30 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/06/27 19:06:34 by mlantonn         ###   ########.fr       */
+/*   Created: 2019/09/24 19:24:15 by mlantonn          #+#    #+#             */
+/*   Updated: 2019/09/26 13:45:56 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SDL_STRUCTS_H
-# define SDL_STRUCTS_H
+#ifndef EVENTS_H
+# define EVENTS_H
 
-# include <stdint.h>
-# include "SDL.h"
+#include "raycasting.h"
 
-typedef struct		s_sdl
-{
-	SDL_Window		*win;
-	SDL_Renderer	*ren;
-	SDL_Texture		*tex;
-}					t_sdl;
+#define LEFT 0
+#define RIGHT 1
+#define UP 2
+#define DOWN 3
 
-typedef union		u_col
-{
-	uint32_t		c;
-	struct			s_argb
-	{
-		uint8_t		b;
-		uint8_t		g;
-		uint8_t		r;
-		uint8_t		a;
-	}				argb;
-}					t_col;
+_Bool	event_loop(t_e *e);
+_Bool	update_cam(t_e *e, _Bool key_downs[4]);
+_Bool	rotate(t_e *e, double angle, _Bool key_downs[4]);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/27 18:01:40 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/09/25 17:15:32 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,138 +115,30 @@ ALL_OBJS_SUB_DIRS			:=
 #-----------#
 #   MYSDL   #
 
-SRCS_UTILS_DIR				:=			mysdl/
+SRCS_MYSDL_DIR				:=			mysdl/
+PATH_MYSDL					:=			$(SRCS_DIR)$(SRCS_MYSDL_DIR)
 
-INCS_UTILS_NAME				:=			mysdl.h
+INCS_MYSDL_NAME				:=			mysdl.h						\
 
-SRCS_UTILS_NAME				:=			utils.c
+SRCS_MYSDL_NAME				:=			utils.c						\
 
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR),$(SRCS_UTILS_NAME:.c=.o))
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_MYSDL_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_MYSDL_DIR),$(SRCS_MYSDL_NAME:.c=.o))
 
-$(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(INCS_UTILS_NAME))
+$(OBJS_DIR)$(SRCS_MYSDL_DIR)%.o: $(PATH_MYSDL)%.c $(addprefix $(PATH_MYSDL),$(INCS_MYSDL_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
-#-----------#
-#    DATA   #
-
-SRCS_DATA_DIR				:=			data/
-PATH_DATA					:=			$(SRCS_DIR)$(SRCS_DATA_DIR)
-
-
-INCS_DATA_NAME				:=			data.h
-
-SRCS_DATA_NAME				:=			data_del.c					\
-										data_new.c					\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR),$(SRCS_DATA_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_DATA_DIR)%.o: $(PATH_DATA)%.c $(addprefix $(PATH_DATA),$(INCS_DATA_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
-	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
-#	BLOCK
-
-SRCS_BLOCK_DIR				:=			block/
-PATH_BLOCK					:=			$(PATH_DATA)$(SRCS_BLOCK_DIR)
-
-
-INCS_BLOCK_NAME				:=			block.h
-
-SRCS_BLOCK_NAME				:=			block_del.c					\
-										block_new.c					\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR),$(SRCS_BLOCK_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR)%.o: $(PATH_BLOCK)%.c $(addprefix $(PATH_BLOCK),$(INCS_BLOCK_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
-	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
-#	MAP
-
-SRCS_MAP_DIR				:=			map/
-PATH_MAP					:=			$(PATH_DATA)$(SRCS_MAP_DIR)
-
-
-INCS_MAP_NAME				:=			map.h
-
-SRCS_MAP_NAME				:=			map_del.c					\
-										map_new.c					\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR),$(SRCS_MAP_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR)%.o: $(PATH_MAP)%.c $(addprefix $(PATH_MAP),$(INCS_MAP_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
-	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
-#	TEXTURE
-
-SRCS_TEXTURE_DIR			:=			texture/
-PATH_TEXTURE				:=			$(PATH_DATA)$(SRCS_TEXTURE_DIR)
-
-
-INCS_TEXTURE_NAME			:=			texture.h
-
-SRCS_TEXTURE_NAME			:=			texture_del.c				\
-										texture_new.c				\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR),$(SRCS_TEXTURE_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)%.o: $(PATH_TEXTURE)%.c $(addprefix $(PATH_TEXTURE),$(INCS_TEXTURE_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
-	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
-#	TEXTURE		LOADED
-
-SRCS_TEXTURE_LOADED_DIR		:=			loaded/
-PATH_TEXTURE_LOADED			:=			$(PATH_TEXTURE)$(SRCS_TEXTURE_LOADED_DIR)
-
-
-INCS_TEXTURE_LOADED_NAME	:=			loaded.h
-
-SRCS_TEXTURE_LOADED_NAME	:=			loaded_del.c				\
-										loaded_new.c				\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR),$(SRCS_TEXTURE_LOADED_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR)%.o: $(PATH_TEXTURE_LOADED)%.c $(addprefix $(PATH_TEXTURE_LOADED),$(INCS_TEXTURE_LOADED_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
-	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
-#	TEXTURE		SG
-
-SRCS_TEXTURE_SG_DIR			:=			sg/
-PATH_TEXTURE_SG				:=			$(PATH_TEXTURE)$(SRCS_TEXTURE_SG_DIR)
-
-
-INCS_TEXTURE_SG_NAME		:=			sg.h
-
-SRCS_TEXTURE_SG_NAME		:=			sg_del.c				\
-										sg_new.c				\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR),$(SRCS_TEXTURE_SG_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR)%.o: $(PATH_TEXTURE_SG)%.c $(addprefix $(PATH_TEXTURE_SG),$(INCS_TEXTURE_SG_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
-	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
-#-----------#
-#   PARSER  #
+#------------#
+#   PARSER   #
 
 SRCS_PARSER_DIR				:=			parser/
 PATH_PARSER					:=			$(SRCS_DIR)$(SRCS_PARSER_DIR)
 
+INCS_PARSER_NAME			:=			parser.h					\
 
-INCS_PARSER_NAME			:=			parser.h
-
-SRCS_PARSER_NAME			:=			parse_wolf_map.c			\
+SRCS_PARSER_NAME			:=			read_file.c					\
+										parse.c
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR),$(SRCS_PARSER_NAME:.c=.o))
@@ -255,76 +147,42 @@ $(OBJS_DIR)$(SRCS_PARSER_DIR)%.o: $(PATH_PARSER)%.c $(addprefix $(PATH_PARSER),$
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
-#	WAT_PARSER
+#----------------#
+#   RAYCASTING   #
 
-SRCS_WAT_PARSER_DIR			:=			wat_parse/
-PATH_WAT_PARSER				:=			$(PATH_PARSER)$(SRCS_WAT_PARSER_DIR)
+SRCS_RAYCASTING_DIR				:=		raycasting/
+PATH_RAYCASTING					:=		$(SRCS_DIR)$(SRCS_RAYCASTING_DIR)
 
+INCS_RAYCASTING_NAME			:=		raycasting.h					\
 
-INCS_WAT_PARSER_NAME		:=			wat_parse.h
+SRCS_RAYCASTING_NAME			:=		raycasting.c					\
+										draw_line.c						\
+										vec_op.c						\
 
-SRCS_WAT_PARSER_NAME		:=			wat_parse.c					\
-										wat_element_match.c			\
+ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_RAYCASTING_DIR)
+OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_RAYCASTING_DIR),$(SRCS_RAYCASTING_NAME:.c=.o))
 
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR),$(SRCS_WAT_PARSER_NAME:.c=.o))
-
-$(OBJS_DIR)$(SRCS_PARSER_DIR)$(SRCS_WAT_PARSER_DIR)%.o: $(PATH_WAT_PARSER)%.c $(addprefix $(PATH_WAT_PARSER),$(INCS_WAT_PARSER_NAME))
+$(OBJS_DIR)$(SRCS_RAYCASTING_DIR)%.o: $(PATH_RAYCASTING)%.c $(addprefix $(PATH_RAYCASTING),$(INCS_RAYCASTING_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
 
-#-----------#
-#   UTILS   #
+#------------#
+#   EVENTS   #
 
-SRCS_UTILS_DIR				:=			utils/
-PATH_UTILS					:=			$(SRCS_DIR)$(SRC_UTILS_DIR)
+SRCS_EVENTS_DIR					:=		events/
+PATH_EVENTS						:=		$(SRCS_DIR)$(SRCS_EVENTS_DIR)
 
-INCS_UTILS_NAME				:=			wutils.h
+INCS_EVENTS_NAME				:=		events.h					\
 
-SRCS_UTILS_NAME				:=			ft_getline.c				\
-										ft_memcmp.c					\
-										ft_memcpy.c					\
-										ft_memmove.c				\
-										ft_strlen.c					\
-										ft_strncmp.c				\
-										is_pow_of2.c				\
-										prepare_template.c			\
-										read_file.c					\
-										read_file2d.c				\
-										round_up_pow.c				\
+SRCS_EVENTS_NAME				:=		events.c					\
+										update_cam.c				\
 
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR),$(SRCS_UTILS_NAME:.c=.o))
+ALL_OBJS_SUB_DIRS				+=			$(OBJS_DIR)$(SRCS_EVENTS_DIR)
+OBJS							+=			$(addprefix $(OBJS_DIR)$(SRCS_EVENTS_DIR),$(SRCS_EVENTS_NAME:.c=.o))
 
-$(OBJS_DIR)$(SRCS_UTILS_DIR)%.o: $(PATH_UTILS)%.c $(addprefix $(PATH_UTILS),$(INCS_UTILS_NAME))
+$(OBJS_DIR)$(SRCS_EVENTS_DIR)%.o: $(PATH_EVENTS)%.c $(addprefix $(PATH_EVENTS),$(INCS_EVENTS_NAME))
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 	@echo "$(MAG)$(NAME)$(EOC) :: $(CC) $(CFLAGS) $(INCS) -c $< -o $(CYA)$@$(EOC)"
-
-#   ARRAY
-
-SRCS_ARRAY_DIR				:=			array/
-PATH_ARRAY					:=			$(PATH_UTILS)$(SRCS_ARRAY_DIR)
-
-INCS_ARRAY_NAME				:=			array.h						\
-
-SRCS_ARRAY_NAME				:=			array_delete.c				\
-										array_find.c				\
-										array_find_index.c			\
-										array_foreach.c				\
-										array_map.c					\
-										array_new.c					\
-										array_push.c				\
-										array_push_at.c				\
-										array_realloc.c				\
-										array_show.c				\
-
-ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_ARRAY_DIR)
-OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_UTILS_DIR)$(SRCS_ARRAY_DIR),$(SRCS_ARRAY_NAME:.c=.o))
-
-$(OBJ_DIR)$(SRC_UTILS_DIR)$(SRCS_ARRAY_DIR)%.o: $(PATH_ARRAY)%.c $(addprefix $(PATH_ARRAY),$(INCS_ARRAY_NAME))
-	@$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR)
-	@printf "${C_C}%s${C_X} :: ${C_R}%s${C_X}\n"  $(NAME) $@
-
 
 #==============================================================================#
 #------------------------------------------------------------------------------#

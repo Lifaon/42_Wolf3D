@@ -6,29 +6,43 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:02:06 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/06/27 19:19:03 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 14:45:49 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "parser.h"
 #include "wolf3d.h"
 
-int		main(int argc, char **argv)
+static _Bool	quit_all(t_e e, _Bool ret)
 {
-	t_sdl		sdl;
-	SDL_Event	ev;
-	t_col		col;
+	free(e.map.str);
+	quit_sdl(&e.sdl);
+	return (ret);
+}
 
-	if (init_sdl(&sdl))
-		return (1);
-	print_tex(&sdl);
-	while (SDL_WaitEvent(&ev))
+static _Bool	display(t_e e)
+{
+	_Bool ret;
+
+	if (init_sdl(&e.sdl))
+		return (EXIT_FAILURE);
+	e.cursor = !SDL_ShowCursor(SDL_DISABLE);
+	SDL_WarpMouseInWindow(e.sdl.win, e.sdl.w / 2, e.sdl.h / 2);
+	if (raycasting(&e))
+		return (quit_all(e, EXIT_FAILURE));
+	ret = event_loop(&e);
+	return (quit_all(e, ret));
+}
+
+int				main(int ac, char **av)
+{
+	t_e	e;
+
+	if (ac != 2)
 	{
-		if (ev.window.event == SDL_WINDOWEVENT_CLOSE ||
-			ev.key.keysym.sym == SDLK_ESCAPE)
-			break;
+		ft_dprintf(2, "Usage: ./wolf3d <some-map.wolf>\n");
+		return (EXIT_FAILURE);
 	}
-	quit_sdl(&sdl);
-	return (0);
+	if (parse(av[1], &e.map, &e.cam))
+		return (EXIT_FAILURE);
+	return (display(e));
 }
