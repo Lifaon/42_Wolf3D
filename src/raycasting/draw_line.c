@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:11:17 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:10:11 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:19:07 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void			draw_line(t_e *e, t_line line, t_vec hit)
 	index[2] = (e->sdl.h + line.height) / 2;
 	index[3] = index[2] + width;
 	y = 0;
-	while (y < index[0])
+	while (y < e->sdl.h && y < index[0])
 		put_pixel(&e->sdl, sky, line.x, y++);
-	while (y < index[1])
+	while (y < e->sdl.h && y < index[1])
 		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
-	while (y < index[2])
+	while (y < e->sdl.h && y < index[2])
 		put_pixel(&e->sdl, darken ? black : wall[line.cardinal], line.x, y++);
-	while (y < index[3])
+	while (y < e->sdl.h && y < index[3])
 		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
 	while (y < e->sdl.h)
 		put_pixel(&e->sdl, ground, line.x, y++);
