@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:37 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 15:50:40 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/26 17:16:39 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	mouse_event(t_e *e, SDL_Event ev)
 	int				center;
 	int				cursor;
 
-	if (e->cursor)
+	if (e->show_cursor)
 		return ;
 	center = e->sdl.w / 2;
 	cursor = ev.motion.x;
