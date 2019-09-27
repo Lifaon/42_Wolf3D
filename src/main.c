@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:02:06 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:30:59 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:15:26 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 static _Bool	quit_all(t_e e, _Bool ret)
 {
-	free(e.map.str);
+	if (e.sky.arr)
+		free(e.sky.arr);
+	if (e.map.str)
+		free(e.map.str);
 	quit_sdl(&e.sdl);
 	return (ret);
 }
@@ -25,6 +28,8 @@ static _Bool	display(t_e e)
 
 	if (init_sdl(&e.sdl))
 		return (EXIT_FAILURE);
+	if (load_image("textures/vaporwave.bmp", &e.sky))
+		return (quit_all(e, EXIT_FAILURE));
 	e.show_cursor = !SDL_ShowCursor(SDL_DISABLE);
 	e.outlines = 1;
 	SDL_WarpMouseInWindow(e.sdl.win, e.sdl.w / 2, e.sdl.h / 2);

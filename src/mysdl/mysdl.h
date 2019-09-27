@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:24:41 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 13:47:01 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:59:04 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <string.h>
 # include <errno.h>
 
-# define WIN_W 1920
-# define WIN_H 1080
+# define WIN_W 1280
+# define WIN_H 720
 
 typedef union		u_col
 {

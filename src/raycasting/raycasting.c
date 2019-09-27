@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:06:38 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 11:27:14 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:14:29 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	process_ray(t_e *e, t_vec ray, t_pos pos, int x)
 	else if (line.cardinal == OUEST || line.cardinal == EST)
 		ray_len = (((double)(pos.x + (ray.x < 0)) - e->cam.pos.x) / ray.x);
 	line.height = ray_len == 0.0 ? 0 : abs((int)((double)(e->sdl.h) / ray_len));
-	draw_line(e, line, vec_add(vec_multiply(ray, ray_len), e->cam.pos));
+	draw_line(e, line, vec_add(vec_multiply(ray, ray_len), e->cam.pos), ray);
 }
 
 void		*draw_thread(void *arg)

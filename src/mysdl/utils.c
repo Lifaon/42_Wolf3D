@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:20:09 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/25 11:22:18 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:52:10 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ int			init_sdl(t_sdl *sdl)
 
 void		put_pixel(t_sdl *sdl, t_col col, int x, int y)
 {
-	sdl->img[x + sdl->w * y] = col;
+	int px;
+
+	px = x + sdl->w * y;
+	if (px >= 0 && px < sdl->w * sdl->h)
+		sdl->img[x + sdl->w * y] = col;
 }
 
 void		print_tex(t_sdl *sdl)
