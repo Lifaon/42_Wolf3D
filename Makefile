@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/09/26 17:06:40 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/09/27 13:33:12 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,6 +121,7 @@ PATH_MYSDL					:=			$(SRCS_DIR)$(SRCS_MYSDL_DIR)
 INCS_MYSDL_NAME				:=			mysdl.h						\
 
 SRCS_MYSDL_NAME				:=			utils.c						\
+										load_image.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_MYSDL_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_MYSDL_DIR),$(SRCS_MYSDL_NAME:.c=.o))

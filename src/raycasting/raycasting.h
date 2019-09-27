@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:51:49 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 11:23:28 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define SUD 1
 # define OUEST 2
 # define EST 3
+# define NONE 4
 
 # define NB_THR 8
 

@@ -6,16 +6,11 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:11:17 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 17:34:06 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 11:28:30 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
-
-static t_col	sky = (t_col)(uint32_t)(SKY);
-static t_col	ground = (t_col)(uint32_t)(GROUND);
-static t_col	black = (t_col)(uint32_t)(0x0);
-static t_col	wall[4] = (t_col[4]){{0x29446F}, {0x8E001C}, {0xE5D6BA}, {0xC37120}};
 
 static _Bool	is_outline(t_e *e, t_line line, t_vec hit)
 {
@@ -35,6 +30,8 @@ static _Bool	is_outline(t_e *e, t_line line, t_vec hit)
 
 void			draw_line(t_e *e, t_line line, t_vec hit)
 {
+	static t_col	wall[5] = (t_col[5]){{0x023788}, {0x920075}, {0x650D89},
+													{0xD40078}, {0x0}};
 	_Bool	darken;
 	int		index[4];
 	int		y;
@@ -48,13 +45,14 @@ void			draw_line(t_e *e, t_line line, t_vec hit)
 	index[3] = index[2] + width;
 	y = 0;
 	while (y < e->sdl.h && y < index[0])
-		put_pixel(&e->sdl, sky, line.x, y++);
+		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
 	while (y < e->sdl.h && y < index[1])
-		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
+		put_pixel(&e->sdl, wall[NONE], line.x, y++);
 	while (y < e->sdl.h && y < index[2])
-		put_pixel(&e->sdl, darken ? black : wall[line.cardinal], line.x, y++);
+		put_pixel(&e->sdl, darken ? wall[NONE] :
+			wall[line.cardinal], line.x, y++);
 	while (y < e->sdl.h && y < index[3])
-		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
+		put_pixel(&e->sdl, wall[NONE], line.x, y++);
 	while (y < e->sdl.h)
-		put_pixel(&e->sdl, ground, line.x, y++);
+		put_pixel(&e->sdl, (t_col){0x2E2157}, line.x, y++);
 }

@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:06:38 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 18:48:29 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 11:27:14 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	hit(t_e *e, t_blocks blocks, t_vec ray, t_pos *pos)
 {
-	double	len;
 	_Bool	y_axis;
 
 	while (1)
@@ -31,6 +30,9 @@ static int	hit(t_e *e, t_blocks blocks, t_vec ray, t_pos *pos)
 			pos->y += ray.y < 0 ? -1 : 1;
 			y_axis = 1;
 		}
+		if (pos->x < 0 || pos->x >= e->map.x
+			|| pos->y < 0 || pos->y >= e->map.y)
+			return (NONE);
 		if (e->map.str[pos->x + pos->y * e->map.x] == '1')
 			break ;
 	}
@@ -58,11 +60,12 @@ static void	process_ray(t_e *e, t_vec ray, t_pos pos, int x)
 	else
 		blocks.total.y *= (double)(pos.y + 1) - e->cam.pos.y;
 	line.cardinal = hit(e, blocks, ray, &pos);
+	ray_len = 0.0;
 	if (line.cardinal == NORD || line.cardinal == SUD)
 		ray_len = (((double)(pos.y + (ray.y < 0)) - e->cam.pos.y) / ray.y);
-	else
+	else if (line.cardinal == OUEST || line.cardinal == EST)
 		ray_len = (((double)(pos.x + (ray.x < 0)) - e->cam.pos.x) / ray.x);
-	line.height = abs((int)((double)(e->sdl.h) / ray_len));
+	line.height = ray_len == 0.0 ? 0 : abs((int)((double)(e->sdl.h) / ray_len));
 	draw_line(e, line, vec_add(vec_multiply(ray, ray_len), e->cam.pos));
 }
 
