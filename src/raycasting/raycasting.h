@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 17:30:23 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:30:04 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct	s_blocks
 {
 	t_vec		total;
 	t_vec		one;
-	_Bool		y_axis;
 }				t_blocks;
 
 typedef struct	s_line

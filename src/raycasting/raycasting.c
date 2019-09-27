@@ -6,43 +6,37 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:06:38 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 17:53:08 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:14:29 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-static void	add_block(t_blocks *blocks, t_vec ray, t_pos *pos)
-{
-	if (blocks->total.x < blocks->total.y)
-	{
-		blocks->y_axis = 0;
-		blocks->total.x += blocks->one.x;
-		pos->x += ray.x < 0 ? -1 : 1;
-	}
-	else
-	{
-		blocks->y_axis = 1;
-		blocks->total.y += blocks->one.y;
-		pos->y += ray.y < 0 ? -1 : 1;
-	}
-}
-
 static int	hit(t_e *e, t_blocks blocks, t_vec ray, t_pos *pos)
 {
-	char c;
+	_Bool	y_axis;
 
 	while (1)
 	{
-		add_block(&blocks, ray, pos);
+		if (blocks.total.x < blocks.total.y)
+		{
+			blocks.total.x += blocks.one.x;
+			pos->x += ray.x < 0 ? -1 : 1;
+			y_axis = 0;
+		}
+		else
+		{
+			blocks.total.y += blocks.one.y;
+			pos->y += ray.y < 0 ? -1 : 1;
+			y_axis = 1;
+		}
 		if (pos->x < 0 || pos->x >= e->map.x
 			|| pos->y < 0 || pos->y >= e->map.y)
 			return (NONE);
-		c = e->map.str[pos->x + pos->y * e->map.x];
-		if (c == '1' || c == '2')
+		if (e->map.str[pos->x + pos->y * e->map.x] == '1')
 			break ;
 	}
-	if (blocks.y_axis)
+	if (y_axis)
 		return (ray.y < 0 ? NORD : SUD);
 	return (ray.x < 0 ? OUEST : EST);
 }
