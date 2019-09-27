@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:41 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 18:54:00 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/27 18:40:22 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ void		key_event(t_e *e, _Bool key_downs[6], SDL_Event ev)
 	k = ev.key.keysym.sym;
 	if (ev.type == SDL_KEYDOWN)
 	{
-		if (k == SDLK_p)
+		if (k == SDLK_TAB)
 			toggle_cursor(e);
 		if (k == SDLK_f)
 			toggle_fullscreen(e);
 		if (k == SDLK_t)
 			e->outlines = !e->outlines;
+		if (k == SDLK_g)
+			e->skybox = !e->skybox;
 	}
 	update_key_downs(key_downs, ev, k);
 }
