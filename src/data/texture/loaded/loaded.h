@@ -18,11 +18,19 @@
  * length on y axis
  */
 
+struct s_col24
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+};
+
+
 typedef struct	s_texture_loaded
 {
 	union {
-		unsigned int	**ibuf;
-		unsigned char	**cbuf;
+		unsigned int	*ibuf;
+		unsigned char	*cbuf;
 	};
 	size_t			x;
 	size_t			y;

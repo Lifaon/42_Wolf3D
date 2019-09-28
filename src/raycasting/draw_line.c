@@ -35,6 +35,7 @@ static void		draw_sky(t_e *e, t_line line, t_vec ray, int index)
 	int		y;
 	t_pos	px;
 
+	(void)ray;
 	y = -1;
 	if (!e->skybox || index == 0)
 	{
