@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "events.h"
+#include "block.h"
 
 static void		clipping(t_e *e, t_vec dir, _Bool moved[2])
 {
+	t_block	*block;
 	t_vec	pos;
 	t_pos	pos_i;
 
@@ -22,12 +24,20 @@ static void		clipping(t_e *e, t_vec dir, _Bool moved[2])
 	pos_i.y = (int)pos.y;
 	moved[0] = 0;
 	moved[1] = 0;
-	if ((pos_i.x == e->cam.pos_i.x) || (pos_i.x >= 0 && pos_i.x < e->map.x
-		&& e->map.str[pos_i.x + e->cam.pos_i.y * e->map.x] != '1'))
-		moved[0] = 1;
-	if ((pos_i.y == e->cam.pos_i.y) || (pos_i.y >= 0 && pos_i.y < e->map.y
-		&& e->map.str[e->cam.pos_i.x + pos_i.y * e->map.x] != '1'))
-		moved[1] = 1;
+	if ((pos_i.x == e->cam.pos_i.x)
+			|| (pos_i.x >= 0 && pos_i.x < (int)e->map->x))
+	{
+		block = block_get(e->map->map[e->cam.pos_i.y][pos_i.x]);
+		if (block != NULL && block->type == T_BL_VOID)
+			moved[0] = 1;
+	}
+	if ((pos_i.y == e->cam.pos_i.y)
+			|| (pos_i.y >= 0 && pos_i.y < (int)e->map->y))
+	{
+		block = block_get(e->map->map[pos_i.y][e->cam.pos_i.x]);
+		if (block != NULL && block->type == T_BL_VOID)
+			moved[1] = 1;
+	}
 }
 
 static t_vec	get_moving_dir(t_e *e, _Bool key_downs[6])

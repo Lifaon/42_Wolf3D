@@ -8,10 +8,10 @@ void	*block_new(void)
 	if ((res = (t_block *)malloc(sizeof(*res))) != NULL)
 	{
 		res->type = T_BL_NONE;
-		res->tex_north = NULL;
-		res->tex_south = NULL;
-		res->tex_east = NULL;
-		res->tex_west = NULL;
+		res->tex_north = 0;
+		res->tex_south = 0;
+		res->tex_east = 0;
+		res->tex_west = 0;
 	}
 	return ((void *)res);
 }

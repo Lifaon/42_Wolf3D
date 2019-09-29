@@ -3,16 +3,18 @@
 #include "loaded.h"
 #include "sg.h"
 
-void	texture_del(t_texture *a)
+void	texture_del(void *a)
 {
 	static void	(*del[T_TEX_SIZE])(void *) = {
 		[T_TEX_LOADED] = &texture_loaded_del,
 		[T_TEX_SG] = &texture_sg_del
 	};
+	t_texture	*t;
 
-	if (a != NULL && a->type < T_TEX_SIZE)
+	t = (t_texture *)a;
+	if (t != NULL && t->type < T_TEX_SIZE)
 	{
-		del[a->type](a->node);
+		del[t->type](t->node);
 		free(a);
 	}
 }

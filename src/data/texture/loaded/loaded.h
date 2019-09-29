@@ -2,6 +2,7 @@
 # define LOADED_H
 
 # include <stddef.h>
+# include "pair.h"
 
 /**
  * @param ibuf
@@ -17,17 +18,28 @@
  * length on y axis
  */
 
+struct s_col24
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+};
+
+
 typedef struct	s_texture_loaded
 {
 	union {
-		unsigned int	**ibuf;
-		unsigned char	**cbuf;
+		unsigned int	*ibuf;
+		unsigned char	*cbuf;
 	};
 	size_t			x;
 	size_t			y;
 }				t_texture_loaded;
 
-void			texture_loaded_del(void *a);
-void			*texture_loaded_new(void);
+extern void			texture_loaded_del(void *a);
+extern int			texture_loaded_load(void *a, t_pairs *pairs);
+extern void			*texture_loaded_new(void);
+extern unsigned int	texture_loaded_get_color(const void *t,
+		const double y, const double x);
 
 #endif

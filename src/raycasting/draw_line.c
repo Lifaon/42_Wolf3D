@@ -12,6 +12,10 @@
 
 #include "raycasting.h"
 
+#include "block.h"
+#include "singletone.h"
+#include "texture.h"
+
 static _Bool	is_outline(t_e *e, t_line line, t_vec hit)
 {
 	if (!e->outlines)
@@ -35,6 +39,7 @@ static void		draw_sky(t_e *e, t_line line, t_vec ray, int index)
 	int		y;
 	t_pos	px;
 
+	(void)ray;
 	y = -1;
 	if (!e->skybox || index == 0)
 	{
@@ -55,10 +60,27 @@ static void		draw_sky(t_e *e, t_line line, t_vec ray, int index)
 	}
 }
 
+static void		prepare_texture(t_texture *t[4], const t_block *b)
+{
+	t_texture	**meta;
+
+	meta = *singletone_texture();
+	t[NORD] = meta[b->tex_north];
+	t[SUD] = meta[b->tex_south];
+	t[OUEST] = meta[b->tex_west];
+	t[EST] = meta[b->tex_east];
+}
+
+static double	normalize(const double value, const double min, const double max)
+{
+	return ((value - min) / (max - min));
+}
+
 void			draw_line(t_e *e, t_line line, t_vec hit, t_vec ray)
 {
-	static t_col	wall[5] = (t_col[5]){{0x023788}, {0x920075}, {0x650D89},
-													{0xD40078}, {0x0}};
+	// static t_col	wall[5] = (t_col[5]){{0x023788}, {0x920075}, {0x650D89},
+	// 												{0xD40078}, {0x0}};
+	t_texture	*tex[4];
 	_Bool	darken;
 	int		index[4];
 	int		y;
@@ -71,14 +93,20 @@ void			draw_line(t_e *e, t_line line, t_vec hit, t_vec ray)
 	index[2] = (e->sdl.h + line.height) / 2;
 	index[3] = index[2] + width;
 	y = index[0];
+	prepare_texture(tex, line.block_hit);
 	draw_sky(e, line, ray, index[0]);
 	while (y < e->sdl.h && y < index[1])
-		put_pixel(&e->sdl, wall[NONE], line.x, y++);
+		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
 	while (y < e->sdl.h && y < index[2])
-		put_pixel(&e->sdl, darken ? wall[NONE] :
-			wall[line.cardinal], line.x, y++);
+	{
+		put_pixel(&e->sdl, darken ? (t_col){0x0}
+				: texture_get_color(tex[line.cardinal],
+					normalize(y, index[1], index[2]), line.wall_x),
+				line.x, y);
+		++y;
+	}
 	while (y < e->sdl.h && y < index[3])
-		put_pixel(&e->sdl, wall[NONE], line.x, y++);
+		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
 	while (y < e->sdl.h)
 		put_pixel(&e->sdl, (t_col){0x2E2157}, line.x, y++);
 }

@@ -20,13 +20,6 @@ static size_t	count_char(const char *s, const char c)
 	return (res);
 }
 
-static char		*ft_schr(const char *s, const char c)
-{
-	while (*s != '\0' && *s != c)
-		++s;
-	return (*s == c ? (char *)s : NULL);
-}
-
 static int		split_line(char **res, char *buf)
 {
 	size_t	size_line;
@@ -36,7 +29,7 @@ static int		split_line(char **res, char *buf)
 
 	buf_ptr = buf;
 	res_idx = 0;
-	while ((new_line_ptr = ft_schr(buf_ptr, '\n')) != NULL)
+	while ((new_line_ptr = ft_strchr(buf_ptr, '\n')) != NULL)
 	{
 		size_line = (size_t)(new_line_ptr - buf_ptr);
 		if ((res[res_idx] = (char *)malloc(sizeof(char) * (size_line + 1)))

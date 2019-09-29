@@ -23,13 +23,6 @@
 # define MAX_FILE_SIZE 4194304
 # define BUFF_SIZE 4096
 
-typedef struct	s_map
-{
-	char		*str;
-	ssize_t		x;
-	ssize_t		y;
-}				t_map;
-
 typedef struct	s_vec
 {
 	double		x;
@@ -50,7 +43,7 @@ typedef struct	s_cam
 	t_vec		plane;
 }				t_cam;
 
-int		parse(char *path, t_map *map, t_cam *cam);
 char	*read_file(char *path);
 
+int		parse_wolf_map(char *filename);
 #endif

@@ -11,14 +11,18 @@
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+#include "singletone.h"
+#include "wutils.h"
 
 static _Bool	quit_all(t_e e, _Bool ret)
 {
 	if (e.sky.arr)
 		free(e.sky.arr);
-	if (e.map.str)
-		free(e.map.str);
 	quit_sdl(&e.sdl);
+	singletone_block_del();
+	singletone_env_del();
+	singletone_map_del();
+	singletone_texture_del();
 	return (ret);
 }
 
@@ -49,7 +53,16 @@ int				main(int ac, char **av)
 		ft_dprintf(2, "Usage: ./wolf3d <some-map.wolf>\n");
 		return (EXIT_FAILURE);
 	}
-	if (parse(av[1], &e.map, &e.cam))
+	if (parse_wolf_map(av[1]) != 0)
 		return (EXIT_FAILURE);
+	e.map = (*singletone_map())[0];
+	e.cam.pos.y = (double)(ft_atoul_base(env_get("SPAWN_Y"), 10)) + 0.5;
+	e.cam.pos.x = (double)(ft_atoul_base(env_get("SPAWN_X"), 10)) + 0.5;
+	e.cam.pos_i.x = (int)e.cam.pos.x;
+	e.cam.pos_i.y = (int)e.cam.pos.y;
+	e.cam.dir.x = 0;
+	e.cam.dir.y = -1;
+	e.cam.plane.x = -1;
+	e.cam.plane.y = 0;
 	return (display(e));
 }

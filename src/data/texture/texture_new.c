@@ -3,7 +3,7 @@
 #include "loaded.h"
 #include "sg.h"
 
-t_texture	*texture_new(const size_t type)
+void	*texture_new(const size_t type)
 {
 	static void	*(*node_new[T_TEX_SIZE])(void) = {
 		[T_TEX_LOADED] = &texture_loaded_new,
@@ -21,5 +21,5 @@ t_texture	*texture_new(const size_t type)
 			return (NULL);
 		}
 	}
-	return (res);
+	return ((void *)res);
 }

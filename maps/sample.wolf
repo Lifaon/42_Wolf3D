@@ -1,29 +1,51 @@
 # not mandatory (can use basic color if texture not set)
 
+@env
+MAP_SIZE_X=20
+MAP_SIZE_Y=13
+SPAWN_X=4
+SPAWN_Y=4
+@end
+
 # possible "texture"
-# @texture
-# id=t
-# color=#ff00ff
-# @end
+@texture
+id=t
+color=#ff00ff
+@end
 
 @texture
 id=n
-file=../texture/north.xpm
+color=#ff0000
 @end
 
 @texture
 id=s
-file=../texture/south.xpm
+color=#0000ff
 @end
 
 @texture
 id=e
-file=../texture/east.xpm
+color=#330000
 @end
 
 @texture
 id=w
-file=../texture/west.xpm
+color=#000033
+@end
+
+@texture
+id=t
+file=textures/block/cobblestone.bmp
+@end
+
+@texture
+id=o
+file=textures/block/gold_ore.bmp
+@end
+
+@texture
+id=r
+color=#ff0000
 @end
 
 @block
@@ -35,15 +57,51 @@ east=e
 west=w
 @end
 
+@block
+id= 
+type=void
+north=n
+south=s
+east=e
+west=w
+@end
+
+@block
+id=g
+type=wall
+north=r
+south=r
+east=r
+west=r
+@end
+
+@block
+id=c
+type=wall
+north=t
+south=t
+east=t
+west=t
+@end
+
+@block
+id=o
+type=wall
+north=o
+south=o
+east=o
+west=o
+@end
+
 # some comment hehe
 
 # mandatory
 @map
 ssssssssssssssssssss
 s                  s
-s   s              s
+s   o g            s
 s                  s
-s                  s
+s     c            s
 s            s     s
 s        s         s
 s                  s

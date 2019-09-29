@@ -2,6 +2,7 @@
 # define BLOCK_H
 
 # include <stddef.h>
+# define BLOCK_SPACE 256
 
 enum e_block_type
 {
@@ -31,13 +32,15 @@ enum e_block_type
 typedef struct	s_block
 {
 	size_t			type;
-	unsigned char	*tex_north;
-	unsigned char	*tex_south;
-	unsigned char	*tex_east;
-	unsigned char	*tex_west;
+	unsigned int	tex_north;
+	unsigned int	tex_south;
+	unsigned int	tex_east;
+	unsigned int	tex_west;
 }				t_block;
 
-void			block_del(void *a);
-void			*block_new(void);
+extern void		block_del(void *a);
+extern t_block	*block_get(const unsigned char id);
+extern void		*block_new(void);
+extern int		block_parse(const char **input);
 
 #endif
