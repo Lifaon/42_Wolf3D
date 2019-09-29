@@ -27,11 +27,12 @@
 # include "mysdl.h"
 # include "parser.h"
 # include <pthread.h>
+# include "map.h"
 
 typedef struct	s_e
 {
 	t_sdl		sdl;
-	t_map		map;
+	t_map		*map;
 	t_cam		cam;
 	pthread_t	thread[NB_THR];
 	t_img		sky;
@@ -48,6 +49,8 @@ typedef struct	s_blocks
 
 typedef struct	s_line
 {
+	void		*block_hit;
+	double		wall_x;
 	int			x;
 	int			height;
 	int			cardinal;

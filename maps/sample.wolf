@@ -17,25 +17,36 @@ color=#ff00ff
 id=n
 color=#ff0000
 @end
-# file=../texture/north.xpm
 
 @texture
 id=s
 color=#0000ff
 @end
-# file=../texture/south.xpm
 
 @texture
 id=e
 color=#330000
 @end
-# file=../texture/east.xpm
 
 @texture
 id=w
 color=#000033
 @end
-# file=../texture/west.xpm
+
+@texture
+id=t
+file=textures/block/cobblestone.bmp
+@end
+
+@texture
+id=o
+file=textures/block/gold_ore.bmp
+@end
+
+@texture
+id=r
+color=#ff0000
+@end
 
 @block
 id=s
@@ -46,15 +57,51 @@ east=e
 west=w
 @end
 
+@block
+id= 
+type=void
+north=n
+south=s
+east=e
+west=w
+@end
+
+@block
+id=g
+type=wall
+north=r
+south=r
+east=r
+west=r
+@end
+
+@block
+id=c
+type=wall
+north=t
+south=t
+east=t
+west=t
+@end
+
+@block
+id=o
+type=wall
+north=o
+south=o
+east=o
+west=o
+@end
+
 # some comment hehe
 
 # mandatory
 @map
 ssssssssssssssssssss
 s                  s
-s   s              s
+s   o g            s
 s                  s
-s                  s
+s     c            s
 s            s     s
 s        s         s
 s                  s

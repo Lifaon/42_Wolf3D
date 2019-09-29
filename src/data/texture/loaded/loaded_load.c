@@ -35,15 +35,14 @@ static void	copy24(t_texture_loaded *loaded, SDL_Surface *surf)
 	loaded->y = surf->h;
 	pixels = (struct s_col24 *)surf->pixels;
 	j = 0;
-	while (++j < surf->h)
+	while (j < surf->h)
 	{
 		i = 0;
-		while (++i < surf->w)
+		while (i < surf->w)
 		{
-			loaded->cbuf[i + j * 4 + 3] = 0;
-			loaded->cbuf[i + j * 4 + 2] = pixels[i + j * surf->w].r;
-			loaded->cbuf[i + j * 4 + 1] = pixels[i + j * surf->w].g;
-			loaded->cbuf[i + j * 4] = pixels[i + j * surf->w].b;
+			loaded->ibuf[i + j * surf->w] = pixels[i + j * surf->w].r
+					| (pixels[i + j * surf->w].g << 8)
+					| (pixels[i + j * surf->w].b << 16);
 			++i;
 		}
 		++j;
@@ -77,6 +76,5 @@ int			texture_loaded_load(void *a, t_pairs *pairs)
 	(surface->w == surface->pitch / 4) ? copy32(load, surface)
 		: copy24(load, surface);
 	SDL_FreeSurface(surface);
-	ft_printf("texture file name -> '%s'\n", s);
 	return (0);
 }

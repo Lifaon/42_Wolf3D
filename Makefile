@@ -145,6 +145,7 @@ PATH_BLOCK					:=			$(PATH_DATA)$(SRCS_BLOCK_DIR)
 INCS_BLOCK_NAME				:=			block.h
 
 SRCS_BLOCK_NAME				:=			block_del.c					\
+										block_get.c					\
 										block_new.c					\
 										block_parse.c				\
 
@@ -228,6 +229,7 @@ SRCS_TEXTURE_NAME			:=			texture_del.c				\
 										texture_load.c				\
 										texture_new.c				\
 										texture_parse.c				\
+										texture_get_color.c			\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR),$(SRCS_TEXTURE_NAME:.c=.o))
@@ -247,6 +249,7 @@ INCS_TEXTURE_LOADED_NAME	:=			loaded.h
 SRCS_TEXTURE_LOADED_NAME	:=			loaded_del.c				\
 										loaded_load.c				\
 										loaded_new.c				\
+										loaded_get_color.c			\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_LOADED_DIR),$(SRCS_TEXTURE_LOADED_NAME:.c=.o))
@@ -265,6 +268,7 @@ INCS_TEXTURE_SG_NAME		:=			sg.h
 SRCS_TEXTURE_SG_NAME		:=			sg_del.c				\
 										sg_load.c				\
 										sg_new.c				\
+										sg_get_color.c			\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)$(SRCS_TEXTURE_SG_DIR),$(SRCS_TEXTURE_SG_NAME:.c=.o))
@@ -282,7 +286,6 @@ PATH_PARSER					:=			$(SRCS_DIR)$(SRCS_PARSER_DIR)
 INCS_PARSER_NAME			:=			parser.h
 
 SRCS_PARSER_NAME			:=			parse_wolf_map.c			\
-										parse.c						\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_PARSER_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_PARSER_DIR),$(SRCS_PARSER_NAME:.c=.o))

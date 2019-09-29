@@ -39,6 +39,7 @@ typedef struct	s_block
 }				t_block;
 
 extern void		block_del(void *a);
+extern t_block	*block_get(const unsigned char id);
 extern void		*block_new(void);
 extern int		block_parse(const char **input);
 

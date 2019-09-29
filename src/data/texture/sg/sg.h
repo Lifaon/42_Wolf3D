@@ -34,8 +34,10 @@ typedef struct	s_texture_sg
 	};
 }				t_texture_sg;
 
-void			texture_sg_del(void *a);
-int				texture_sg_load(void *a, t_pairs *pairs);
-void			*texture_sg_new(void);
+extern void			texture_sg_del(void *a);
+extern int			texture_sg_load(void *a, t_pairs *pairs);
+extern void			*texture_sg_new(void);
+extern unsigned int	texture_sg_get_color(const void *t,
+		const double y, const double x);
 
 #endif

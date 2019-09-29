@@ -70,29 +70,32 @@ int			block_parse_pairs(t_block *b, void *pairs_p)
 		b->type = T_BL_WALL;
 	else
 		return (-4);
-	tex_metadata = singletone_texture();
-	s = (unsigned char *)pair_get((t_pairs *)pairs_p, "north");
-	if (s[0] == '\0' || s[1] != '\0')
-		return (-5);
-	b->tex_north = *s;
-	s = (unsigned char *)pair_get((t_pairs *)pairs_p, "south");
-	if (s[0] == '\0' || s[1] != '\0')
-		return (-5);
-	b->tex_south = *s;
-	s = (unsigned char *)pair_get((t_pairs *)pairs_p, "east");
-	if (s[0] == '\0' || s[1] != '\0')
-		return (-5);
-	b->tex_east = *s;
-	s = (unsigned char *)pair_get((t_pairs *)pairs_p, "west");
-	if (s[0] == '\0' || s[1] != '\0')
-		return (-5);
-	b->tex_west = *s;
-	// TODO is this the wanted behaviour ?
-	if ((*tex_metadata)[b->tex_east] == NULL
-		|| (*tex_metadata)[b->tex_north] == NULL
-		|| (*tex_metadata)[b->tex_south] == NULL
-		|| (*tex_metadata)[b->tex_west] == NULL)
-		return (-6);
+	if (b->type == T_BL_WALL)
+	{
+		tex_metadata = singletone_texture();
+		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "north");
+		if (s == NULL || s[0] == '\0' || s[1] != '\0')
+			return (-5);
+		b->tex_north = *s;
+		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "south");
+		if (s == NULL || s[0] == '\0' || s[1] != '\0')
+			return (-5);
+		b->tex_south = *s;
+		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "east");
+		if (s == NULL || s[0] == '\0' || s[1] != '\0')
+			return (-5);
+		b->tex_east = *s;
+		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "west");
+		if (s == NULL || s[0] == '\0' || s[1] != '\0')
+			return (-5);
+		b->tex_west = *s;
+		// TODO is this the wanted behaviour ?
+		if ((*tex_metadata)[b->tex_east] == NULL
+				|| (*tex_metadata)[b->tex_north] == NULL
+				|| (*tex_metadata)[b->tex_south] == NULL
+				|| (*tex_metadata)[b->tex_west] == NULL)
+			return (-6);
+	}
 	return (0);
 }
 

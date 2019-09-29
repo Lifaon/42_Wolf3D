@@ -36,8 +36,10 @@ typedef struct	s_texture_loaded
 	size_t			y;
 }				t_texture_loaded;
 
-void			texture_loaded_del(void *a);
-int				texture_loaded_load(void *a, t_pairs *pairs);
-void			*texture_loaded_new(void);
+extern void			texture_loaded_del(void *a);
+extern int			texture_loaded_load(void *a, t_pairs *pairs);
+extern void			*texture_loaded_new(void);
+extern unsigned int	texture_loaded_get_color(const void *t,
+		const double y, const double x);
 
 #endif
