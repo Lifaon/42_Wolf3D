@@ -85,6 +85,8 @@ static void	process_ray(t_e *e, t_vec ray, t_pos pos, int x)
 		line.wall_x = hit_pos.y - floor(hit_pos.y);
 	else
 		line.wall_x = hit_pos.x - floor(hit_pos.x);
+	line.wall_x = (line.cardinal == SUD || line.cardinal == OUEST)
+		? 1.0 - line.wall_x : line.wall_x;
 	draw_line(e, line, hit_pos, ray);
 }
 
