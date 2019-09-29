@@ -19,6 +19,10 @@ static _Bool	quit_all(t_e e, _Bool ret)
 	if (e.sky.arr)
 		free(e.sky.arr);
 	quit_sdl(&e.sdl);
+	singletone_block_del();
+	singletone_env_del();
+	singletone_map_del();
+	singletone_texture_del();
 	return (ret);
 }
 

@@ -48,7 +48,14 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 	conf->els = els;
 }
 
-int			block_parse_pairs(t_block *b, void *pairs_p)
+static int	block_parse_error(t_block ***meta,
+		const unsigned int id, const int ret)
+{
+	(*meta)[id] = NULL;
+	return (ret);
+}
+
+static int	block_parse_pairs(t_block *b, void *pairs_p)
 {
 	t_block			***block_metadata;
 	t_texture		***tex_metadata;
@@ -63,38 +70,37 @@ int			block_parse_pairs(t_block *b, void *pairs_p)
 	(*block_metadata)[id] = b;
 	s = (unsigned char *)pair_get((t_pairs *)pairs_p, "type");
 	if (ft_strlen((const char *)s) != 4)
-		return (-3);
+		return (block_parse_error(block_metadata, id, -2));
 	if (ft_strncmp((const char *)s, "void", 4) == 0)
 		b->type = T_BL_VOID;
 	else if (ft_strncmp((const char *)s, "wall", 4) == 0)
 		b->type = T_BL_WALL;
 	else
-		return (-4);
+		return (block_parse_error(block_metadata, id, -4));
 	if (b->type == T_BL_WALL)
 	{
 		tex_metadata = singletone_texture();
 		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "north");
 		if (s == NULL || s[0] == '\0' || s[1] != '\0')
-			return (-5);
+			return (block_parse_error(block_metadata, id, -5));
 		b->tex_north = *s;
 		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "south");
 		if (s == NULL || s[0] == '\0' || s[1] != '\0')
-			return (-5);
+			return (block_parse_error(block_metadata, id, -5));
 		b->tex_south = *s;
 		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "east");
 		if (s == NULL || s[0] == '\0' || s[1] != '\0')
-			return (-5);
+			return (block_parse_error(block_metadata, id, -5));
 		b->tex_east = *s;
 		s = (unsigned char *)pair_get((t_pairs *)pairs_p, "west");
 		if (s == NULL || s[0] == '\0' || s[1] != '\0')
-			return (-5);
+			return (block_parse_error(block_metadata, id, -5));
 		b->tex_west = *s;
-		// TODO is this the wanted behaviour ?
 		if ((*tex_metadata)[b->tex_east] == NULL
 				|| (*tex_metadata)[b->tex_north] == NULL
 				|| (*tex_metadata)[b->tex_south] == NULL
 				|| (*tex_metadata)[b->tex_west] == NULL)
-			return (-6);
+			return (block_parse_error(block_metadata, id, -6));
 	}
 	return (0);
 }
@@ -117,7 +123,6 @@ int			block_parse(const char **input)
 	ret = -1;
 	if ((block = (t_block *)block_new()) != NULL)
 	{
-		// TODO need to free id of this block if failure
 		if ((ret = block_parse_pairs(block, pairs)) != 0)
 		{
 			block_del(block);

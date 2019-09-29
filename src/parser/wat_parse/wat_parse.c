@@ -58,6 +58,7 @@ int		wat_parse(const unsigned char **file,
 	struct s_wat_element	*el;
 	int						parse_result;
 	size_t					idx_line;
+	size_t					tmp;
 
 	idx_line = 0;
 	while (file[idx_line] != 0)
@@ -67,20 +68,14 @@ int		wat_parse(const unsigned char **file,
 				&& (el = (struct s_wat_element *)wat_element_match(
 						file[idx_line] + 1, config)) != NULL)
 		{
-			size_t	tmp = idx_line;
-
-			if (el == NULL || (parse_result = wat_parse_at_mark(file, &idx_line, el)) != 0)
+			tmp = idx_line;
+			if (el == NULL || (parse_result = wat_parse_at_mark(file,
+						&idx_line, el)) != 0)
 			{
 				if (config->opt.display_warning_on_failure)
-					ft_dprintf(2, "WARNING ! Around l.%llu:%s\n", idx_line, file[tmp]);
+					ft_dprintf(2, "WARNING ! l.%llu:%s\n", idx_line, file[tmp]);
 				if (!config->opt.continue_on_failure)
-				{
 					return (-1);
-				}
-			}
-			else
-			{
-				ft_printf("___ found @%s\n", el->name);
 			}
 		}
 		else

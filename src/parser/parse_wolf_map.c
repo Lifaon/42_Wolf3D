@@ -62,7 +62,6 @@ int		parse_wolf_map(char *filename)
 	struct s_wat_payload	config;
 	struct s_wat_element	els[4];
 	int						res;
-	size_t					idx;
 	unsigned char			**file;
 
 	file = (unsigned char **)read_file2d(filename);
@@ -83,12 +82,6 @@ int		parse_wolf_map(char *filename)
 		singletone_env_del();
 		ft_dprintf(2, "error: run out of memory during parsing\n");
 		return (-1);
-	}
-	idx = 0;
-	while (file[idx] != 0)
-	{
-		ft_printf("%s\n", file[idx]);
-		++idx;
 	}
 	config_payload(&config, els);
 	res = wat_parse((const unsigned char **)file, &config);

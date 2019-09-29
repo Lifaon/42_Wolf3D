@@ -14,6 +14,5 @@ int		texture_sg_load(void *a, t_pairs *pairs)
 	if (s == NULL || s[0] != '#')
 		return (-3);
 	sg->color = ft_atoul_base((const char *)(s + 1), 16);
-	ft_printf("texture_sg->color === %.6llx\n", sg->color);
 	return (0);
 }
