@@ -53,7 +53,7 @@ static void	config_payload(struct s_wat_payload *config,
 	};
 	config->data = els;
 	config->size = 4;
-	config->opt.continue_on_failure = 1;
+	config->opt.continue_on_failure = 0;
 	config->opt.display_warning_on_failure = 1;
 }
 
