@@ -148,6 +148,7 @@ SRCS_BLOCK_NAME				:=			block_del.c					\
 										block_get.c					\
 										block_new.c					\
 										block_parse.c				\
+										block_length.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR),$(SRCS_BLOCK_NAME:.c=.o))
@@ -168,6 +169,7 @@ SRCS_ENV_NAME				:=			env_del.c					\
 										env_new.c					\
 										env_get.c					\
 										env_parse.c					\
+										env_length.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_ENV_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_ENV_DIR),$(SRCS_ENV_NAME:.c=.o))
@@ -187,6 +189,7 @@ INCS_MAP_NAME				:=			map.h
 SRCS_MAP_NAME				:=			map_del.c					\
 										map_new.c					\
 										map_parse.c					\
+										map_length.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_MAP_DIR),$(SRCS_MAP_NAME:.c=.o))
@@ -230,6 +233,7 @@ SRCS_TEXTURE_NAME			:=			texture_del.c				\
 										texture_new.c				\
 										texture_parse.c				\
 										texture_get_color.c			\
+										texture_length.c			\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR)
 OBJS						+=			$(addprefix $(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_TEXTURE_DIR),$(SRCS_TEXTURE_NAME:.c=.o))

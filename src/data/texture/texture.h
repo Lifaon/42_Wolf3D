@@ -23,5 +23,6 @@ extern void			*texture_new(const size_t type);
 extern int			texture_parse(const char **input);
 extern t_col		texture_get_color(const t_texture *t,
 		const double y, const double x);
+extern size_t	texture_length(void);
 
 #endif

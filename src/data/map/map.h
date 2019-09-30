@@ -27,5 +27,6 @@ typedef struct	s_map
 extern void		map_del(void *a);
 extern void		*map_new(const size_t ununsed);
 extern int		map_parse(const char **input);
+extern size_t	map_length(void);
 
 #endif

@@ -8,6 +8,30 @@
 #include "wat_parse.h"
 #include "wutils.h"
 
+static void	config_payload2(struct s_wat_element *els)
+{
+	els[2] = (struct s_wat_element){
+		.name = "texture",
+		.parse = &texture_parse,
+		.failure_warning = NULL,
+		.max = 256,
+		.min = 0,
+		.length = 0,
+		.opt.display_warning_on_failure = 0,
+		.opt.continue_on_failure = 0
+	};
+	els[3] = (struct s_wat_element){
+		.name = "env",
+		.parse = &env_parse,
+		.failure_warning = NULL,
+		.max = 1,
+		.min = 1,
+		.length = 0,
+		.opt.display_warning_on_failure = 0,
+		.opt.continue_on_failure = 0
+	};
+}
+
 static void	config_payload(struct s_wat_payload *config,
 		struct s_wat_element *els)
 {
@@ -31,30 +55,16 @@ static void	config_payload(struct s_wat_payload *config,
 		.opt.display_warning_on_failure = 0,
 		.opt.continue_on_failure = 0
 	};
-	els[2] = (struct s_wat_element){
-		.name = "texture",
-		.parse = &texture_parse,
-		.failure_warning = NULL,
-		.max = 256,
-		.min = 0,
-		.length = 0,
-		.opt.display_warning_on_failure = 0,
-		.opt.continue_on_failure = 0
-	};
-	els[3] = (struct s_wat_element){
-		.name = "env",
-		.parse = &env_parse,
-		.failure_warning = NULL,
-		.max = 1,
-		.min = 0,
-		.length = 0,
-		.opt.display_warning_on_failure = 0,
-		.opt.continue_on_failure = 0
-	};
+	config_payload2(els);
 	config->data = els;
 	config->size = 4;
 	config->opt.continue_on_failure = 0;
 	config->opt.display_warning_on_failure = 1;
+}
+
+int		check_meta(const size_t length, const size_t min, const size_t max, const char *s)
+{
+	return (min <= length && length <= max ? 0 : 1);
 }
 
 int		parse_wolf_map(char *filename)
@@ -70,21 +80,13 @@ int		parse_wolf_map(char *filename)
 		ft_dprintf(2, "error: invalid file or run out of memory\n");
 		return (-2);
 	}
-	if (*singletone_block() == NULL
-			|| *singletone_texture() == NULL
-			|| *singletone_map() == NULL
-			|| *singletone_env() == NULL)
-	{
-		ft_str2del((char **)file);
-		singletone_block_del();
-		singletone_texture_del();
-		singletone_map_del();
-		singletone_env_del();
-		ft_dprintf(2, "error: run out of memory during parsing\n");
-		return (-1);
-	}
 	config_payload(&config, els);
 	res = wat_parse((const unsigned char **)file, &config);
 	ft_str2del((char **)file);
+	if (check_meta(block_length(), 0, 256, "BLOCK") != 0
+			|| check_meta(env_length(), 1, 1, "ENV") != 0
+			|| check_meta(map_length(), 1, 1, "MAP") != 0
+			|| check_meta(texture_length(), 0, 256, "TEXTURE") != 0)
+		return (-42);
 	return (res);
 }

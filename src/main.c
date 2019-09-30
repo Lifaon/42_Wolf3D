@@ -19,10 +19,6 @@ static _Bool	quit_all(t_e e, _Bool ret)
 	if (e.sky.arr)
 		free(e.sky.arr);
 	quit_sdl(&e.sdl);
-	singletone_block_del();
-	singletone_env_del();
-	singletone_map_del();
-	singletone_texture_del();
 	return (ret);
 }
 
@@ -43,6 +39,32 @@ static _Bool	display(t_e e)
 		return (quit_all(e, EXIT_FAILURE));
 	ret = event_loop(&e);
 	return (quit_all(e, ret));
+}
+
+__attribute__((constructor))
+static
+void	on_enter(void)
+{
+	ft_printf("enter constructor\n");
+	if (*singletone_block() == NULL
+			|| *singletone_texture() == NULL
+			|| *singletone_map() == NULL
+			|| *singletone_env() == NULL)
+	{
+		ft_dprintf(2, "error: not enought memory to launch program\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
+__attribute__((destructor))
+static
+void	on_exit(void)
+{
+	ft_printf("enter destructor\n");
+	singletone_block_del();
+	singletone_env_del();
+	singletone_map_del();
+	singletone_texture_del();
 }
 
 int				main(int ac, char **av)
