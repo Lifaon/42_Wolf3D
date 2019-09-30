@@ -6,33 +6,29 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 19:07:27 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/30 17:07:13 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 #include "block.h"
 
-static void		clipping(t_e *e, t_vec dir, _Bool moved[2])
+static void		clipping(t_e *e, t_vec pos, _Bool moved[2])
 {
 	t_block	*block;
-	t_vec	pos;
 	t_pos	pos_i;
 
-	pos = vec_add(e->cam.pos, vec_multiply(dir, 2));
 	pos_i.x = (int)pos.x;
 	pos_i.y = (int)pos.y;
 	moved[0] = 0;
 	moved[1] = 0;
-	if ((pos_i.x == e->cam.pos_i.x)
-			|| (pos_i.x >= 0 && pos_i.x < (int)e->map->x))
+	if (pos_i.x >= 0 && pos_i.x < (int)e->map->x)
 	{
 		block = block_get(e->map->map[e->cam.pos_i.y][pos_i.x]);
 		if (block != NULL && block->type == T_BL_VOID)
 			moved[0] = 1;
 	}
-	if ((pos_i.y == e->cam.pos_i.y)
-			|| (pos_i.y >= 0 && pos_i.y < (int)e->map->y))
+	if (pos_i.y >= 0 && pos_i.y < (int)e->map->y)
 	{
 		block = block_get(e->map->map[pos_i.y][e->cam.pos_i.x]);
 		if (block != NULL && block->type == T_BL_VOID)
@@ -60,22 +56,22 @@ static t_vec	get_moving_dir(t_e *e, _Bool key_downs[6])
 static void		move(t_e *e, _Bool key_downs[6])
 {
 	_Bool	moved[2];
+	_Bool	moved_far[2];
 	t_vec	pos;
 	t_vec	dir;
 
 	dir = get_moving_dir(e, key_downs);
 	if (dir.x == 0.0 && dir.y == 0.0)
 		return ;
-	clipping(e, dir, moved);
-	if (!moved[0] && !moved[1])
-		return ;
 	pos = vec_add(e->cam.pos, dir);
-	if (moved[0])
+	clipping(e, pos, moved);
+	clipping(e, vec_add(e->cam.pos, vec_multiply(dir, 4)), moved_far);
+	if (moved[0] && moved_far[0])
 	{
 		e->cam.pos.x = pos.x;
 		e->cam.pos_i.x = (int)pos.x;
 	}
-	if (moved[1])
+	if (moved[1] && moved_far[1])
 	{
 		e->cam.pos.y = pos.y;
 		e->cam.pos_i.y = (int)pos.y;
