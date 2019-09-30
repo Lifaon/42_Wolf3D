@@ -6,7 +6,7 @@
 #    By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 22:00:00 by mlantonn          #+#    #+#              #
-#    Updated: 2019/06/27 18:01:40 by mlantonn         ###   ########.fr        #
+#    Updated: 2019/09/30 10:52:14 by mlantonn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -338,6 +338,7 @@ PATH_RAYCASTING					:=		$(SRCS_DIR)$(SRCS_RAYCASTING_DIR)
 INCS_RAYCASTING_NAME			:=		raycasting.h					\
 
 SRCS_RAYCASTING_NAME			:=		raycasting.c					\
+										process_ray.c						\
 										draw_line.c						\
 										vec_op.c						\
 

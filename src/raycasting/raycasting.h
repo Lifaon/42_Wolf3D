@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 18:39:00 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/30 10:52:50 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef struct	s_line
 }				t_line;
 
 _Bool			raycasting(t_e *e);
-void			draw_line(t_e *e, t_line line, t_vec hit, t_vec ray);
+void			process_ray(t_e *e, t_vec ray, t_pos pos, int x);
+void			draw_line(t_e *e, t_line line, t_vec hit);
 
 t_vec			vec_add(t_vec u, t_vec v);
 t_vec			vec_substract(t_vec u, t_vec v);

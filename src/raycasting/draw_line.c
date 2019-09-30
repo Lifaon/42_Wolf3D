@@ -6,19 +6,18 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:11:17 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 18:44:08 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/30 11:49:26 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
-
 #include "block.h"
 #include "singletone.h"
 #include "texture.h"
 
 static _Bool	is_outline(t_e *e, t_line line, t_vec hit)
 {
-	if (!e->outlines)
+	if (!e->outlines || line.cardinal == NONE)
 		return (0);
 	hit.x -= (double)(int)hit.x;
 	hit.y -= (double)(int)hit.y;
@@ -32,14 +31,13 @@ static _Bool	is_outline(t_e *e, t_line line, t_vec hit)
 	return (0);
 }
 
-static void		draw_sky(t_e *e, t_line line, t_vec ray, int index)
+static void		draw_sky(t_e *e, t_line line, int index)
 {
 	double	win_ratio;
 	double	angle;
 	int		y;
 	t_pos	px;
 
-	(void)ray;
 	y = -1;
 	if (!e->skybox || index == 0)
 	{
@@ -71,20 +69,35 @@ static void		prepare_texture(t_texture *t[4], const t_block *b)
 	t[EST] = meta[b->tex_east];
 }
 
-static double	normalize(const double value, const double min, const double max)
+static void		draw_wall(t_e *e, t_line line, int min, int max, _Bool darken)
 {
-	return ((value - min) / (max - min));
+	t_texture	*tex[4];
+	int			y;
+	double		py;
+	double		tex_coeff;
+
+	prepare_texture(tex, line.block_hit);
+	tex_coeff = (double)(max - min);
+	y = min - 1;
+	while (++y < e->sdl.h && y < max)
+	{
+		if (darken)
+			put_pixel(&e->sdl, (t_col){0x0}, line.x, y);
+		else
+		{
+			py = (double)(y - min) / tex_coeff;
+			put_pixel(&e->sdl, texture_get_color(tex[line.cardinal],
+				py, line.wall_x), line.x, y);
+		}
+	}
 }
 
-void			draw_line(t_e *e, t_line line, t_vec hit, t_vec ray)
+void			draw_line(t_e *e, t_line line, t_vec hit)
 {
-	// static t_col	wall[5] = (t_col[5]){{0x023788}, {0x920075}, {0x650D89},
-	// 												{0xD40078}, {0x0}};
-	t_texture	*tex[4];
-	_Bool	darken;
-	int		index[4];
-	int		y;
-	int		width;
+	_Bool		darken;
+	int			index[4];
+	int			y;
+	int			width;
 
 	darken = is_outline(e, line, hit);
 	width = line.cardinal != NONE ? e->outlines * (1 + line.height / 75) : 0;
@@ -93,18 +106,11 @@ void			draw_line(t_e *e, t_line line, t_vec hit, t_vec ray)
 	index[2] = (e->sdl.h + line.height) / 2;
 	index[3] = index[2] + width;
 	y = index[0];
-	prepare_texture(tex, line.block_hit);
-	draw_sky(e, line, ray, index[0]);
+	draw_sky(e, line, index[0]);
 	while (y < e->sdl.h && y < index[1])
 		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
-	while (y < e->sdl.h && y < index[2])
-	{
-		put_pixel(&e->sdl, darken ? (t_col){0x0}
-				: texture_get_color(tex[line.cardinal],
-					normalize(y, index[1], index[2]), line.wall_x),
-				line.x, y);
-		++y;
-	}
+	y = index[2];
+	draw_wall(e, line, index[1], index[2], darken);
 	while (y < e->sdl.h && y < index[3])
 		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
 	while (y < e->sdl.h)
