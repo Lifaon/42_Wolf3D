@@ -15,22 +15,22 @@ color=#ff00ff
 
 @texture
 id=n
-color=#ff0000
+color=#023788
 @end
 
 @texture
 id=s
-color=#0000ff
+color=#920075
 @end
 
 @texture
 id=e
-color=#330000
+color=#650D89
 @end
 
 @texture
 id=w
-color=#000033
+color=#D40078
 @end
 
 @texture
