@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/30 10:52:50 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/30 17:15:02 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_e
 	t_cam		cam;
 	pthread_t	thread[NB_THR];
 	t_img		sky;
+	int			fps;
 	_Bool		show_cursor;
 	_Bool		outlines;
 	_Bool		skybox;

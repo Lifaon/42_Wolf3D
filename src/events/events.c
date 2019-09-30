@@ -6,20 +6,22 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 19:23:56 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 18:47:32 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/30 17:26:38 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 
-static _Bool	limit_frames(void)
+static _Bool	limit_frames(t_e *e)
 {
 	static unsigned int	last_time = 0;
 	static unsigned int	current_time;
 
 	current_time = SDL_GetTicks();
-	if (current_time < last_time + 10)
+	if (current_time < last_time + 16)
 		return (1);
+	e->fps = 1000 / (current_time - last_time);
+	ft_printf("\rfps:%02d", e->fps);
 	last_time = current_time;
 	return (0);
 }
@@ -31,7 +33,7 @@ _Bool			event_loop(t_e *e)
 
 	while (1)
 	{
-		if (limit_frames())
+		if (limit_frames(e))
 			continue ;
 		while (SDL_PollEvent(&ev))
 		{

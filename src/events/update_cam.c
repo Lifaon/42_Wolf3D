@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/30 17:07:13 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/09/30 17:25:24 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ static t_vec	get_moving_dir(t_e *e, _Bool key_downs[6])
 	t_vec	dirs[4];
 	t_vec	dir;
 
-	coeff = 0.05;
+	coeff = 2.5;
 	dirs[0] = vec_multiply(e->cam.dir, 1 * (double)key_downs[W]);
 	dirs[1] = vec_multiply(e->cam.dir, -1 * (double)key_downs[S]);
 	dirs[2] = vec_multiply(e->cam.plane, 1 * (double)key_downs[A]);
 	dirs[3] = vec_multiply(e->cam.plane, -1 * (double)key_downs[D]);
 	dir = vec_add(vec_add(dirs[0], dirs[1]), vec_add(dirs[2], dirs[3]));
 	dir = vec_normalize(dir);
-	dir = vec_multiply(dir, coeff);
+	dir = vec_multiply(dir, (e->fps ? coeff / (double)e->fps : 0));
 	return (dir);
 }
 
@@ -100,6 +100,6 @@ void			rotate(t_e *e, double angle, _Bool key_downs[6])
 _Bool			update_cam(t_e *e, _Bool key_downs[6])
 {
 	move(e, key_downs);
-	rotate(e, 4.0, key_downs);
+	rotate(e, e->fps ? 180 / (double)e->fps : 0, key_downs);
 	return (raycasting(e));
 }
