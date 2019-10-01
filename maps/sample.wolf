@@ -1,10 +1,10 @@
 # not mandatory (can use basic color if texture not set)
 
 @env
-MAP_SIZE_X=20
+MAP_SIZE_X=19
 MAP_SIZE_Y=13
-SPAWN_X=4
-SPAWN_Y=4
+SPAWN_X=9
+SPAWN_Y=10
 @end
 
 @texture
@@ -189,19 +189,19 @@ west=z
 
 # mandatory
 @map
-11111111111111111111
-1                  1
-1   a b c          1
-1                  1
-1               g  1
-1                  1
-1      k  l m      1
-1    z             1
-1                  1
-1                  1
-1                  1
-1                  1
-11111111111111111111
+1111111111111111111
+1                 1
+1 a b c g k l m z 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1111111111111111111
 @end
 
 # maybe some other definition

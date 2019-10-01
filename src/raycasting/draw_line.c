@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:11:17 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/01 10:17:11 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/01 14:47:43 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void		draw_sky(t_e *e, t_line line, int index)
 		return ;
 	}
 	win_ratio = (double)(e->sky.h) / (double)(e->sdl.h / 2);
-	angle = (M_PI + atan2(e->cam.dir.y, e->cam.dir.x)) / (M_PI * 2);
+	angle = (M_PI + atan2(-e->cam.plane.y, -e->cam.plane.x)) / (M_PI * 2);
 	angle -= (double)(e->sdl.w / 2 - line.x) / (e->sdl.w * 2);
 	if (angle < 0.0 || angle >= 1.0)
 		angle += angle < 0.0 ? 1.0 : -1.0;
