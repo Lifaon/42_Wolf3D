@@ -23,6 +23,8 @@ inline t_pair	*pair_parse(t_pair *a, const char *s)
 		{
 			free(a->key);
 			free(a->value);
+			a->key = NULL;
+			a->value = NULL;
 			return (NULL);
 		}
 	}
