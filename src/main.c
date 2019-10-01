@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:02:06 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/30 17:13:14 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/01 10:12:38 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ __attribute__((destructor))
 static
 void	on_exit(void)
 {
-	ft_printf("enter destructor\n");
+	ft_printf("\renter destructor\n");
 	singletone_block_del();
 	singletone_env_del();
 	singletone_map_del();
@@ -77,7 +77,10 @@ int				main(int ac, char **av)
 		return (EXIT_FAILURE);
 	}
 	if (parse_wolf_map(av[1]) != 0)
+	{
+		ft_dprintf(2, "wolf3d: Invalid or empty map.\n");
 		return (EXIT_FAILURE);
+	}
 	e.map = (*singletone_map())[0];
 	e.cam.pos.y = (double)(ft_atoul_base(env_get("SPAWN_Y"), 10)) + 0.5;
 	e.cam.pos.x = (double)(ft_atoul_base(env_get("SPAWN_X"), 10)) + 0.5;

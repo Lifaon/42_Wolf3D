@@ -64,6 +64,7 @@ static void	config_payload(struct s_wat_payload *config,
 
 int		check_meta(const size_t length, const size_t min, const size_t max, const char *s)
 {
+	(void)s;
 	return (min <= length && length <= max ? 0 : 1);
 }
 
