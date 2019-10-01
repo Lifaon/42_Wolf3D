@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:11:17 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/30 11:49:26 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/01 10:17:11 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void		prepare_texture(t_texture *t[4], const t_block *b)
 {
 	t_texture	**meta;
 
+	if (b == NULL)
+		return ;
 	meta = *singletone_texture();
 	t[NORD] = meta[b->tex_north];
 	t[SUD] = meta[b->tex_south];
@@ -81,7 +83,7 @@ static void		draw_wall(t_e *e, t_line line, int min, int max, _Bool darken)
 	y = min - 1;
 	while (++y < e->sdl.h && y < max)
 	{
-		if (darken)
+		if (darken || line.block_hit == NULL)
 			put_pixel(&e->sdl, (t_col){0x0}, line.x, y);
 		else
 		{

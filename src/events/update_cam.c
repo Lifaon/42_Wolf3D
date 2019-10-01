@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/30 17:25:24 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/01 10:24:24 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,23 @@ static void		clipping(t_e *e, t_vec pos, _Bool moved[2])
 	t_block	*block;
 	t_pos	pos_i;
 
-	pos_i.x = (int)pos.x;
-	pos_i.y = (int)pos.y;
-	moved[0] = 0;
-	moved[1] = 0;
+	pos_i.x = pos.x < 0.0 ? -1 : (int)pos.x;
+	pos_i.y = pos.y < 0.0 ? -1 : (int)pos.y;
 	if (pos_i.x >= 0 && pos_i.x < (int)e->map->x)
 	{
 		block = block_get(e->map->map[e->cam.pos_i.y][pos_i.x]);
-		if (block != NULL && block->type == T_BL_VOID)
-			moved[0] = 1;
+		moved[0] = (block != NULL && block->type == T_BL_VOID);
 	}
 	if (pos_i.y >= 0 && pos_i.y < (int)e->map->y)
 	{
 		block = block_get(e->map->map[pos_i.y][e->cam.pos_i.x]);
-		if (block != NULL && block->type == T_BL_VOID)
-			moved[1] = 1;
+		moved[1] = (block != NULL && block->type == T_BL_VOID);
+	}
+	if (moved[0] && moved[1])
+	{
+		block = block_get(e->map->map[pos_i.y][pos_i.x]);
+		moved[0] = block != NULL && block->type == T_BL_VOID;
+		moved[1] = block != NULL && block->type == T_BL_VOID;
 	}
 }
 
