@@ -19,7 +19,7 @@ void	*array_find(t_array *a, int (*cmp)(void *, void *), void *to_find)
 	size_t	idx;
 	size_t	p_size;
 
-	if (cmp == NULL)
+	if (a == NULL || cmp == NULL)
 		return (NULL);
 	pos = a->p;
 	max = a->length;

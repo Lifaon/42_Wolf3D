@@ -24,7 +24,7 @@ unsigned long long	ft_atoul_base(const char *s, int base)
 	char				*conv[2];
 	int					is_lower;
 
-	if (base < 2 || base > 16)
+	if (s == NULL || base < 2 || base > 16)
 		return (0);
 	conv[0] = (char *)"0123456789ABCDEF";
 	conv[1] = (char *)"0123456789abcdef";
