@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/01 10:24:24 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/01 10:42:52 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void		move(t_e *e, _Bool key_downs[6])
 		return ;
 	pos = vec_add(e->cam.pos, dir);
 	clipping(e, pos, moved);
-	clipping(e, vec_add(e->cam.pos, vec_multiply(dir, 4)), moved_far);
+	clipping(e, vec_add(e->cam.pos, vec_multiply(dir, 3)), moved_far);
 	if (moved[0] && moved_far[0])
 	{
 		e->cam.pos.x = pos.x;

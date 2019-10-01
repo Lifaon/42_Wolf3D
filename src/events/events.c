@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 19:23:56 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/30 17:26:38 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/01 10:44:18 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 static _Bool	limit_frames(t_e *e)
 {
+	static unsigned int	last_fps = 17;
 	static unsigned int	last_time = 0;
 	static unsigned int	current_time;
 
 	current_time = SDL_GetTicks();
 	if (current_time < last_time + 16)
 		return (1);
-	e->fps = 1000 / (current_time - last_time);
-	ft_printf("\rfps:%02d", e->fps);
+	e->fps = ((1000 / (current_time - last_time)) + last_fps) / 2;
+	last_fps = e->fps;
 	last_time = current_time;
+	ft_printf("\rfps:%-3d", e->fps);
 	return (0);
 }
 
