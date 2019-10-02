@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:02:06 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/01 10:12:38 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 10:45:16 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,15 @@ static _Bool	display(t_e e)
 	e.skybox = 1;
 	e.fps = 60;
 	SDL_WarpMouseInWindow(e.sdl.win, e.sdl.w / 2, e.sdl.h / 2);
-	if (raycasting(&e))
-		return (quit_all(e, EXIT_FAILURE));
 	ret = event_loop(&e);
 	return (quit_all(e, ret));
 }
 
-__attribute__((constructor))
-static
-void	on_enter(void)
+#define __CONSTRUCTOR	__attribute__((constructor)) static void
+#define __DESTRUCTOR	__attribute__((destructor)) static void
+
+__CONSTRUCTOR	on_enter(void)
 {
-	ft_printf("enter constructor\n");
 	if (*singletone_block() == NULL
 			|| *singletone_texture() == NULL
 			|| *singletone_map() == NULL
@@ -56,11 +54,9 @@ void	on_enter(void)
 	}
 }
 
-__attribute__((destructor))
-static
-void	on_exit(void)
+__DESTRUCTOR	on_exit(void)
 {
-	ft_printf("\renter destructor\n");
+	ft_printf("\r");
 	singletone_block_del();
 	singletone_env_del();
 	singletone_map_del();

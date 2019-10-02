@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 13:11:17 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 13:49:00 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 10:55:17 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ _Bool		load_image(const char *path, t_img *img)
 	SDL_Surface	*surf;
 
 	surf = SDL_LoadBMP(path);
-	if (!surf) {
+	if (!surf)
+	{
 		ft_dprintf(2, "Could not load %s: %s\n", path, SDL_GetError());
 		return (EXIT_FAILURE);
 	}

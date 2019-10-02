@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:11:17 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/01 14:47:43 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 10:53:05 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void		prepare_texture(t_texture *t[4], const t_block *b)
 	t[EST] = meta[b->tex_east];
 }
 
-static void		draw_wall(t_e *e, t_line line, int min, int max, _Bool darken)
+static void		draw_wall(t_e *e, t_line line, int min, int max)
 {
 	t_texture	*tex[4];
 	int			y;
@@ -83,7 +83,7 @@ static void		draw_wall(t_e *e, t_line line, int min, int max, _Bool darken)
 	y = min - 1;
 	while (++y < e->sdl.h && y < max)
 	{
-		if (darken || line.block_hit == NULL)
+		if (line.block_hit == NULL)
 			put_pixel(&e->sdl, (t_col){0x0}, line.x, y);
 		else
 		{
@@ -96,12 +96,12 @@ static void		draw_wall(t_e *e, t_line line, int min, int max, _Bool darken)
 
 void			draw_line(t_e *e, t_line line, t_vec hit)
 {
-	_Bool		darken;
 	int			index[4];
 	int			y;
 	int			width;
 
-	darken = is_outline(e, line, hit);
+	if (is_outline(e, line, hit))
+		line.block_hit = NULL;
 	width = line.cardinal != NONE ? e->outlines * (1 + line.height / 75) : 0;
 	index[1] = (e->sdl.h - line.height) / 2;
 	index[0] = index[1] - width;
@@ -112,7 +112,7 @@ void			draw_line(t_e *e, t_line line, t_vec hit)
 	while (y < e->sdl.h && y < index[1])
 		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
 	y = index[2];
-	draw_wall(e, line, index[1], index[2], darken);
+	draw_wall(e, line, index[1], index[2]);
 	while (y < e->sdl.h && y < index[3])
 		put_pixel(&e->sdl, (t_col){0x0}, line.x, y++);
 	while (y < e->sdl.h)

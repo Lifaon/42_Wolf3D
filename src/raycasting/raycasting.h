@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/30 17:15:02 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 10:51:41 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,30 @@
 
 # define NB_THR 8
 
+# include <pthread.h>
 # include "mysdl.h"
 # include "parser.h"
-# include <pthread.h>
 # include "map.h"
+
+typedef struct	s_vec
+{
+	double		x;
+	double		y;
+}				t_vec;
+
+typedef struct	s_pos
+{
+	int			x;
+	int			y;
+}				t_pos;
+
+typedef struct	s_cam
+{
+	t_vec		pos;
+	t_pos		pos_i;
+	t_vec		dir;
+	t_vec		plane;
+}				t_cam;
 
 typedef struct	s_e
 {
@@ -57,7 +77,8 @@ typedef struct	s_line
 	int			cardinal;
 }				t_line;
 
-_Bool			raycasting(t_e *e);
+extern _Bool	raycasting(t_e *e);
+
 void			process_ray(t_e *e, t_vec ray, t_pos pos, int x);
 void			draw_line(t_e *e, t_line line, t_vec hit);
 
