@@ -18,7 +18,7 @@
 
 # define ENV_SPACE 1
 
-typedef t_pairs t_env;
+typedef t_pairs	t_env;
 
 extern void		env_del(void *a);
 extern char		*env_get(const char *key);

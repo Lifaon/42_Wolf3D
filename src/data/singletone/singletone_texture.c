@@ -28,7 +28,7 @@ t_texture	***singletone_texture(void)
 	return (&a);
 }
 
-void	singletone_texture_del(void)
+void		singletone_texture_del(void)
 {
 	t_texture	***a;
 	size_t		idx;

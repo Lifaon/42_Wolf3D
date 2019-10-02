@@ -25,7 +25,7 @@ static int	same_key(void *a, void *b)
 	return (-1);
 }
 
-char	*pair_get(t_pairs *p, const char *key)
+char		*pair_get(t_pairs *p, const char *key)
 {
 	t_pair	**pair;
 

@@ -17,6 +17,22 @@
 #include "singletone.h"
 #include "ft_printf.h"
 
+static void	config_payload2(t_dicto_element *els)
+{
+	els[2] = (t_dicto_element){
+		.key = "SPAWN_X",
+		.length = 7,
+		.max_length = 4,
+		.is_valid = NULL
+	};
+	els[3] = (t_dicto_element){
+		.key = "SPAWN_Y",
+		.length = 7,
+		.max_length = 4,
+		.is_valid = NULL
+	};
+}
+
 static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 {
 	conf->length = 4;
@@ -32,18 +48,7 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 		.max_length = 4,
 		.is_valid = NULL
 	};
-	els[2] = (t_dicto_element){
-		.key = "SPAWN_X",
-		.length = 7,
-		.max_length = 4,
-		.is_valid = NULL
-	};
-	els[3] = (t_dicto_element){
-		.key = "SPAWN_Y",
-		.length = 7,
-		.max_length = 4,
-		.is_valid = NULL
-	};
+	config_payload2(els);
 	conf->els = els;
 }
 

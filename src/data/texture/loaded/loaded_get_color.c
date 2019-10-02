@@ -12,7 +12,7 @@
 
 #include "loaded.h"
 
-static double lerp(const double norm, const double min, const double max)
+static double	lerp(const double norm, const double min, const double max)
 {
 	return ((max - min) * norm + min);
 }

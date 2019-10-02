@@ -148,6 +148,7 @@ SRCS_BLOCK_NAME				:=			block_del.c					\
 										block_get.c					\
 										block_new.c					\
 										block_parse.c				\
+										block_parse_pairs.c			\
 										block_length.c				\
 
 ALL_OBJS_SUB_DIRS			+=			$(OBJS_DIR)$(SRCS_DATA_DIR)$(SRCS_BLOCK_DIR)

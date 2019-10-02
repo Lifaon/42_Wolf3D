@@ -14,7 +14,6 @@
 #include "loaded.h"
 #include "pair.h"
 
-#include "ft_printf.h"
 static void	copy32(t_texture_loaded *loaded, SDL_Surface *surf)
 {
 	t_col	*pixels;
@@ -71,8 +70,7 @@ int			texture_loaded_load(void *a, t_pairs *pairs)
 	s = (unsigned char *)pair_get(pairs, "file");
 	if (s == NULL || s[0] == '\0')
 		return (-3);
-	surface = SDL_LoadBMP((const char *)s);
-	if (surface == NULL)
+	if ((surface = SDL_LoadBMP((const char *)s)) == NULL)
 		return (-2);
 	if (surface->w != surface->pitch / 4 && surface->w != surface->pitch / 3)
 	{

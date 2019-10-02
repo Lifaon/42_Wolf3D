@@ -16,30 +16,13 @@
 # include <stddef.h>
 # define BLOCK_SPACE 256
 
-enum e_block_type
+enum	e_block_type
 {
 	T_BL_NONE = -1,
 	T_BL_VOID,
 	T_BL_WALL,
 	T_BL_SIZE
 };
-
-/**
- * @param type
- * enum e_block_type values
- *
- * @param tex_north
- * north's texture side
- *
- * @param tex_south
- * south's texture side
- *
- * @param tex_east
- * east's texture side
- *
- * @param tex_west
- * west's texture side
- */
 
 typedef struct	s_block
 {
@@ -49,6 +32,8 @@ typedef struct	s_block
 	unsigned int	tex_east;
 	unsigned int	tex_west;
 }				t_block;
+
+int				block_parse_pairs(t_block *b, void *pairs_p);
 
 extern void		block_del(void *a);
 extern t_block	*block_get(const unsigned char id);

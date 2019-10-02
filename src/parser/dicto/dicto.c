@@ -15,7 +15,8 @@
 #include "pair.h"
 #include "wutils.h"
 
-t_dicto_element	*dicto_get_elem(const char *key, const t_dicto_payload *conf)
+static t_dicto_element	*dicto_get_elem(const char *key,
+		const t_dicto_payload *conf)
 {
 	t_dicto_element	*els;
 	size_t			max;
@@ -36,7 +37,7 @@ t_dicto_element	*dicto_get_elem(const char *key, const t_dicto_payload *conf)
 	return (NULL);
 }
 
-static int	dicto_parse(t_pairs *a,
+static int				dicto_parse(t_pairs *a,
 		const char **input, const t_dicto_payload *conf)
 {
 	t_dicto_element	*target;
@@ -53,7 +54,8 @@ static int	dicto_parse(t_pairs *a,
 				|| (target = dicto_get_elem(pair->key, conf)) == NULL
 				|| ft_strlen(pair->value) > target->max_length
 				|| (target->is_valid != NULL && !target->is_valid())
-				|| array_push((t_array *)a, (const void *)&pair, 1) == EXIT_FAILURE)
+				|| array_push((t_array *)a,
+					(const void *)&pair, 1) == EXIT_FAILURE)
 		{
 			pair_delete(&pair);
 			return (-1);
@@ -63,7 +65,7 @@ static int	dicto_parse(t_pairs *a,
 	return (0);
 }
 
-t_pairs		*dicto(const char **input, const t_dicto_payload *conf)
+t_pairs					*dicto(const char **input, const t_dicto_payload *conf)
 {
 	t_pairs	*res;
 

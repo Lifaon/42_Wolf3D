@@ -24,8 +24,10 @@ typedef struct	s_array
 }				t_array;
 
 extern void		array_delete(t_array *a, void (*delete_content)());
-extern void		*array_find(t_array *a, int (*cmp)(void *, void *), void *to_find);
-extern size_t	array_find_index(t_array *a, int (*cmp)(void *, void *), void *to_find);
+extern void		*array_find(t_array *a,
+		int (*cmp)(void *, void *), void *to_find);
+extern size_t	array_find_index(t_array *a,
+		int (*cmp)(void *, void *), void *to_find);
 extern void		array_foreach(t_array *a, void (*callback)());
 extern t_array	*array_map(t_array *a, void *(*callback)(),
 		void (*del)(void *, size_t));

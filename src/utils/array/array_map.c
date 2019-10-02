@@ -12,7 +12,14 @@
 
 #include "array.h"
 
-t_array	*array_map(t_array *a, void *(*callback)(), void (*del)(void *, size_t))
+static void	*on_error(t_array *a, void (*del)(void *, size_t))
+{
+	array_delete(a, del);
+	return (NULL);
+}
+
+t_array		*array_map(t_array *a,
+		void *(*callback)(), void (*del)(void *, size_t))
 {
 	t_array	*mapped;
 	void	*pos;
@@ -23,10 +30,7 @@ t_array	*array_map(t_array *a, void *(*callback)(), void (*del)(void *, size_t))
 	mapped = NULL;
 	if (callback == NULL || (mapped = array_new(a->p_size)) == NULL
 			|| array_realloc(mapped, a->length, a->p_size) == EXIT_FAILURE)
-	{
-		array_delete(mapped, NULL);
-		return (NULL);
-	}
+		return (on_error(mapped, NULL));
 	pos = a->p;
 	max = a->length;
 	idx = 0;
@@ -34,10 +38,7 @@ t_array	*array_map(t_array *a, void *(*callback)(), void (*del)(void *, size_t))
 	{
 		if ((ret = callback(pos, idx, a)) == NULL
 				|| array_push(mapped, &ret, 1) == EXIT_FAILURE)
-		{
-			array_delete(mapped, del);
-			return (NULL);
-		}
+			return (on_error(mapped, del));
 		pos += a->p_size;
 		++idx;
 	}

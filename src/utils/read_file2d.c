@@ -28,14 +28,14 @@ static size_t	count_char(const char *s, const char c)
 		if (s[idx] == c)
 			++res;
 		++idx;
-    }
+	}
 	return (res);
 }
 
 static int		split_line(char **res, char *buf)
 {
 	size_t	size_line;
-	size_t  res_idx;
+	size_t	res_idx;
 	char	*new_line_ptr;
 	char	*buf_ptr;
 
@@ -59,9 +59,9 @@ static int		split_line(char **res, char *buf)
 	return (0);
 }
 
-char	**read_file2d(char *filename)
+char			**read_file2d(char *filename)
 {
-	size_t  size_line;
+	size_t	size_line;
 	char	*file;
 	char	**res;
 

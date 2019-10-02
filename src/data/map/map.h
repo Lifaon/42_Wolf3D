@@ -17,18 +17,6 @@
 
 # define MAP_SPACE 1
 
-/**
- * @param map
- * 2d map with 8 bits range for block id
- * REMINDER not a string
- *
- * @param x
- * map length on x axis
- *
- * @param y
- * map length on y axis
- */
-
 typedef struct	s_map
 {
 	unsigned char	**map;

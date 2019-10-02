@@ -74,13 +74,12 @@ static void	config_payload(struct s_wat_payload *config,
 	config->opt.display_warning_on_failure = 1;
 }
 
-int		check_meta(const size_t length, const size_t min, const size_t max, const char *s)
+static int	check_meta(const size_t length, const size_t min, const size_t max)
 {
-	(void)s;
 	return (min <= length && length <= max ? 0 : 1);
 }
 
-int		parse_wolf_map(char *filename)
+int			parse_wolf_map(char *filename)
 {
 	struct s_wat_payload	config;
 	struct s_wat_element	els[4];
@@ -96,10 +95,10 @@ int		parse_wolf_map(char *filename)
 	config_payload(&config, els);
 	res = wat_parse((const unsigned char **)file, &config);
 	ft_str2del((char **)file);
-	if (check_meta(block_length(), 0, 256, "BLOCK") != 0
-			|| check_meta(env_length(), 1, 1, "ENV") != 0
-			|| check_meta(map_length(), 1, 1, "MAP") != 0
-			|| check_meta(texture_length(), 0, 256, "TEXTURE") != 0)
+	if (check_meta(block_length(), 0, 256) != 0
+			|| check_meta(env_length(), 1, 1) != 0
+			|| check_meta(map_length(), 1, 1) != 0
+			|| check_meta(texture_length(), 0, 256) != 0)
 		return (-42);
 	return (res);
 }

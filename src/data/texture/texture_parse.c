@@ -17,7 +17,7 @@
 #include "texture.h"
 #include "wutils.h"
 
-static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
+static void		config_payload(t_dicto_payload *conf, t_dicto_element *els)
 {
 	conf->length = 3;
 	els[0] = (t_dicto_element){
@@ -41,7 +41,7 @@ static void	config_payload(t_dicto_payload *conf, t_dicto_element *els)
 	conf->els = els;
 }
 
-static int	has_texture(void *a, void *b)
+static int		has_texture(void *a, void *b)
 {
 	t_pair	**p;
 
@@ -52,17 +52,23 @@ static int	has_texture(void *a, void *b)
 	return (-1);
 }
 
-int			texture_parse(const char **input)
+static t_pairs	*launch_dicto(const char **input)
 {
-	t_dicto_payload	config;
-	t_dicto_element	els[3];
+	t_dicto_payload config;
+	t_dicto_element els[3];
+
+	config_payload(&config, els);
+	return (dicto(input, (const t_dicto_payload *)&config));
+}
+
+int				texture_parse(const char **input)
+{
 	t_pairs			*pairs;
 	t_texture		*texture;
 	size_t			type;
 	int				ret;
 
-	config_payload(&config, els);
-	pairs = dicto(input, (const t_dicto_payload *)&config);
+	pairs = launch_dicto(input);
 	if (pairs == NULL)
 	{
 		ft_dprintf(2, "error on dicto\n");

@@ -20,7 +20,7 @@ void	texture_loaded_del(void *a)
 	b = (t_texture_loaded *)a;
 	if (b != NULL)
 	{
-		free(b->cbuf);
+		free(b->ibuf);
 		free(b);
 	}
 }

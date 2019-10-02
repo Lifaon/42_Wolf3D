@@ -32,7 +32,6 @@ void	*wat_element_match(const unsigned char *line,
 				++config->data[idx].length;
 				return ((void *)&(config->data[idx]));
 			}
-			// TODO need better params for failure_warning()
 			if (config->data[idx].opt.display_warning_on_failure
 					&& config->data[idx].failure_warning != NULL)
 				config->data[idx].failure_warning(config->data[idx].max);

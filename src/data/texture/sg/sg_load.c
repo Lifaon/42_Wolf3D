@@ -15,7 +15,6 @@
 #include "pair.h"
 #include "wutils.h"
 
-#include "ft_printf.h"
 int		texture_sg_load(void *a, t_pairs *pairs)
 {
 	t_texture_sg	*sg;
