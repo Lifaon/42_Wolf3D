@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wat_element_match.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kehuang <kehuang@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/01 10:48:33 by kehuang           #+#    #+#             */
+/*   Updated: 2019/10/01 10:48:33 by kehuang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 #include "wat_parse.h"
 #include "wutils.h"
@@ -20,7 +32,6 @@ void	*wat_element_match(const unsigned char *line,
 				++config->data[idx].length;
 				return ((void *)&(config->data[idx]));
 			}
-			// TODO need better params for failure_warning()
 			if (config->data[idx].opt.display_warning_on_failure
 					&& config->data[idx].failure_warning != NULL)
 				config->data[idx].failure_warning(config->data[idx].max);

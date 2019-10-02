@@ -6,29 +6,85 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:02:06 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/06/27 19:19:03 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 10:45:16 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "parser.h"
 #include "wolf3d.h"
+#include "singletone.h"
+#include "wutils.h"
 
-int		main(int argc, char **argv)
+static _Bool	quit_all(t_e e, _Bool ret)
 {
-	t_sdl		sdl;
-	SDL_Event	ev;
-	t_col		col;
+	if (e.sky.arr)
+		free(e.sky.arr);
+	quit_sdl(&e.sdl);
+	return (ret);
+}
 
-	if (init_sdl(&sdl))
-		return (1);
-	print_tex(&sdl);
-	while (SDL_WaitEvent(&ev))
+static _Bool	display(t_e e)
+{
+	_Bool ret;
+
+	if (init_sdl(&e.sdl))
+		return (EXIT_FAILURE);
+	if (load_image("textures/vaporwave.bmp", &e.sky))
+		return (quit_all(e, EXIT_FAILURE));
+	e.show_cursor = !SDL_ShowCursor(SDL_DISABLE);
+	e.outlines = 1;
+	e.skybox = 1;
+	e.fps = 60;
+	SDL_WarpMouseInWindow(e.sdl.win, e.sdl.w / 2, e.sdl.h / 2);
+	ret = event_loop(&e);
+	return (quit_all(e, ret));
+}
+
+#define __CONSTRUCTOR	__attribute__((constructor)) static void
+#define __DESTRUCTOR	__attribute__((destructor)) static void
+
+__CONSTRUCTOR	on_enter(void)
+{
+	if (*singletone_block() == NULL
+			|| *singletone_texture() == NULL
+			|| *singletone_map() == NULL
+			|| *singletone_env() == NULL)
 	{
-		if (ev.window.event == SDL_WINDOWEVENT_CLOSE ||
-			ev.key.keysym.sym == SDLK_ESCAPE)
-			break;
+		ft_dprintf(2, "error: not enought memory to launch program\n");
+		exit(EXIT_FAILURE);
 	}
-	quit_sdl(&sdl);
-	return (0);
+}
+
+__DESTRUCTOR	on_exit(void)
+{
+	ft_printf("\r");
+	singletone_block_del();
+	singletone_env_del();
+	singletone_map_del();
+	singletone_texture_del();
+}
+
+int				main(int ac, char **av)
+{
+	t_e	e;
+
+	if (ac != 2)
+	{
+		ft_dprintf(2, "Usage: ./wolf3d <some-map.wolf>\n");
+		return (EXIT_FAILURE);
+	}
+	if (parse_wolf_map(av[1]) != 0)
+	{
+		ft_dprintf(2, "wolf3d: Invalid or empty map.\n");
+		return (EXIT_FAILURE);
+	}
+	e.map = (*singletone_map())[0];
+	e.cam.pos.y = (double)(ft_atoul_base(env_get("SPAWN_Y"), 10)) + 0.5;
+	e.cam.pos.x = (double)(ft_atoul_base(env_get("SPAWN_X"), 10)) + 0.5;
+	e.cam.pos_i.x = (int)e.cam.pos.x;
+	e.cam.pos_i.y = (int)e.cam.pos.y;
+	e.cam.dir.x = 0;
+	e.cam.dir.y = -1;
+	e.cam.plane.x = -1;
+	e.cam.plane.y = 0;
+	return (display(e));
 }

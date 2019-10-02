@@ -1,19 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kehuang <kehuang@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/01 10:49:49 by kehuang           #+#    #+#             */
+/*   Updated: 2019/10/01 10:49:50 by kehuang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAP_H
 # define MAP_H
 
-#include <stddef.h>
+# include <stddef.h>
 
-/**
- * @param map
- * 2d map with 8 bits range for block id
- * REMINDER not a string
- *
- * @param x
- * map length on x axis
- *
- * @param y
- * map length on y axis
- */
+# define MAP_SPACE 1
 
 typedef struct	s_map
 {
@@ -22,7 +24,9 @@ typedef struct	s_map
 	size_t			y;
 }				t_map;
 
-void			map_del(void *a);
-void			*map_new(void);
+extern void		map_del(void *a);
+extern void		*map_new(const size_t ununsed);
+extern int		map_parse(const char **input);
+extern size_t	map_length(void);
 
 #endif

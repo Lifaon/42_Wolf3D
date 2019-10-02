@@ -1,57 +1,207 @@
 # not mandatory (can use basic color if texture not set)
 
-# possible "texture"
-# @texture
-# id=t
-# color=#ff00ff
-# @end
-
-@texture
-id=n
-file=../texture/north.xpm
+@env
+MAP_SIZE_X=19
+MAP_SIZE_Y=13
+SPAWN_X=9
+SPAWN_Y=10
 @end
 
 @texture
-id=s
-file=../texture/south.xpm
+id=1
+color=#023788
 @end
 
 @texture
-id=e
-file=../texture/east.xpm
+id=2
+color=#920075
 @end
 
 @texture
-id=w
-file=../texture/west.xpm
+id=3
+color=#650D89
+@end
+
+@texture
+id=4
+color=#D40078
+@end
+
+@texture
+id=a
+file=textures/vapor_blade_runner.bmp
+@end
+
+@texture
+id=b
+file=textures/vapor_blade_runner2.bmp
+@end
+
+@texture
+id=c
+file=textures/vapor_city.bmp
+@end
+
+@texture
+id=g
+file=textures/vapor_girl.bmp
+@end
+
+@texture
+id=k
+file=textures/vapor_kavinsky.bmp
+@end
+
+@texture
+id=l
+file=textures/vapor_logo.bmp
+@end
+
+@texture
+id=m
+file=textures/vapor_moon.bmp
+@end
+
+@texture
+id=p
+file=textures/vapor_pyramide.bmp
+@end
+
+@texture
+id=r
+file=textures/vapor_round.bmp
+@end
+
+@texture
+id=z
+file=textures/vapor_signature.bmp
 @end
 
 @block
-id=s
+id=1
 type=wall
-north=n
-south=s
-east=e
-west=w
+north=1
+south=2
+east=3
+west=4
+@end
+
+@block
+id= 
+type=void
+north=1
+south=2
+east=3
+west=4
+@end
+
+@block
+id=a
+type=wall
+north=a
+south=a
+east=a
+west=a
+@end
+
+@block
+id=b
+type=wall
+north=b
+south=b
+east=b
+west=b
+@end
+
+@block
+id=c
+type=wall
+north=c
+south=c
+east=c
+west=c
+@end
+
+@block
+id=g
+type=wall
+north=g
+south=g
+east=g
+west=g
+@end
+
+@block
+id=k
+type=wall
+north=k
+south=k
+east=k
+west=k
+@end
+
+@block
+id=l
+type=wall
+north=l
+south=l
+east=l
+west=l
+@end
+
+@block
+id=m
+type=wall
+north=m
+south=m
+east=m
+west=m
+@end
+
+@block
+id=p
+type=wall
+north=p
+south=p
+east=p
+west=p
+@end
+
+@block
+id=r
+type=wall
+north=r
+south=r
+east=r
+west=r
+@end
+
+@block
+id=z
+type=wall
+north=z
+south=z
+east=z
+west=z
 @end
 
 # some comment hehe
 
 # mandatory
 @map
-ssssssssssssssssssss
-s                  s
-s   s              s
-s                  s
-s                  s
-s            s     s
-s        s         s
-s                  s
-s                  s
-s  s      s        s
-s                  s
-s                  s
-ssssssssssssssssssss
+1111111111111111111
+1                 1
+1 a b c g k l m z 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1                 1
+1111111111111111111
 @end
 
 # maybe some other definition

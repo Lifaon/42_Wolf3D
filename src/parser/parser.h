@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 17:21:40 by mlantonn          #+#    #+#             */
+/*   Updated: 2019/10/02 10:48:28 by mlantonn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSER_H
 # define PARSER_H
 
-void	*parse_wolf_map(char *filename);
+int		parse_wolf_map(char *filename);
+
 #endif

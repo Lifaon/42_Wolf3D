@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file2d.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kehuang <kehuang@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/01 10:53:04 by kehuang           #+#    #+#             */
+/*   Updated: 2019/10/01 10:53:05 by kehuang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -16,27 +28,20 @@ static size_t	count_char(const char *s, const char c)
 		if (s[idx] == c)
 			++res;
 		++idx;
-    }
+	}
 	return (res);
-}
-
-static char		*ft_schr(const char *s, const char c)
-{
-	while (*s != '\0' && *s != c)
-		++s;
-	return (*s == c ? (char *)s : NULL);
 }
 
 static int		split_line(char **res, char *buf)
 {
 	size_t	size_line;
-	size_t  res_idx;
+	size_t	res_idx;
 	char	*new_line_ptr;
 	char	*buf_ptr;
 
 	buf_ptr = buf;
 	res_idx = 0;
-	while ((new_line_ptr = ft_schr(buf_ptr, '\n')) != NULL)
+	while ((new_line_ptr = ft_strchr(buf_ptr, '\n')) != NULL)
 	{
 		size_line = (size_t)(new_line_ptr - buf_ptr);
 		if ((res[res_idx] = (char *)malloc(sizeof(char) * (size_line + 1)))
@@ -54,9 +59,9 @@ static int		split_line(char **res, char *buf)
 	return (0);
 }
 
-char	**read_file2d(char *filename)
+char			**read_file2d(char *filename)
 {
-	size_t  size_line;
+	size_t	size_line;
 	char	*file;
 	char	**res;
 
