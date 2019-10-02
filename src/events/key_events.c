@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:41 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/27 18:40:22 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 09:45:03 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	toggle_fullscreen(t_e *e)
 	is_fullscreen = !is_fullscreen;
 }
 
-static void	update_key_downs(_Bool key_downs[6], SDL_Event ev, SDL_Keycode k)
+static void	update_key_downs(_Bool key_downs[7], SDL_Event ev, SDL_Keycode k)
 {
 	if (ev.type == SDL_KEYDOWN)
 	{
@@ -57,6 +57,7 @@ static void	update_key_downs(_Bool key_downs[6], SDL_Event ev, SDL_Keycode k)
 		key_downs[D] = k == SDLK_d ? 1 : key_downs[D];
 		key_downs[LEFT] = k == SDLK_LEFT ? 1 : key_downs[LEFT];
 		key_downs[RIGHT] = k == SDLK_RIGHT ? 1 : key_downs[RIGHT];
+		key_downs[SHIFT] = k == SDLK_LSHIFT ? 1 : key_downs[SHIFT];
 	}
 	else
 	{
@@ -66,10 +67,11 @@ static void	update_key_downs(_Bool key_downs[6], SDL_Event ev, SDL_Keycode k)
 		key_downs[D] = k == SDLK_d ? 0 : key_downs[D];
 		key_downs[LEFT] = k == SDLK_LEFT ? 0 : key_downs[LEFT];
 		key_downs[RIGHT] = k == SDLK_RIGHT ? 0 : key_downs[RIGHT];
+		key_downs[SHIFT] = k == SDLK_LSHIFT ? 0 : key_downs[SHIFT];
 	}
 }
 
-void		key_event(t_e *e, _Bool key_downs[6], SDL_Event ev)
+void		key_event(t_e *e, _Bool key_downs[7], SDL_Event ev)
 {
 	SDL_Keycode k;
 

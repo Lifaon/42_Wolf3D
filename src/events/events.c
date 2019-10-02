@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 19:23:56 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/01 10:44:18 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 09:42:36 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static _Bool	limit_frames(t_e *e)
 
 _Bool			event_loop(t_e *e)
 {
-	static _Bool	key_downs[6] = (_Bool[6]){0, 0, 0, 0, 0, 0};
+	static _Bool	key_downs[7] = (_Bool[7]){0, 0, 0, 0, 0, 0, 0};
 	SDL_Event		ev;
 
 	while (1)

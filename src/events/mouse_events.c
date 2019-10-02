@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:37 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/09/26 18:47:49 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 09:42:28 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	mouse_event(t_e *e, SDL_Event ev)
 {
-	static _Bool	key_downs[6] = (_Bool[6]){0, 0, 0, 0, 0, 1};
+	static _Bool	key_downs[7] = (_Bool[7]){0, 0, 0, 0, 0, 1, 0};
 	int				center;
 	int				cursor;
 

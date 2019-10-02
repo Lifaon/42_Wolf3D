@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/01 10:42:52 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/02 09:53:04 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ static void		clipping(t_e *e, t_vec pos, _Bool moved[2])
 	}
 }
 
-static t_vec	get_moving_dir(t_e *e, _Bool key_downs[6])
+static t_vec	get_moving_dir(t_e *e, _Bool key_downs[7])
 {
 	double	coeff;
 	t_vec	dirs[4];
 	t_vec	dir;
 
 	coeff = 2.5;
+	if (key_downs[SHIFT])
+		coeff *= 1.75;
 	dirs[0] = vec_multiply(e->cam.dir, 1 * (double)key_downs[W]);
 	dirs[1] = vec_multiply(e->cam.dir, -1 * (double)key_downs[S]);
 	dirs[2] = vec_multiply(e->cam.plane, 1 * (double)key_downs[A]);
@@ -55,7 +57,7 @@ static t_vec	get_moving_dir(t_e *e, _Bool key_downs[6])
 	return (dir);
 }
 
-static void		move(t_e *e, _Bool key_downs[6])
+static void		move(t_e *e, _Bool key_downs[7])
 {
 	_Bool	moved[2];
 	_Bool	moved_far[2];
@@ -80,7 +82,7 @@ static void		move(t_e *e, _Bool key_downs[6])
 	}
 }
 
-void			rotate(t_e *e, double angle, _Bool key_downs[6])
+void			rotate(t_e *e, double angle, _Bool key_downs[7])
 {
 	t_vec	dir;
 	t_vec	plane;
@@ -99,7 +101,7 @@ void			rotate(t_e *e, double angle, _Bool key_downs[6])
 	e->cam.plane.y = plane.x * sin(theta) + plane.y * cos(theta);
 }
 
-_Bool			update_cam(t_e *e, _Bool key_downs[6])
+_Bool			update_cam(t_e *e, _Bool key_downs[7])
 {
 	move(e, key_downs);
 	rotate(e, e->fps ? 180 / (double)e->fps : 0, key_downs);
