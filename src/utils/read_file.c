@@ -19,7 +19,7 @@
 #define MAX_FILE_SIZE 4194304
 #define BUFF_SIZE 4096
 
-static char *print_error(char *path, int err_no, char *to_free, int to_close)
+static char	*print_error(char *path, int err_no, char *to_free, int to_close)
 {
 	ft_dprintf(2, "wolf3d: Could not read '%s': %s\n", path, strerror(err_no));
 	if (to_free != NULL)
@@ -29,7 +29,7 @@ static char *print_error(char *path, int err_no, char *to_free, int to_close)
 	return (NULL);
 }
 
-static void concat_buff(char *dst, char buff[BUFF_SIZE + 1], ssize_t n_written)
+static void	concat_buff(char *dst, char buff[BUFF_SIZE + 1], ssize_t n_written)
 {
 	ssize_t i;
 

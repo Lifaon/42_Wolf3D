@@ -41,7 +41,6 @@ OBJS_DIR					:=			obj/
 CC							:=			gcc
 CFLAGS						:=			-Wall -Wextra -Werror
 
-# Can use this with cmd: `env DEV=1 make`
 ifneq ($(DEBUG),)
 OBJS_DIR					:=			debug/
 CFLAGS						+=			-g3 -fsanitize=address
@@ -78,17 +77,11 @@ INCS						+=			$(INC_FT_PRINTF)
 #----------#
 #   SDL2   #
 
-DIR_SDL2					:=			$(DIR_LIB)sdl2
-SDL_VER						:=			2.0.9
-SDL_PATH					:=			$(addprefix $(shell pwd)/, $(DIR_SDL2))
+LIB_SDL2					:=			$(shell sdl2-config --libs)
+LIBS						+=			$(LIB_SDL2)
 
-ifneq ($(wildcard $(DIR_SDL2)),)
-  LIB_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --libs)
-  LIBS						+=			$(LIB_SDL2)
-
-  INC_SDL2					:=			$(shell sh $(DIR_SDL2)/bin/sdl2-config --cflags)
-  INCS						+=			$(INC_SDL2)
-endif
+INC_SDL2					:=			$(shell sdl2-config --cflags)
+INCS						+=			$(INC_SDL2)
 
 #==============================================================================#
 #------------------------------------------------------------------------------#
@@ -458,7 +451,7 @@ $(OBJ_DIR)$(SRC_UTILS_DIR)$(SRCS_PAIR_DIR)%.o: $(PATH_PAIR)%.c $(addprefix $(PAT
 #------------------------------------------------------------------------------#
 #                                  RULES                                       #
 
-.PHONY: all clean fclean re debug re_debug change_cflag sdl2 $(INC_DIR)
+.PHONY: all clean fclean re debug re_debug change_cflag $(INC_DIR)
 
 test_inc:
 	@echo $(INCS)
@@ -510,26 +503,3 @@ change_cflag:
 $(INC_DIR):
 	@rm -rf includes && mkdir includes && find src -name "*.h" -exec ln -s ../{} includes \;
 	@echo "Recreated $(MAG)$(INC_DIR)$(EOC) folder"
-
-# rule to compile sdl2
-
-sdl2:
-	@if [ ! -d "./lib/sdl2" ]; then \
-		echo "Installing $(YEL)SDL2-$(SDL_VER)$(EOC) ..."; \
-		printf "In 3 ..."; sleep 1; \
-		printf "\rIn 2 ..."; sleep 1; \
-		printf "\rIn 1 ..."; sleep 1; printf "\r"; \
-		curl -OL http://www.libsdl.org/release/SDL2-$(SDL_VER).tar.gz && \
-		tar -zxvf SDL2-$(SDL_VER).tar.gz && \
-		rm SDL2-$(SDL_VER).tar.gz && \
-		mkdir -p $(SDL_PATH) && \
-		cd SDL2-$(SDL_VER) && \
-			sh configure --prefix=$(SDL_PATH) && \
-			make && \
-			make install && \
-		cd .. && \
-		rm -rf SDL2-$(SDL_VER); \
-		echo "$(YEL)SDL2-$(SDL_VER)$(EOC) was successfully installed"; \
-	else \
-		echo "$(YEL)SDL2-$(SDL_VER)$(EOC) already installed"; \
-	fi
