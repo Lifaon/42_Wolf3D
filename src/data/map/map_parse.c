@@ -35,6 +35,23 @@ static int	is_valid_map(const char **map,
 	return (y == wanted_y);
 }
 
+static int	is_valid_spawn(const char **input,
+		const size_t y_map, const size_t x_map)
+{
+	t_block	*block_spawn;
+	size_t	x_spawn;
+	size_t	y_spawn;
+
+	x_spawn = ft_atoul_base(env_get("SPAWN_X"), 10);
+	y_spawn = ft_atoul_base(env_get("SPAWN_Y"), 10);
+	if (x_spawn >= x_map || y_spawn >= y_map)
+		return (0);
+	block_spawn = (*singletone_block())[(unsigned int)input[y_spawn][x_spawn]];
+	if (block_spawn == NULL || block_spawn->type != T_BL_VOID)
+		return (0);
+	return (1);
+}
+
 static char	**copy_map(const char **src, const size_t y)
 {
 	char	**res;
@@ -67,7 +84,7 @@ int			map_parse(const char **input)
 
 	y = ft_atoul_base(env_get("MAP_SIZE_Y"), 10);
 	x = ft_atoul_base(env_get("MAP_SIZE_X"), 10);
-	if (is_valid_map(input, y, x) == 0)
+	if (is_valid_map(input, y, x) == 0 || is_valid_spawn(input, y, x) == 0)
 		return (-42);
 	map = map_new(0);
 	if (map == NULL)
