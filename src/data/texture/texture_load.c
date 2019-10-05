@@ -35,6 +35,8 @@ int		texture_load(void *a, t_pairs *pairs)
 			return (-2);
 		if (load[texture->type](texture->node, pairs) != 0)
 			return (-3);
+		if ((*metadata)[(unsigned int)*s] != NULL)
+			texture_del((*metadata)[(unsigned int)*s]);
 		(*metadata)[(unsigned int)*s] = texture;
 		return (0);
 	}

@@ -71,6 +71,8 @@ int			block_parse_pairs(t_block *b, void *pairs_p)
 	if (s == NULL || s[0] == '\0' || s[1] != '\0')
 		return (-2);
 	id = (unsigned int)*s;
+	if ((*block_metadata)[id] != NULL)
+		block_del((*block_metadata)[id]);
 	(*block_metadata)[id] = b;
 	s = (unsigned char *)pair_get((t_pairs *)pairs_p, "type");
 	if (ft_strlen((const char *)s) != 4)
@@ -82,8 +84,6 @@ int			block_parse_pairs(t_block *b, void *pairs_p)
 	else
 		return (block_parse_error(block_metadata, id, -4));
 	if (b->type == T_BL_WALL)
-	{
 		block_parse_texture(block_metadata, b, pairs_p, id);
-	}
 	return (0);
 }
