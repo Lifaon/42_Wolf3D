@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:20:54 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/02 10:51:41 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:36:44 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_e
 	_Bool		show_cursor;
 	_Bool		outlines;
 	_Bool		skybox;
+	_Bool		focus;
 }				t_e;
 
 typedef struct	s_blocks

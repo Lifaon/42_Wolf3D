@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 19:23:56 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/02 09:42:36 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:44:21 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static _Bool	limit_frames(t_e *e)
 	e->fps = ((1000 / (current_time - last_time)) + last_fps) / 2;
 	last_fps = e->fps;
 	last_time = current_time;
+	if (!e->focus)
+	{
+		ft_printf("\rpaused");
+		return (0);
+	}
 	ft_printf("\rfps:%-3d", e->fps);
 	return (0);
 }

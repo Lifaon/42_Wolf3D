@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:02:06 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/02 10:45:16 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:36:53 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static _Bool	display(t_e e)
 	e.show_cursor = !SDL_ShowCursor(SDL_DISABLE);
 	e.outlines = 1;
 	e.skybox = 1;
+	e.focus = 1;
 	e.fps = 60;
 	SDL_WarpMouseInWindow(e.sdl.win, e.sdl.w / 2, e.sdl.h / 2);
 	ret = event_loop(&e);

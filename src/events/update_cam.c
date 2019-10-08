@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/08 11:19:59 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:45:02 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void			rotate(t_e *e, double angle, _Bool key_downs[7])
 
 _Bool			update_cam(t_e *e, _Bool key_downs[7])
 {
+	if (!e->focus)
+		return (0);
 	move(e, key_downs);
 	rotate(e, e->fps ? 180 / (double)e->fps : 0, key_downs);
 	return (raycasting(e));
