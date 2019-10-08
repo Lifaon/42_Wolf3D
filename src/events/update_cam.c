@@ -6,7 +6,7 @@
 /*   By: mlantonn <mlantonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 12:10:48 by mlantonn          #+#    #+#             */
-/*   Updated: 2019/10/02 09:53:04 by mlantonn         ###   ########.fr       */
+/*   Updated: 2019/10/08 11:19:59 by mlantonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void		clipping(t_e *e, t_vec pos, _Bool moved[2])
 	t_block	*block;
 	t_pos	pos_i;
 
+	moved[0] = 0;
+	moved[1] = 0;
 	pos_i.x = pos.x < 0.0 ? -1 : (int)pos.x;
 	pos_i.y = pos.y < 0.0 ? -1 : (int)pos.y;
 	if (pos_i.x >= 0 && pos_i.x < (int)e->map->x)
@@ -69,7 +71,7 @@ static void		move(t_e *e, _Bool key_downs[7])
 		return ;
 	pos = vec_add(e->cam.pos, dir);
 	clipping(e, pos, moved);
-	clipping(e, vec_add(e->cam.pos, vec_multiply(dir, 3)), moved_far);
+	clipping(e, vec_add(e->cam.pos, vec_multiply(dir, 2)), moved_far);
 	if (moved[0] && moved_far[0])
 	{
 		e->cam.pos.x = pos.x;
