@@ -1,4 +1,4 @@
-# ![screenshot](screenshots/screenshots/screenshot_2019_10_01.png)
+# ![screenshot](screenshots/screenshot_2019_10_01.png)
 
 # Wolf3D
 Made in two weeks during **_september 2019_**. This project was about recreating the old game _Wolfenstein3D_. It used a raycasting algorithm and was made entirely in C<br /><br />
